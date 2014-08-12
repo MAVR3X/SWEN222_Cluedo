@@ -17,7 +17,7 @@ public class Board {
 		board = new Token[BOARD_HEIGHT][BOARD_WIDTH];
 		doors = new Door[BOARD_HEIGHT][BOARD_WIDTH];
 		createCards();
-		canvas = new CluedoCanvas(BOARD_WIDTH, BOARD_HEIGHT); 
+		canvas = new CluedoCanvas(BOARD_WIDTH, BOARD_HEIGHT);
 	}
 
 	private void createCards() {
