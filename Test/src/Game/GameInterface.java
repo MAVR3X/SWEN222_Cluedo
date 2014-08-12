@@ -10,6 +10,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 
 public class GameInterface extends javax.swing.JFrame implements
 		ActionListener, MouseListener {
@@ -119,6 +120,14 @@ public class GameInterface extends javax.swing.JFrame implements
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 
+	}
+
+
+	public int getPlayerCount() {
+		//Prompt for number of players:
+		String[] posibilities = {"2","3","4","5","6"};
+		return Integer.valueOf((String) JOptionPane.showInputDialog(this, "please select number of players:", "Player Count", JOptionPane.PLAIN_MESSAGE, UIManager.getIcon("OptionPane.informationIcon"), posibilities, "1"));
+	
 	}
 
 }
