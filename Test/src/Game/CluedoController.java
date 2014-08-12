@@ -12,6 +12,10 @@ public class CluedoController {
 
 	Player currentPlayer;
 
+	private static Card solutionCharacter;
+	private static Card solutionWeapon;
+	private static Card solutionRoom;
+
 	/*
 	 * Initialize game
 	 */
@@ -19,14 +23,42 @@ public class CluedoController {
 		board = new Board();
 		interf = new GameInterface();
 		initialise();
-
+		int i = 0;
 	}
 
 	private void initialise() {
 		createPlayers();
 		createCards();
+		selectSolution();
 	}
 
+	/**
+	 * Using number of possible cards of each type select
+	 * 3 of each type and remove from list and add to solution fields.
+	 */
+	private void selectSolution() {
+		int characters = Card.Character.values().length - 1;
+		int weapons = Card.Weapon.values().length - 1;
+		int rooms = Card.Room.values().length - 1;
+
+		// select character
+		int selector = (int) (Math.random() * characters);
+		solutionCharacter = cards.remove(selector);
+
+		// weapon
+		selector = (int) (Math.random() * weapons);
+		solutionWeapon = cards.remove(characters - 1 + selector);
+
+		// room
+		selector = (int) (Math.random() * rooms);
+		solutionRoom = cards.remove(characters + weapons - 2 + selector);
+
+	}
+
+	/**
+	 * Create players by prompting for player count + player names for each player
+	 * Loop until valid names are selected
+	 */
 	public void createPlayers() {
 		players = new ArrayList<Player>();
 		int playerCount = interf.getPlayerCount();
@@ -34,9 +66,9 @@ public class CluedoController {
 			// Loop till a legitimate user is selected.
 			Card.Character player = Card.Character.NULL;
 			boolean isValid = false;
-			
+
 			while (!isValid) {
-				 player = interf.newPlayer();
+				player = interf.newPlayer();
 
 				// Verify not already used
 				isValid = true;
@@ -44,12 +76,12 @@ public class CluedoController {
 					if (p.character.equals(player)) {
 						isValid = false;
 					}
-				}				
+				}
 			}
-			
-			//Success, add new player
+
+			// Success, add new player
 			players.add(new Player(player));
-		
+
 		}
 
 	}

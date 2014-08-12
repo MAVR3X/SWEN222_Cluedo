@@ -136,7 +136,7 @@ public class GameInterface extends javax.swing.JFrame implements
 	public Card.Character newPlayer() {
 		
 		Card.Character[] posibilities = {Card.Character.Colonel_Mustard,Card.Character.Miss_Scarlett,Card.Character.Mrs_Peacock,Card.Character.Mrs_White,Card.Character.Professor_Plum, Card.Character.The_Reverend_Green};
-		return (Card.Character) JOptionPane.showInputDialog(this, "please select number of players:", "Player Count", JOptionPane.PLAIN_MESSAGE, UIManager.getIcon("OptionPane.informationIcon"), posibilities, Card.Character.Colonel_Mustard);
+		return (Card.Character) JOptionPane.showInputDialog(this, "please select your desired character", "Character Selection", JOptionPane.PLAIN_MESSAGE, UIManager.getIcon("OptionPane.informationIcon"), posibilities, Card.Character.Colonel_Mustard);
 	}
 
 }

@@ -1,5 +1,7 @@
 package Game;
 
+import java.util.Arrays;
+
 import Game.Card.Character;
 
 public class Player {
@@ -31,6 +33,12 @@ public class Player {
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public String toString() {
+		return "Player [hand=" + Arrays.toString(hand) + ", character="
+				+ character + "]";
 	}
 	
 
