@@ -12,6 +12,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
+import Game.Card.Character;
+
 public class GameInterface extends javax.swing.JFrame implements
 		ActionListener, MouseListener {
 	private static int FRAME_WIDTH = 600;
@@ -128,6 +130,13 @@ public class GameInterface extends javax.swing.JFrame implements
 		String[] posibilities = {"2","3","4","5","6"};
 		return Integer.valueOf((String) JOptionPane.showInputDialog(this, "please select number of players:", "Player Count", JOptionPane.PLAIN_MESSAGE, UIManager.getIcon("OptionPane.informationIcon"), posibilities, "1"));
 	
+	}
+
+
+	public Card.Character newPlayer() {
+		
+		Card.Character[] posibilities = {Card.Character.Colonel_Mustard,Card.Character.Miss_Scarlett,Card.Character.Mrs_Peacock,Card.Character.Mrs_White,Card.Character.Professor_Plum, Card.Character.The_Reverend_Green};
+		return (Card.Character) JOptionPane.showInputDialog(this, "please select number of players:", "Player Count", JOptionPane.PLAIN_MESSAGE, UIManager.getIcon("OptionPane.informationIcon"), posibilities, Card.Character.Colonel_Mustard);
 	}
 
 }

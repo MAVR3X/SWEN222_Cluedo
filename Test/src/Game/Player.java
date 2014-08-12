@@ -1,11 +1,14 @@
 package Game;
 
+import Game.Card.Character;
+
 public class Player {
 
 	Card[] hand = new Card[3];
+	Card.Character character;
 
-	public Player() {
-
+	public Player(Character character) {
+		this.character = character;
 	}
 
 	public boolean addCard(Card card) {

@@ -1,10 +1,10 @@
 package Game;
 
 public class Card {
-	private static enum Type {Character, Weapon, Room};
-	private static enum Character{NULL,Miss_Scarlett, Colonel_Mustard, Mrs_White, The_Reverend_Green, Mrs_Peacock,Professor_Plum}
-	private static enum WeaponType {NULL,Candlestick, Dagger, Lead_Pipe, Revolver, Rope, Spanner}
-	private static enum Room {NULL,Kitchen, Ball_Room, Conservator, Billiard_Room, Library, Study, Hall, Lounge, DiningRoom}
+	public static enum Type {Character, Weapon, Room};
+	public static enum Character{NULL,Miss_Scarlett, Colonel_Mustard, Mrs_White, The_Reverend_Green, Mrs_Peacock,Professor_Plum}
+	public static enum WeaponType {NULL,Candlestick, Dagger, Lead_Pipe, Revolver, Rope, Spanner}
+	public static enum Room {NULL,Kitchen, Ball_Room, Conservator, Billiard_Room, Library, Study, Hall, Lounge, DiningRoom}
 
 	public Type type;
 	public Character character;
