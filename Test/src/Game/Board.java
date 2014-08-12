@@ -2,18 +2,22 @@ package Game;
 
 import java.util.ArrayList;
 
+import Tokens.Token;
+
 public class Board {
 
 	private static final int BOARD_HEIGHT = 30;
 	private static final int BOARD_WIDTH = 20;
-	Card[][] board;
+	Token[][] board;
 	Door[][] doors;
 	ArrayList<Card> cards;
+	CluedoCanvas canvas;
 
 	public Board() {
-		board = new Card[BOARD_HEIGHT][BOARD_WIDTH];
+		board = new Token[BOARD_HEIGHT][BOARD_WIDTH];
 		doors = new Door[BOARD_HEIGHT][BOARD_WIDTH];
 		createCards();
+		canvas = new CluedoCanvas(BOARD_WIDTH, BOARD_HEIGHT); 
 	}
 
 	private void createCards() {
