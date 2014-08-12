@@ -74,7 +74,7 @@ public class CluedoCanvas extends JPanel{
 		
 	}
 	
-	private static final String IMAGE_PATH = "Game/Images/";
+	private static final String IMAGE_PATH = "Images/";
 	
 	private static final Image Tile = loadImage("Tile.png");
 	private static final Image Room_Tile = loadImage("RmT.png");
@@ -160,8 +160,11 @@ public class CluedoCanvas extends JPanel{
 		// in a jar or expanded into individual files.
 		//java.net.URL imageURL = CluedoCanvas.class.getResource(IMAGE_PATH + filename);
 
+		java.net.URL imageURL = CluedoCanvas.class.getResource(IMAGE_PATH
+				+ filename);
+
 		try {
-			Image img = ImageIO.read(new File(IMAGE_PATH + filename));
+			Image img = ImageIO.read(imageURL);
 			return img;
 		} catch (IOException e) {
 			// we've encountered an error loading the image. There's not much we
