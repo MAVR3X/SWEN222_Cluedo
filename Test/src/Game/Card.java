@@ -18,7 +18,38 @@ public class Card {
 		room = Room.values()[rom];
 	}
 
-
+	
+	/**
+	 * Returns Character count + 1 (NULL)
+	 * @since count + 1, start selection from 1 to ignore NULL)
+	 * @return
+	 * @author isaac
+	 */
+	public static int charCount(){
+		return Character.values().length;		
+	}
+	
+	/**
+	 * Returns Weapon count + 1 (NULL)
+	 * @since count + 1, start selection from 1 to ignore NULL)
+	 * @return
+	 * @author isaac
+	 */
+	public static int wepCount(){
+		return Weapon.values().length;		
+	}
+	
+	/**
+	 * Returns Room count + 1 (NULL)
+	 * @since count + 1, start selection from 1 to ignore NULL)
+	 * @return
+	 * @author isaac
+	 */
+	public static int roomCount(){
+		return Room.values().length;		
+	}
+	
+	
 
 	@Override
 	public boolean equals(Object obj) {

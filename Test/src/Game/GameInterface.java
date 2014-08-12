@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Arrays;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -125,17 +126,27 @@ public class GameInterface extends javax.swing.JFrame implements
 	}
 
 
+	/**
+	 * Take input from JOptionPane for player count
+	 * @return num of players
+	 * @Author: Isaac
+	 */
 	public int getPlayerCount() {
 		//Prompt for number of players:
 		String[] posibilities = {"2","3","4","5","6"};
 		return Integer.valueOf((String) JOptionPane.showInputDialog(this, "please select number of players:", "Player Count", JOptionPane.PLAIN_MESSAGE, UIManager.getIcon("OptionPane.informationIcon"), posibilities, "1"));
-	
 	}
 
-
+/**
+ * Take input from JOptionPane for player character
+ * 
+ * Dynamic - Can support additon of new characters
+ * @return Card.Character selected by user
+ * @Author: Isaac
+ */
 	public Card.Character newPlayer() {
-		
-		Card.Character[] posibilities = {Card.Character.Colonel_Mustard,Card.Character.Miss_Scarlett,Card.Character.Mrs_Peacock,Card.Character.Mrs_White,Card.Character.Professor_Plum, Card.Character.The_Reverend_Green};
+		//Get list of possiblites & shave off NULL
+		Card.Character[] posibilities = Arrays.copyOfRange(Card.Character.values(), 1, Card.Character.values().length);
 		return (Card.Character) JOptionPane.showInputDialog(this, "please select your desired character", "Character Selection", JOptionPane.PLAIN_MESSAGE, UIManager.getIcon("OptionPane.informationIcon"), posibilities, Card.Character.Colonel_Mustard);
 	}
 
