@@ -39,12 +39,9 @@ public class CluedoCanvas extends JPanel{
 	//drawBackgrounds(g);
 	
 	// Draw the board
-		System.out.println("drawing board");
-		
 		for(int x=0; x<26; x++){
 			for(int y=0; y<27; y++){
 				if(boardImage[x][y]!=-1){
-					//System.out.println(boardImage[x][y]);
 					g.drawImage(squares[boardImage[x][y]], x*30, y*30, null, null);
 				}
 			}
@@ -233,7 +230,6 @@ public class CluedoCanvas extends JPanel{
 				for(int x=0; x<26; x++){
 					
 					boardImage[x][y] = Integer.parseInt(values[x]);
-					System.out.printf("X: %d, Y: %d. Val: %d\n", x, y,boardImage[x][y]);
 				}
 			}
 		}
