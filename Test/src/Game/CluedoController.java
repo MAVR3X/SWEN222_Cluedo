@@ -31,7 +31,8 @@ public class CluedoController {
 		createCards();
 		selectSolution();
 		allocateCards();
-		int i = 0;
+		board.generateTokens();
+		
 	}
 
 	/**
