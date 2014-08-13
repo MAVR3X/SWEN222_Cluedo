@@ -40,23 +40,24 @@ public class CluedoCanvas extends JPanel{
 		//SQUARE_SIZE = Math.min(width/26, height/27);
 		SQUARE_SIZE = 30;
 		
-		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();		
-		HashSet<String> availableNames = new HashSet();
-
-		for(String name : env.getAvailableFontFamilyNames()) {
-			availableNames.add(name);			
-		}
-
-		for(String pf : preferredFonts) {
-			if(availableNames.contains(pf)) {				
-				font = new Font(pf,Font.BOLD,16);
-				break;
-				
-			}
-		}
-		HashMap <TextAttribute, Object> attrs = new HashMap<TextAttribute, Object>();
-		attrs.put(TextAttribute.TRACKING, 0.5);
-		font = font.deriveFont(attrs);
+//		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();		
+//		HashSet<String> availableNames = new HashSet();
+//
+//		for(String name : env.getAvailableFontFamilyNames()) {
+//			availableNames.add(name);			
+//		}
+//
+//		for(String pf : preferredFonts) {
+//			if(availableNames.contains(pf)) {				
+//				font = new Font(pf,Font.BOLD,16);
+//				break;
+//				
+//			}
+//		}
+		
+		font = new Font("Arial",Font.BOLD,16);
+		
+		
 		
 	}
 	
@@ -88,7 +89,13 @@ public class CluedoCanvas extends JPanel{
 	
 	private void drawLabels(Graphics g) {
 		g.setColor(Color.black);
+		
+		HashMap <TextAttribute, Object> attrs = new HashMap<TextAttribute, Object>();
+		attrs.put(TextAttribute.TRACKING, 0.5);
+		font = font.deriveFont(attrs);
+		
 		g.setFont(font);
+		
 		g.drawString("KITCHEN", 60, 150);
 		g.drawString("BALL ROOM", 310, 180);
 		g.drawString("DINING ROOM", 50, 420);
@@ -99,10 +106,12 @@ public class CluedoCanvas extends JPanel{
 		g.drawString("HALL", 357, 660);
 		g.drawString("STUDY", 610, 730);
 		
-		HashMap <TextAttribute, Object> attrs = new HashMap<TextAttribute, Object>();
+		attrs = new HashMap<TextAttribute, Object>();
 		attrs.put(TextAttribute.TRACKING, 0.1);
 		font = font.deriveFont(attrs);
+		
 		g.setFont(font);
+		
 		g.drawString("CONSERVATORY", 585, 130);
 	}
 
