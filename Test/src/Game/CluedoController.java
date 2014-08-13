@@ -46,7 +46,7 @@ public class CluedoController {
 		}
 		
 		if(cards.size() != 0){
-			interf.displayCards();	
+			interf.displayCards(cards);	
 		}
 
 	}
