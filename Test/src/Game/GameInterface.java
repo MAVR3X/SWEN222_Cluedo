@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.swing.JMenu;
@@ -148,8 +149,35 @@ public class GameInterface extends javax.swing.JFrame implements
  */
 	public Card.Character newPlayer() {
 		//Get list of possiblites & shave off NULL
+		
+		
 		Card.Character[] posibilities = Arrays.copyOfRange(Card.Character.values(), 1, Card.Character.values().length);
 		return (Card.Character) JOptionPane.showInputDialog(this, "please select your desired character", "Character Selection", JOptionPane.PLAIN_MESSAGE, UIManager.getIcon("OptionPane.informationIcon"), posibilities, Card.Character.Colonel_Mustard);
+	}
+	
+	public ArrayList<Player> getPlayers(){
+		ArrayList<Player> players= new ArrayList<Player>();
+		int playerCount = getPlayerCount();
+		
+		Card.Character[] possibilities = Arrays.copyOfRange(Card.Character.values(), 1, Card.Character.values().length);
+		
+		
+		
+		for (int i = 0; i < playerCount; i++) {
+			Card.Character[] poss = new Card.Character[possibilities.length-1];
+			Card.Character c = (Card.Character) JOptionPane.showInputDialog(this, "please select your desired character", "Character Selection", JOptionPane.PLAIN_MESSAGE, UIManager.getIcon("OptionPane.informationIcon"), possibilities, possibilities[0]);
+			players.add(new Player(c));
+			
+			int k = 0;
+			for(int j = 0; j < possibilities.length; j++){
+				if(c != possibilities[j]){
+					poss[k++] = possibilities[j];
+				}
+			}
+			possibilities = poss;
+		}
+		
+		return players;
 	}
 
 }

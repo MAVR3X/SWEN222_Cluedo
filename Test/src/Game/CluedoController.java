@@ -76,28 +76,29 @@ public class CluedoController {
 	 */
 	public void createPlayers() {
 		players = new ArrayList<Player>();
-		int playerCount = interf.getPlayerCount();
-		for (int i = 0; i < playerCount; i++) {
-			// Loop till a legitimate user is selected.
-			Card.Character player = Card.Character.NULL;
-			boolean isValid = false;
-
-			while (!isValid) {
-				player = interf.newPlayer();
-
-				// Verify not already used
-				isValid = true;
-				for (Player p : players) {
-					if (p.character.equals(player)) {
-						isValid = false;
-					}
-				}
-			}
-
-			// Success, add new player
-			players.add(new Player(player));
-
-		}
+		players = interf.getPlayers();
+//		int playerCount = interf.getPlayerCount();
+//		for (int i = 0; i < playerCount; i++) {
+//			// Loop till a legitimate user is selected.
+//			Card.Character player = Card.Character.NULL;
+//			boolean isValid = false;
+//
+//			while (!isValid) {
+//				player = interf.newPlayer();
+//
+//				// Verify not already used
+//				isValid = true;
+//				for (Player p : players) {
+//					if (p.character.equals(player)) {
+//						isValid = false;
+//					}
+//				}
+//			}
+//
+//			// Success, add new player
+//			players.add(new Player(player));
+//
+//		}
 
 	}
 
