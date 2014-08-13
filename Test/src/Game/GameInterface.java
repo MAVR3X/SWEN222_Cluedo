@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -40,6 +41,10 @@ public class GameInterface extends JFrame implements ActionListener,
 		addCanvas();
 		addInterface();
 
+		JLabel kitchen = new JLabel("Kitchen");
+		kitchen.setForeground(Color.black);
+		add(kitchen, BorderLayout.CENTER);
+		
 		// Center window in screen
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		Dimension scrnsize = toolkit.getScreenSize();
@@ -48,7 +53,6 @@ public class GameInterface extends JFrame implements ActionListener,
 			
 		// Display window
 		setVisible(true);		
-		canvas.requestFocus();
 
 	}
 
