@@ -4,9 +4,13 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -33,6 +37,18 @@ public class CluedoCanvas extends JPanel{
 
 	//Basic frame coloring
 	//drawBackgrounds(g);
+	
+	// Draw the board
+		System.out.println("drawing board");
+		
+		for(int x=0; x<26; x++){
+			for(int y=0; y<27; y++){
+				if(boardImage[x][y]!=-1){
+					//System.out.println(boardImage[x][y]);
+					g.drawImage(squares[boardImage[x][y]], x*30, y*30, null, null);
+				}
+			}
+		}
 	
 	}
 	
@@ -149,6 +165,11 @@ public class CluedoCanvas extends JPanel{
 	};
 	
 	
+	int [][] boardImage = loadBoardImage("boardImage.txt");
+	
+	
+	
+	
 	/**
 	 * Load an image from the file system, using a given filename.
 	 * 
@@ -173,6 +194,8 @@ public class CluedoCanvas extends JPanel{
 		}
 	}
 
+	
+
 	/**
 	 * Rotate an image a given number of degrees.
 	 * @param src
@@ -188,6 +211,38 @@ public class CluedoCanvas extends JPanel{
 		g.drawImage(src,0,0,width,height,null);
 		g.dispose();
 		return img;
+	}
+	
+	/**
+	 * Loads a 2D array of integers from a file
+	 * @param filename
+	 * @return 2D array of int
+	 */
+	private int[][] loadBoardImage(String filename){
+		
+		int[][] boardImage = new int[26][27];
+		
+		try{
+			FileReader fr = new FileReader(filename);		
+			BufferedReader br = new BufferedReader(fr);
+			String line;
+		
+			for(int y=0; y<27; y++){
+				line = br.readLine();
+				String[] values = line.split("\t");
+				for(int x=0; x<26; x++){
+					
+					boardImage[x][y] = Integer.parseInt(values[x]);
+					System.out.printf("X: %d, Y: %d. Val: %d\n", x, y,boardImage[x][y]);
+				}
+			}
+		}
+		catch(IOException e){
+			System.out.println("I/O error: " + e.getMessage());
+			System.exit(1);
+		}
+		
+		return boardImage;
 	}
 	
 	private void drawTokens(Graphics g, int startx, int starty, int width, int height){
