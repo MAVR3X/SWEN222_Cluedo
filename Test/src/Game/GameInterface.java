@@ -200,4 +200,10 @@ public class GameInterface extends JFrame implements ActionListener,
 		return players;
 	}
 
+	// TODO Dislay extra cards
+	public void displayCards(ArrayList<Card> extraCards) {
+		
+		
+	}
+
 }
