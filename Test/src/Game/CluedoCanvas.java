@@ -1,9 +1,13 @@
 package Game;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.RenderingHints;
+import java.awt.font.TextAttribute;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
@@ -11,6 +15,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Scanner;
 
 import javax.imageio.ImageIO;
@@ -33,7 +39,29 @@ public class CluedoCanvas extends JPanel{
 		WINDOW_HEIGHT = height;
 		//SQUARE_SIZE = Math.min(width/26, height/27);
 		SQUARE_SIZE = 30;
+		
+		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();		
+		HashSet<String> availableNames = new HashSet();
+
+		for(String name : env.getAvailableFontFamilyNames()) {
+			availableNames.add(name);			
+		}
+
+		for(String pf : preferredFonts) {
+			if(availableNames.contains(pf)) {				
+				font = new Font(pf,Font.BOLD,16);
+				break;
+				
+			}
+		}
+		HashMap <TextAttribute, Object> attrs = new HashMap<TextAttribute, Object>();
+		attrs.put(TextAttribute.TRACKING, 0.5);
+		font = font.deriveFont(attrs);
+		
 	}
+	
+	private static final String[] preferredFonts = {"Arial","Courier New","Times New Roman"};
+	private Font font;	
 	
 	@Override
 	public void paint(Graphics g){
@@ -51,9 +79,33 @@ public class CluedoCanvas extends JPanel{
 				}
 			}
 		}
+		
+	drawLabels(g);
+		
 	
+		
 	}
 	
+	private void drawLabels(Graphics g) {
+		g.setColor(Color.black);
+		g.setFont(font);
+		g.drawString("KITCHEN", 60, 150);
+		g.drawString("BALL ROOM", 310, 180);
+		g.drawString("DINING ROOM", 50, 420);
+		g.drawString("BILLIARD", 595, 340);
+		g.drawString("ROOM", 625, 370);
+		g.drawString("LIBRARY", 590, 530);
+		g.drawString("LOUNGE", 80, 700);
+		g.drawString("HALL", 357, 660);
+		g.drawString("STUDY", 610, 730);
+		
+		HashMap <TextAttribute, Object> attrs = new HashMap<TextAttribute, Object>();
+		attrs.put(TextAttribute.TRACKING, 0.1);
+		font = font.deriveFont(attrs);
+		g.setFont(font);
+		g.drawString("CONSERVATORY", 585, 130);
+	}
+
 	private static int DICE_SIZE = 40;
 	private static int CARD_HEIGHT = 50;
 	private static int CARD_WIDTH = 30;
