@@ -31,10 +31,12 @@ public class CluedoController {
 		createCards();
 		selectSolution();
 		allocateCards();
+		int i = 0;
 	}
 
 	/**
 	 * Allocate cards to players, call display for remaining cards. 
+	 * @author isaac
 	 */
 	private void allocateCards() {
 		// Verify there are enough cards left

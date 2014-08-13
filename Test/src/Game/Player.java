@@ -1,12 +1,13 @@
 package Game;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import Game.Card.Character;
 
 public class Player {
 
-	Card[] hand = new Card[3];
+	ArrayList<Card> hand = new ArrayList<Card>();
 	Card.Character character;
 
 	public Player(Character character) {
@@ -15,21 +16,18 @@ public class Player {
 
 	public boolean addCard(Card card) {
 
-		for (int i = 0; i < 3; i++) {
-			if (hand[i] == null) {
-				hand[i] = card;
-				return true;
+		for (Card c : hand) {
+			if (c.equals(card)) {
+				return false;
 			}
 		}
-		return false;
+		return hand.add(card);
 	}
 
 	public boolean hasCard(Card card) {
-		for (int i = 0; i < 3; i++) {
-			if (hand[i] != null) {
-				if (hand[i].equals(card)) {
-					return true;
-				}
+		for (Card c : hand) {
+			if (c.equals(card)) {
+				return true;
 			}
 		}
 		return false;
@@ -37,9 +35,7 @@ public class Player {
 
 	@Override
 	public String toString() {
-		return "Player [hand=" + Arrays.toString(hand) + ", character="
-				+ character + "]";
+		return "Player [hand=" + hand + ", character=" + character + "]";
 	}
-	
 
 }
