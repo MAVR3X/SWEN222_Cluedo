@@ -1,17 +1,15 @@
 package Tokens;
 
-import java.awt.Color;
+
+import Game.Card;
 
 public class PlayerToken implements Token{
 
-	Color c;
+	Card.Character c;
 	
 	public PlayerToken(){
 		
 	}
 
-	@Override
-	public Color getColor() {
-		return c;
-	}
+
 }

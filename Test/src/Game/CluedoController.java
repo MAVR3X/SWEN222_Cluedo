@@ -21,7 +21,7 @@ public class CluedoController {
 	 */
 	public CluedoController() {
 		board = new Board();
-		interf = new GameInterface();
+		interf = new GameInterface("Cluedo");
 		initialise();
 		int i = 0;
 	}

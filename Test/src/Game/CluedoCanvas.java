@@ -251,9 +251,7 @@ public class CluedoCanvas extends JPanel{
 	}
 	
 	private void drawToken(Token t, Graphics g){
-		if (t instanceof PlayerToken){
-			g.setColor(t.getColor());
-		}
+		
 	}
 	
 }
