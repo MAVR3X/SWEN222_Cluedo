@@ -1,4 +1,5 @@
 package Game;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,9 +27,11 @@ public class GameInterface extends javax.swing.JFrame implements
 		this.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		this.setResizable(false);
 		setVisible(true);
-
+		
+		setLayout(new BorderLayout());
 		addMenu();
 		addCanvas();
+		add(canvas, BorderLayout.CENTER);	
 		addInterface();
 
 	}

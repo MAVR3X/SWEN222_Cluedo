@@ -106,6 +106,7 @@ public class CluedoCanvas extends JPanel{
 	private static final Image External_Wall_Point = loadImage("EWO.png");
 	private static final Image External_Wall_U = loadImage("EWU.png");
 	private static final Image External_Double_Point = loadImage("DP.png");
+	private static final Image Transparent = loadImage("N.png");
 	
 	private static final Image[] squares = {
 		Tile,								//0 - Common floor tile
@@ -128,37 +129,31 @@ public class CluedoCanvas extends JPanel{
 		rotate(Room_Window, -90),			//17 - Room window Down
 		Room_Window_Corner,					//18 - Room window Corner Up and Right
 		rotate(Room_Window_Corner, 180),	//19 - Room window Corner Right and Down
-		Room_Door,							//20 - Room door Left
-		rotate(Room_Door, 90),				//21- Room door Up
-		rotate(Room_Door, 180),				//22 - Room door Right
-		rotate(Room_Door, -90),				//23 - Room door Down
-		Room_Wall_Door_1,					//24 - Room wall right, door up
-		rotate(Room_Wall_Door_1, 180),		//25 - Room wall left, door down
-		Room_Wall_Door_2,					//26 - Room wall left, door up
-		Hall_1,								//27 - Lounge hallway
-		rotate(Hall_1, 90),					//28 - Kitchen hallway
-		rotate(Hall_1, 180),				//29 - Conservatory hallway
-		Hall_2,								//30 - Study hallway
-		External_Wall,						//31 - External wall Left
-		rotate(External_Wall, 90),			//32 - External wall Up
-		rotate(External_Wall, 180),			//33 - External wall Right
-		rotate(External_Wall, -90),			//34 - External wall Down
-		External_Wall_Corner,				//35 - External wall Corner Left and Up
-		rotate(External_Wall_Corner, 90),	//36 - External wall Corner Up and Right
-		rotate(External_Wall_Corner, 180),	//37 - External wall Corner Right and Down
-		rotate(External_Wall_Corner, -90),	//38 - External wall Corner Down and Left
-		External_Wall_Point,				//39 - External wall Point Left and Up
-		rotate(External_Wall_Point, 90),	//40 - External wall Point Up and Right
-		rotate(External_Wall_Point, 180),	//41 - External wall Point Right and Down
-		rotate(External_Wall_Point, -90),	//42 - External wall Point Down and Left
-		External_Wall_U,					//43 - External wall U Down
-		rotate(External_Wall_U, 90),		//44 - External wall U Left
-		rotate(External_Wall_U, 180),		//45 - External wall U Right
-		rotate(External_Wall_U, -90),		//46 - External wall U up (Normal U shape)
-		External_Double_Point,				//47 - External Double point left
-		rotate(External_Wall_U, 90),		//48 - External Double point up
-		rotate(External_Wall_U, 180),		//49 - External Double point Right
-		rotate(External_Wall_U, -90),		//50 - External Double point down
+		Hall_1,								//20 - Lounge hallway
+		rotate(Hall_1, 90),					//21 - Kitchen hallway
+		rotate(Hall_1, 180),				//22 - Conservatory hallway
+		Hall_2,								//23 - Study hallway
+		External_Wall,						//24 - External wall Left
+		rotate(External_Wall, 90),			//25 - External wall Up
+		rotate(External_Wall, 180),			//26 - External wall Right
+		rotate(External_Wall, -90),			//27 - External wall Down
+		External_Wall_Corner,				//28 - External wall Corner Left and Up
+		rotate(External_Wall_Corner, 90),	//29 - External wall Corner Up and Right
+		rotate(External_Wall_Corner, 180),	//30 - External wall Corner Right and Down
+		rotate(External_Wall_Corner, -90),	//31 - External wall Corner Down and Left
+		External_Wall_Point,				//32 - External wall Point Left and Up
+		rotate(External_Wall_Point, 90),	//33 - External wall Point Up and Right
+		rotate(External_Wall_Point, 180),	//34 - External wall Point Right and Down
+		rotate(External_Wall_Point, -90),	//35 - External wall Point Down and Left
+		External_Wall_U,					//36 - External wall U Down
+		rotate(External_Wall_U, 90),		//37 - External wall U Left
+		rotate(External_Wall_U, -90),		//38 - External wall U Right
+		rotate(External_Wall_U, 180),		//39 - External wall U up (Normal U shape)
+		External_Double_Point,				//40 - External Double point left
+		rotate(External_Double_Point, 90),	//41 - External Double point up
+		rotate(External_Double_Point, 180),	//42 - External Double point Right
+		rotate(External_Double_Point, -90),	//43 - External Double point down
+		Transparent							//44 - Transparent Tile
 	};
 	
 	
