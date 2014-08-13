@@ -19,7 +19,7 @@ import Game.Card.Character;
 public class GameInterface extends javax.swing.JFrame implements
 		ActionListener, MouseListener {
 	private static int FRAME_WIDTH = 800;
-	private static int FRAME_HEIGHT = 800;
+	private static int FRAME_HEIGHT = 1000;
 	
 	private CluedoCanvas canvas;
 
@@ -30,8 +30,7 @@ public class GameInterface extends javax.swing.JFrame implements
 		
 		setLayout(new BorderLayout());
 		addMenu();
-		addCanvas();
-		add(canvas, BorderLayout.CENTER);	
+		addCanvas();	
 		addInterface();
 
 	}
@@ -47,7 +46,7 @@ public class GameInterface extends javax.swing.JFrame implements
 
 	
 	private static int CANVAS_WIDTH = FRAME_WIDTH;
-	private static int CANVAS_HEIGHT = 500;
+	private static int CANVAS_HEIGHT = 800;
 	
 	/**
 	 * Create canvas to draw UI components on the panel.

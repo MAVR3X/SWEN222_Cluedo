@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
@@ -24,11 +25,14 @@ public class CluedoCanvas extends JPanel{
 	private static int BOARD_HEIGHT = 600;
 	private static int WINDOW_WIDTH;
 	private static int WINDOW_HEIGHT;
+	private static int SQUARE_SIZE;
 	
 	public CluedoCanvas(int width, int height){
 		super();
 		WINDOW_WIDTH  = width;
 		WINDOW_HEIGHT = height;
+		//SQUARE_SIZE = Math.min(width/26, height/27);
+		SQUARE_SIZE = 30;
 	}
 	
 	@Override
@@ -37,12 +41,13 @@ public class CluedoCanvas extends JPanel{
 
 	//Basic frame coloring
 	//drawBackgrounds(g);
-	
+	g.setColor(new Color(0, 105,61));
+	g.fillRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 	// Draw the board
 		for(int x=0; x<26; x++){
 			for(int y=0; y<27; y++){
 				if(boardImage[x][y]!=-1){
-					g.drawImage(squares[boardImage[x][y]], x*30, y*30, null, null);
+					g.drawImage(squares[boardImage[x][y]], x*SQUARE_SIZE, y*SQUARE_SIZE, null, null);
 				}
 			}
 		}
@@ -128,7 +133,7 @@ public class CluedoCanvas extends JPanel{
 		rotate(Room_Window, 180),			//16 - Room window Right
 		rotate(Room_Window, -90),			//17 - Room window Down
 		Room_Window_Corner,					//18 - Room window Corner Up and Right
-		rotate(Room_Window_Corner, 180),	//19 - Room window Corner Right and Down
+		rotate(Room_Window_Corner, 90),		//19 - Room window Corner Right and Down
 		Hall_1,								//20 - Lounge hallway
 		rotate(Hall_1, 90),					//21 - Kitchen hallway
 		rotate(Hall_1, 180),				//22 - Conservatory hallway
@@ -197,9 +202,9 @@ public class CluedoCanvas extends JPanel{
 	public static Image rotate(Image src, double angle) {
 		int width = src.getWidth(null);
 		int height = src.getHeight(null);		
-		BufferedImage img = new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
+		BufferedImage img = new BufferedImage(width,height,BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = img.createGraphics();
-		g.rotate(Math.toRadians(angle), width/2, height/2);		
+		g.rotate(Math.toRadians(angle), width/2, height/2);	
 		g.drawImage(src,0,0,width,height,null);
 		g.dispose();
 		return img;
