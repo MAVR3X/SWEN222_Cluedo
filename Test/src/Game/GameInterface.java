@@ -140,29 +140,20 @@ public class GameInterface extends javax.swing.JFrame implements
 		return Integer.valueOf((String) JOptionPane.showInputDialog(this, "please select number of players:", "Player Count", JOptionPane.PLAIN_MESSAGE, UIManager.getIcon("OptionPane.informationIcon"), posibilities, "1"));
 	}
 
-/**
- * Take input from JOptionPane for player character
- * 
- * Dynamic - Can support additon of new characters
- * @return Card.Character selected by user
- * @Author: Isaac
- */
-	public Card.Character newPlayer() {
-		//Get list of possiblites & shave off NULL
-		
-		
-		Card.Character[] posibilities = Arrays.copyOfRange(Card.Character.values(), 1, Card.Character.values().length);
-		return (Card.Character) JOptionPane.showInputDialog(this, "please select your desired character", "Character Selection", JOptionPane.PLAIN_MESSAGE, UIManager.getIcon("OptionPane.informationIcon"), posibilities, Card.Character.Colonel_Mustard);
-	}
-	
+
+	/**
+	 * Creates an option pane and allows users to select character
+	 * @return ArrayList of players
+	 */
 	public ArrayList<Player> getPlayers(){
-		ArrayList<Player> players= new ArrayList<Player>();
-		int playerCount = getPlayerCount();
+		ArrayList<Player> players= new ArrayList<Player>();	// The list of players
+		int playerCount = getPlayerCount();	// The number of players
 		
+		// The number of character options to start with
 		Card.Character[] possibilities = Arrays.copyOfRange(Card.Character.values(), 1, Card.Character.values().length);
 		
 		
-		
+		// For each character chosen the list of available characters is modified to account for the character just selected
 		for (int i = 0; i < playerCount; i++) {
 			Card.Character[] poss = new Card.Character[possibilities.length-1];
 			Card.Character c = (Card.Character) JOptionPane.showInputDialog(this, "please select your desired character", "Character Selection", JOptionPane.PLAIN_MESSAGE, UIManager.getIcon("OptionPane.informationIcon"), possibilities, possibilities[0]);

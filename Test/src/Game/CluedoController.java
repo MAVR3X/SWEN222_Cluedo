@@ -68,40 +68,15 @@ public class CluedoController {
 	}
 
 	/**
-	 * Create players by prompting for player count + player names for each player
-	 * Loop until valid names are selected.
+	 * Create the list of players 
 	 * 
-	 * Dynamic to allow for addition of new character names
-	 * @Author: Isaac
 	 */
 	public void createPlayers() {
 		players = new ArrayList<Player>();
 		players = interf.getPlayers();
-//		int playerCount = interf.getPlayerCount();
-//		for (int i = 0; i < playerCount; i++) {
-//			// Loop till a legitimate user is selected.
-//			Card.Character player = Card.Character.NULL;
-//			boolean isValid = false;
-//
-//			while (!isValid) {
-//				player = interf.newPlayer();
-//
-//				// Verify not already used
-//				isValid = true;
-//				for (Player p : players) {
-//					if (p.character.equals(player)) {
-//						isValid = false;
-//					}
-//				}
-//			}
-//
-//			// Success, add new player
-//			players.add(new Player(player));
-//
-//		}
-
 	}
 
+	
 	/**
 	 * Create deck by creating an instance of each card type.
 	 * 
