@@ -33,19 +33,30 @@ public class CluedoController {
 		allocateCards();
 	}
 
-	//TODO Get this shit going
+	/**
+	 * Allocate cards to players, call display for remaining cards. 
+	 */
 	private void allocateCards() {
-		for(int i = 0; i < cards.size(); i++){
-			cards.get(i);
+		// Verify there are enough cards left
+		while (cards.size() >= players.size()) {
+			for (int p = 0; p < players.size(); p++) {
+				int cardNum = (int) (Math.random() * (cards.size() - 1));
+				players.get(p).addCard(cards.remove(cardNum));
+			}
 		}
 		
+		if(cards.size() != 0){
+			interf.displayCards();	
+		}
+
 	}
 
 	/**
-	 * Using number of possible cards of each type select
-	 * 3 of each type and remove from list and add to solution fields.
+	 * Using number of possible cards of each type select 3 of each type and
+	 * remove from list and add to solution fields.
 	 * 
-	 * Dynamic - Handles adding new cards of any type 
+	 * Dynamic - Handles adding new cards of any type
+	 * 
 	 * @Author: Isaac
 	 */
 	private void selectSolution() {
@@ -68,7 +79,7 @@ public class CluedoController {
 	}
 
 	/**
-	 * Create the list of players 
+	 * Create the list of players
 	 * 
 	 */
 	public void createPlayers() {
@@ -76,11 +87,11 @@ public class CluedoController {
 		players = interf.getPlayers();
 	}
 
-	
 	/**
 	 * Create deck by creating an instance of each card type.
 	 * 
 	 * Dynamic to allow for the addition of new cards of any type.
+	 * 
 	 * @Author: Isaac
 	 */
 	private void createCards() {
@@ -88,11 +99,11 @@ public class CluedoController {
 		int characters = Card.charCount();
 		int weapons = Card.wepCount();
 		int rooms = Card.roomCount();
-		
-		cards = new ArrayList<Card>(); // 21 cards		
-		
-		//Loop through each type
-		for (int i = 0; i < 3; i++) { 
+
+		cards = new ArrayList<Card>(); // 21 cards
+
+		// Loop through each type
+		for (int i = 0; i < 3; i++) {
 			Card c;
 			if (i == 0) {
 				// NULL + 6 Chars
@@ -119,7 +130,6 @@ public class CluedoController {
 		}
 
 	}
-
 
 	public void start() {
 
