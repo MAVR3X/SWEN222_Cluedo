@@ -18,7 +18,7 @@ import Game.Card.Character;
 
 public class GameInterface extends javax.swing.JFrame implements
 		ActionListener, MouseListener {
-	private static int FRAME_WIDTH = 600;
+	private static int FRAME_WIDTH = 800;
 	private static int FRAME_HEIGHT = 800;
 	
 	private CluedoCanvas canvas;
