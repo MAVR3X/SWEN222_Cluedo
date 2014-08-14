@@ -7,13 +7,13 @@ import Tokens.Token;
 
 public class Board {
 
-	public static final int BOARD_HEIGHT = 30;
-	public static final int BOARD_WIDTH = 20;
-	Token[][] board;
+	public static final int BOARD_HEIGHT = 26;
+	public static final int BOARD_WIDTH = 27;
+	Token[][] tokens;
 	Door[][] doors;
 
 	public Board() {
-		board = new Token[BOARD_HEIGHT][BOARD_WIDTH];
+		tokens = new Token[BOARD_HEIGHT][BOARD_WIDTH];
 		doors = new Door[BOARD_HEIGHT][BOARD_WIDTH];
 	}
 
@@ -31,7 +31,7 @@ public class Board {
 	Point findToken(Card c){
 		for(int x = 0; x < BOARD_WIDTH; x++){
 			for(int y = 0; y < BOARD_HEIGHT; y++){
-				if(board[x][y].isCard(c)){
+				if(tokens[x][y].isCard(c)){
 					return new Point(x,y);
 				}
 			}

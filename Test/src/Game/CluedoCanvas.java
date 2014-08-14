@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.font.TextAttribute;
 import java.awt.image.BufferedImage;
@@ -33,8 +34,11 @@ public class CluedoCanvas extends JPanel{
 	private static int WINDOW_HEIGHT;
 	private static int SQUARE_SIZE;
 	
-	public CluedoCanvas(int width, int height){
+	private final Board board;
+	
+	public CluedoCanvas(int width, int height, Board board){
 		super();
+		this.board = board;
 		WINDOW_WIDTH  = width;
 		WINDOW_HEIGHT = height;
 		//SQUARE_SIZE = Math.min(width/26, height/27);
@@ -61,7 +65,7 @@ public class CluedoCanvas extends JPanel{
 		
 	}
 	
-	private static final String[] preferredFonts = {"Arial","Courier New","Times New Roman"};
+//	private static final String[] preferredFonts = {"Arial","Courier New","Times New Roman"};
 	private Font font;	
 	
 	@Override
@@ -83,6 +87,7 @@ public class CluedoCanvas extends JPanel{
 		
 	drawLabels(g);
 		
+	drawTokens(g);
 	
 		
 	}
@@ -302,13 +307,9 @@ public class CluedoCanvas extends JPanel{
 		return boardImage;
 	}
 	
-	private void drawTokens(Graphics g, int startx, int starty, int width, int height){
+	private void drawTokens(Graphics g){
 		
-		for (int row=1; row<=25; row++){
-			for(int col=1; col<=24; col++){
-				// If there is a token at position draw the piece
-			}
-		}
+		
 	}
 	
 	private void drawToken(Token t, Graphics g){

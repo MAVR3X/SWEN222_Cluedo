@@ -28,10 +28,13 @@ public class GameInterface extends JFrame implements ActionListener,
 	private static int FRAME_HEIGHT = 1000;
 
 	private CluedoCanvas canvas;
+	private Board board;
 
-	public GameInterface(String title) {
+	public GameInterface(String title, Board board) {
 		super(title);
 
+		this.board = board;
+		
 		this.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		this.setResizable(false);
 		setVisible(true);
@@ -71,7 +74,7 @@ public class GameInterface extends JFrame implements ActionListener,
 	 * Create canvas to draw UI components on the panel.
 	 */
 	private void addCanvas() {
-		canvas = new CluedoCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
+		canvas = new CluedoCanvas(CANVAS_WIDTH, CANVAS_HEIGHT, board);
 		canvas.setSize(CANVAS_WIDTH, CANVAS_HEIGHT);
 		canvas.setBackground(Color.WHITE);
 		add(canvas, BorderLayout.CENTER);
