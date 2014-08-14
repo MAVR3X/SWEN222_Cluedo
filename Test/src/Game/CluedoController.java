@@ -23,15 +23,17 @@ public class CluedoController {
 		board = new Board();
 		interf = new GameInterface("Cluedo", board);
 		initialise();
+		
 		int i = 0;
 	}
 
 	private void initialise() {
 		createPlayers();
 		createCards();
+		board.generateTokens(cards);
 		selectSolution();
 		allocateCards();
-		board.generateTokens();
+		interf.redraw();
 		
 	}
 

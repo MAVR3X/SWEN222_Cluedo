@@ -209,4 +209,9 @@ public class GameInterface extends JFrame implements ActionListener,
 		
 	}
 
+	public void redraw() {
+		canvas.repaint();
+		
+	}
+
 }

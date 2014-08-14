@@ -307,13 +307,55 @@ public class CluedoCanvas extends JPanel{
 		return boardImage;
 	}
 	
+private static final Image mustard = loadImage("mustard.png");
+private static final Image green = loadImage("green.png");
+private static final Image white = loadImage("white.png");
+private static final Image scarlett = loadImage("scarlett.png");
+private static final Image plum = loadImage("plum.png");
+private static final Image peacock = loadImage("peacock.png");
+	
+	private static final Image[] tokenImages = {
+		mustard,
+		scarlett,
+		white,
+		green,
+		peacock,
+		plum
+	};
+	
 	private void drawTokens(Graphics g){
-		
+		for(int x=0; x<26; x++){
+			for(int y=0; y<27; y++){
+				if(board.getTokens()[x][y] != null){
+					
+						switch(((PlayerToken) board.getTokens()[x][y]).getCharacter()){
+						case Colonel_Mustard:
+							g.drawImage(tokenImages[0], x*SQUARE_SIZE, y*SQUARE_SIZE, null, null);
+							break;
+						case Miss_Scarlett:
+							g.drawImage(tokenImages[1], x*SQUARE_SIZE, y*SQUARE_SIZE, null, null);
+							break;
+						case Mrs_White:
+							g.drawImage(tokenImages[2], x*SQUARE_SIZE, y*SQUARE_SIZE, null, null);
+							break;
+						case The_Reverend_Green:
+							g.drawImage(tokenImages[3], x*SQUARE_SIZE, y*SQUARE_SIZE, null, null);
+							break;
+						case Mrs_Peacock:
+							g.drawImage(tokenImages[4], x*SQUARE_SIZE, y*SQUARE_SIZE, null, null);
+							break;
+						case Professor_Plum:
+							g.drawImage(tokenImages[5], x*SQUARE_SIZE, y*SQUARE_SIZE, null, null);
+							break;
+						default:
+							break;
+						
+					}
+				}
+			}
+		}
 		
 	}
 	
-	private void drawToken(Token t, Graphics g){
-		
-	}
 	
 }
