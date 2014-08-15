@@ -1,6 +1,9 @@
 package Game;
 
 import java.awt.Point;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import Tokens.PlayerToken;
@@ -99,7 +102,7 @@ public class Board {
 	// 90: Dining Room door
 	//
 	
-	int[][] paths = new int [BOARD_HEIGHT][BOARD_WIDTH];
+	int[][] paths = loadBoardImage("boardPaths.txt");
 	
 	public static final int UP = 1;
 	public static final int DOWN = 2;
@@ -251,16 +254,36 @@ public class Board {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	/**
+	 * Loads a 2D array of integers from a file
+	 * @param filename
+	 * @return 2D array of int
+	 */
+	private int[][] loadBoardImage(String filename){
+		
+		int[][] boardImage = new int[26][27];
+		
+		try{
+			FileReader fr = new FileReader(filename);		
+			BufferedReader br = new BufferedReader(fr);
+			String line;
+		
+			for(int y=0; y<27; y++){
+				line = br.readLine();
+				String[] values = line.split("\t");
+				for(int x=0; x<26; x++){
+					
+					boardImage[x][y] = Integer.parseInt(values[x]);
+				}
+			}
+		}
+		catch(IOException e){
+			System.out.println("I/O error: " + e.getMessage());
+			System.exit(1);
+		}
+		
+		return boardImage;
+	}
 	
 	
 }
