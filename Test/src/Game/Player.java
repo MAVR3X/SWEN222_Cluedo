@@ -8,10 +8,10 @@ import Game.Card.Character;
 public class Player {
 
 	ArrayList<Card> hand = new ArrayList<Card>();
-	Card.Character character;
+	Card c;
 
-	public Player(Character character) {
-		this.character = character;
+	public Player(Card character) {
+		this.c = character;
 	}
 
 	public boolean addCard(Card card) {
@@ -35,7 +35,11 @@ public class Player {
 
 	@Override
 	public String toString() {
-		return "Player [hand=" + hand + ", character=" + character + "]";
+		return "Player [hand=" + hand + ", character=" + c.character + "]";
 	}
 
+	
+	public Character getCharacter(){
+		return c.character;
+	}
 }

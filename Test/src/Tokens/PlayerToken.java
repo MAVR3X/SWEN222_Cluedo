@@ -12,7 +12,7 @@ public class PlayerToken implements Token{
 		this.c = c.character;
 	}
 
-	public Game.Card.Character getCharacter(){
+	public Card.Character getCharacter(){
 		return c;
 	}
 	

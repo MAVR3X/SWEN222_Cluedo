@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -20,7 +21,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
-import Game.Card.Character;
 
 public class GameInterface extends JFrame implements ActionListener,
 		MouseListener {
@@ -29,12 +29,14 @@ public class GameInterface extends JFrame implements ActionListener,
 
 	private CluedoCanvas canvas;
 	private Board board;
+	
+	ArrayList<Player> players;
 
 	public GameInterface(String title, Board board) {
 		super(title);
 
 		this.board = board;
-		
+
 		this.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		this.setResizable(false);
 		setVisible(true);
@@ -47,15 +49,15 @@ public class GameInterface extends JFrame implements ActionListener,
 		JLabel kitchen = new JLabel("Kitchen");
 		kitchen.setForeground(Color.black);
 		add(kitchen, BorderLayout.CENTER);
-		
+
 		// Center window in screen
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		Dimension scrnsize = toolkit.getScreenSize();
 		setBounds((scrnsize.width - getWidth()) / 2,
 				(scrnsize.height - getHeight()) / 2, getWidth(), getHeight());
-			
+
 		// Display window
-		setVisible(true);		
+		setVisible(true);
 
 	}
 
@@ -169,10 +171,12 @@ public class GameInterface extends JFrame implements ActionListener,
 	/**
 	 * Creates an option pane and allows users to select character
 	 * 
+	 * @param cards
+	 * 
 	 * @return ArrayList of players
 	 */
-	public ArrayList<Player> getPlayers() {
-		ArrayList<Player> players = new ArrayList<Player>(); // The list of
+	public ArrayList<Player> getPlayers(ArrayList<Card> cards) {
+		players = new ArrayList<Player>(); // The list of
 																// players
 		int playerCount = getPlayerCount(); // The number of players
 
@@ -189,7 +193,13 @@ public class GameInterface extends JFrame implements ActionListener,
 					"Character Selection", JOptionPane.PLAIN_MESSAGE,
 					UIManager.getIcon("OptionPane.informationIcon"),
 					possibilities, possibilities[0]);
-			players.add(new Player(c));
+			for (Card card : cards) {
+				if (card.type == Card.Type.Character) {
+					if (card.character == c) {
+						players.add(new Player(card));
+					}
+				}
+			}
 
 			int k = 0;
 			for (int j = 0; j < possibilities.length; j++) {
@@ -205,13 +215,13 @@ public class GameInterface extends JFrame implements ActionListener,
 
 	// TODO Dislay extra cards
 	public void displayCards(ArrayList<Card> extraCards) {
-		
-		
+
 	}
 
 	public void redraw() {
 		canvas.repaint();
-		
+
 	}
+
 
 }

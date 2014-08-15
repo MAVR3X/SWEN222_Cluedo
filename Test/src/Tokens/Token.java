@@ -8,4 +8,5 @@ public interface Token {
 
 	boolean isCard(Card c);
 
+	
 }

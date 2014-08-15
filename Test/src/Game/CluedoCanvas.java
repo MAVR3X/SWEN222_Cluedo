@@ -1,30 +1,22 @@
 package Game;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GraphicsEnvironment;
 import java.awt.Image;
-import java.awt.Point;
-import java.awt.RenderingHints;
 import java.awt.font.TextAttribute;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.URL;
+
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Scanner;
+
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import Tokens.PlayerToken;
-import Tokens.Token;
 
 
 public class CluedoCanvas extends JPanel{
@@ -35,6 +27,7 @@ public class CluedoCanvas extends JPanel{
 	private static int SQUARE_SIZE;
 	
 	private final Board board;
+	
 	
 	public CluedoCanvas(int width, int height, Board board){
 		super();
@@ -167,9 +160,6 @@ public class CluedoCanvas extends JPanel{
 	private static final Image Room_Wall_Point = loadImage("RmI.png");
 	private static final Image Room_Window = loadImage("RmWi.png");
 	private static final Image Room_Window_Corner = loadImage("RmWiC.png");
-	private static final Image Room_Door = loadImage("RmD.png");
-	private static final Image Room_Wall_Door_1 = loadImage("WD1.png");
-	private static final Image Room_Wall_Door_2 = loadImage("WD2.png");
 	private static final Image Hall_1 = loadImage("H1.png");
 	private static final Image Hall_2 = loadImage("H2.png");
 	private static final Image External_Wall = loadImage("EW.png");
@@ -298,6 +288,7 @@ public class CluedoCanvas extends JPanel{
 					boardImage[x][y] = Integer.parseInt(values[x]);
 				}
 			}
+			br.close();
 		}
 		catch(IOException e){
 			System.out.println("I/O error: " + e.getMessage());
@@ -357,5 +348,5 @@ private static final Image peacock = loadImage("peacock.png");
 		
 	}
 	
-	
+
 }

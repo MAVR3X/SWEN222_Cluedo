@@ -1,8 +1,10 @@
 package Game;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
-public class CluedoController {
+public class CluedoController{
 
 	Board board;
 	GameInterface interf;
@@ -23,17 +25,17 @@ public class CluedoController {
 		board = new Board();
 		interf = new GameInterface("Cluedo", board);
 		initialise();
-		
-		int i = 0;
 	}
 
 	private void initialise() {
-		createPlayers();
+		
 		createCards();
+		createPlayers();
 		board.generateTokens(cards);
 		selectSolution();
 		allocateCards();
 		interf.redraw();
+		interf.addKeyListener(kl);
 		
 	}
 
@@ -89,7 +91,7 @@ public class CluedoController {
 	 */
 	public void createPlayers() {
 		players = new ArrayList<Player>();
-		players = interf.getPlayers();
+		players = interf.getPlayers(cards);
 	}
 
 	/**
@@ -135,8 +137,38 @@ public class CluedoController {
 		}
 
 	}
-
-	public void start() {
-
+	public static final int UP = 1;
+	public static final int DOWN = 2;
+	public static final int RIGHT = 3;
+	public static final int LEFT = 4;
+	
+	
+	
+	KeyListener kl = new KeyListener(){
+	public void keyPressed(KeyEvent e) {
+		int code = e.getKeyCode();
+		if(code == KeyEvent.VK_RIGHT || code == KeyEvent.VK_KP_RIGHT){			
+			board.moveToken(players.get(0).c, RIGHT);
+		} else if(code == KeyEvent.VK_LEFT || code == KeyEvent.VK_KP_LEFT) {
+			board.moveToken(players.get(0).c, LEFT);
+		} else if(code == KeyEvent.VK_UP) {
+			board.moveToken(players.get(0).c, UP);
+		} else if(code == KeyEvent.VK_DOWN) {
+			board.moveToken(players.get(0).c, DOWN);
+		}
+		interf.redraw();
 	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+		}
+	};
 }

@@ -14,11 +14,10 @@ public class Board {
 	public static final int BOARD_HEIGHT = 26;
 	public static final int BOARD_WIDTH = 27;
 	private Token[][] tokens;
-	private Door[][] doors;
+
 
 	public Board() {
 		setTokens(new Token[BOARD_HEIGHT][BOARD_WIDTH]);
-		doors = new Door[BOARD_HEIGHT][BOARD_WIDTH];
 	}
 
 	public void generateTokens(ArrayList<Card> cards) {
@@ -59,8 +58,10 @@ public class Board {
 	public Point findToken(Card c) {
 		for (int x = 0; x < BOARD_WIDTH; x++) {
 			for (int y = 0; y < BOARD_HEIGHT; y++) {
-				if (getTokens()[x][y].isCard(c)) {
-					return new Point(x, y);
+				if (getTokens()[x][y] != null) {
+					if (getTokens()[x][y].isCard(c)) {
+						return new Point(x, y);
+					}
 				}
 			}
 		}
@@ -101,21 +102,19 @@ public class Board {
 	// 9 : Dining Room
 	// 90: Dining Room door
 	//
-	
+
 	int[][] paths = loadBoardImage("boardPaths.txt");
-	
+
 	public static final int UP = 1;
 	public static final int DOWN = 2;
 	public static final int RIGHT = 3;
 	public static final int LEFT = 4;
-	
+
 	public static final Point STUDY = new Point(23, 22);
 	public static final Point LOUNGE = new Point(1, 21);
 	public static final Point KITCHEN = new Point(5, 2);
-	public static final Point CONSERVATORY = new Point(23, 25);
-	
-	
-	
+	public static final Point CONSERVATORY = new Point(23, 5);
+
 	/**
 	 * 
 	 * @return 0, if not valid move, 0 if moving within a room, 1 if moving in
@@ -123,116 +122,111 @@ public class Board {
 	 */
 	public int moveToken(Card c, int direction) {
 		Point currentPos = findToken(c);
-		
+
 		int currentTile = paths[currentPos.x][currentPos.y];
-		Point newPos = currentPos;
-		
+		Point newPos = new Point(currentPos.x, currentPos.y);
+
 		// Save proposed new position in newPos
-		switch(direction){
-			case UP:
-				newPos.y = currentPos.y-1;
-				break;
-			case DOWN:
-				newPos.y = currentPos.y+1;
-				break;
-			case RIGHT:
-				newPos.x = currentPos.y+1;
-				break;
-			case LEFT:
-				newPos.x = currentPos.y-1;
-				break;
-			}
-		
+		switch (direction) {
+		case UP:
+			newPos.y = currentPos.y - 1;
+			break;
+		case DOWN:
+			newPos.y = currentPos.y + 1;
+			break;
+		case RIGHT:
+			newPos.x = currentPos.x + 1;
+			break;
+		case LEFT:
+			newPos.x = currentPos.x - 1;
+			break;
+		}
+
 		int newTile = paths[newPos.x][newPos.y];
-		
-		if(tokens[newPos.x][newPos.y] != null) return 0; // Something already occupying space
-		
-		if (currentTile == 0){ // Token is in a hallway
-			
-			if(newTile == 0){ // new position is in a hallway
+
+		if (tokens[newPos.x][newPos.y] != null)
+			return 0; // Something already occupying space
+
+		if (currentTile == 0) { // Token is in a hallway
+
+			if (newTile == 0) { // new position is in a hallway
 				moveToken(currentPos, newPos);
 				return 1;
-			}
-			else if (newTile >= 10 && newTile < 100){ // new position is a doorway
-				
-				if (newTile == 10 || newTile == 30){ // must enter from south
-					if(direction == UP){
+			} else if (newTile >= 10 && newTile < 100) { // new position is a
+															// doorway
+
+				if (newTile == 10 || newTile == 30) { // must enter from south
+					if (direction == UP) {
 						moveToken(currentPos, newPos);
 						return 1;
 					}
 					return 0; // invalid move
-				}
-				else if (newTile == 60 || newTile == 80){ // must enter from north
-					if(direction == DOWN){
+				} else if (newTile == 60 || newTile == 80) { // must enter from
+																// north
+					if (direction == DOWN) {
 						moveToken(currentPos, newPos);
 						return 1;
 					}
 					return 0; // invalid move
-				}
-				else{ // Normal doorway
+				} else { // Normal doorway
 					moveToken(currentPos, newPos);
 					return 1;
 				}
 			}
-		}
-		else if (currentTile > 0 && currentTile < 10){ // Token is in a room
-			
-			if(newTile > 0 && newTile < 10){ // new position is still in room
+		} else if (currentTile > 0 && currentTile < 10) { // Token is in a room
+
+			if (newTile > 0 && newTile < 10) { // new position is still in room
 				moveToken(currentPos, newPos);
 				return 0;
-			}
-			else if(newTile >= 10 && newTile < 100){ // new position is in doorway
+			} else if (newTile >= 10 && newTile < 100) { // new position is in
+															// doorway
 				moveToken(currentPos, newPos);
 				return 0;
-			}
-			else if (newTile >= 100){ // new position is a passage
-				
-				switch(newTile){
-					case 100: // Kitchen passage to Study (Go to point 23, 22)
-						newPos = STUDY;
-						moveToken(currentPos, newPos);
-						return 6;
-						
-					case 300: // Conservatory passage to Lounge (Go to point 1, 21)
-						newPos = LOUNGE;
-						moveToken(currentPos, newPos);
-						return 6;
-						
-					case 600: // Study passage to Kitchen (Go to point 5, 2)
-						newPos = KITCHEN;
-						moveToken(currentPos, newPos);
-						return 6;
-						
-					case 800: // Lounge passage to Conservatory (Go to point 23, 5)
-						newPos = CONSERVATORY;
-						moveToken(currentPos, newPos);
-						return 6;
-						
+			} else if (newTile >= 100) { // new position is a passage
+
+				switch (newTile) {
+				case 100: // Kitchen passage to Study (Go to point 23, 22)
+					newPos = STUDY;
+					moveToken(currentPos, newPos);
+					return 6;
+
+				case 300: // Conservatory passage to Lounge (Go to point 1, 21)
+					newPos = LOUNGE;
+					moveToken(currentPos, newPos);
+					return 6;
+
+				case 600: // Study passage to Kitchen (Go to point 5, 2)
+					newPos = KITCHEN;
+					moveToken(currentPos, newPos);
+					return 6;
+
+				case 800: // Lounge passage to Conservatory (Go to point 23, 5)
+					newPos = CONSERVATORY;
+					moveToken(currentPos, newPos);
+					return 6;
+
 				}
 			}
-		}
-		else{ // Token is in a doorway
-			if(newTile > 0 && newTile < 10){ // new position is still in room
+		} else { // Token is in a doorway
+			if (newTile > 0 && newTile < 10) { // new position is still in room
 				moveToken(currentPos, newPos);
 				return 0;
-			}
-			else{ // new position is a hallway
-				
-				if (currentTile == 10 || currentTile == 30){ // must go down
-					if(direction == DOWN){
+			} else { // new position is a hallway
+
+				if (currentTile == 10 || currentTile == 30) { // must go down
+					if (direction == DOWN) {
 						moveToken(currentPos, newPos);
 						return 1;
 					}
 					return 0; // invalid move
-				}
-				else if (currentTile == 60 || currentTile == 80){ // must go up
-					if(direction == UP){
+				} else if (currentTile == 60 || currentTile == 80) { // must go
+																		// up
+					if (direction == UP) {
 						moveToken(currentPos, newPos);
 						return 1;
 					}
 					return 0; // invalid move
-				}
-				else{ // Normal doorway
+				} else { // Normal doorway
 					moveToken(currentPos, newPos);
 					return 1;
 				}
@@ -240,50 +234,47 @@ public class Board {
 		}
 		return 0;
 	}
-	
-	
-	
+
 	/**
 	 * Helper method to move Token from old Point to New Point
+	 * 
 	 * @param oldP
 	 * @param newP
 	 */
-	public void moveToken(Point oldP, Point newP){
-		tokens[newP.x][newP.y] = tokens[oldP.x][oldP.y];
-		tokens[oldP.x][oldP.y] = null;
+	public void moveToken(Point oldP, Point newP) {
+		this.tokens[newP.x][newP.y] = this.tokens[oldP.x][oldP.y];
+		this.tokens[oldP.x][oldP.y] = null;
 	}
-	
-	
+
 	/**
 	 * Loads a 2D array of integers from a file
+	 * 
 	 * @param filename
 	 * @return 2D array of int
 	 */
-	private int[][] loadBoardImage(String filename){
-		
+	private int[][] loadBoardImage(String filename) {
+
 		int[][] boardImage = new int[26][27];
-		
-		try{
-			FileReader fr = new FileReader(filename);		
+
+		try {
+			FileReader fr = new FileReader(filename);
 			BufferedReader br = new BufferedReader(fr);
 			String line;
-		
-			for(int y=0; y<27; y++){
+
+			for (int y = 0; y < 27; y++) {
 				line = br.readLine();
 				String[] values = line.split("\t");
-				for(int x=0; x<26; x++){
-					
+				for (int x = 0; x < 26; x++) {
+
 					boardImage[x][y] = Integer.parseInt(values[x]);
 				}
 			}
-		}
-		catch(IOException e){
+		} catch (IOException e) {
 			System.out.println("I/O error: " + e.getMessage());
 			System.exit(1);
 		}
-		
+
 		return boardImage;
 	}
-	
-	
+
 }
