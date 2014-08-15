@@ -110,7 +110,7 @@ public class GameInterface extends JFrame implements ActionListener,
 				board.diceRoll(i);
 			}
 		});
-		
+		gui.add(button);
 		this.add(gui);
 
 	}
