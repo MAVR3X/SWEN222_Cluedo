@@ -157,8 +157,8 @@ public class GameInterface extends JFrame implements ActionListener,
 	 * @Author: Isaac
 	 */
 	public int getPlayerCount() {
-		// Prompt for number of players:
-		String[] posibilities = { "2", "3", "4", "5", "6" };
+		// Prompt for number of players - min 3, max 6:
+		String[] posibilities = { "3", "4", "5", "6" };
 		return Integer.valueOf((String) JOptionPane.showInputDialog(this,
 				"please select number of players:", "Player Count",
 				JOptionPane.PLAIN_MESSAGE,

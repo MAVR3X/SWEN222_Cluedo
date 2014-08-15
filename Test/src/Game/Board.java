@@ -18,11 +18,9 @@ public class Board {
 		doors = new Door[BOARD_HEIGHT][BOARD_WIDTH];
 	}
 
-	
-	
 	public void generateTokens(ArrayList<Card> cards) {
-		for(Card c: cards){
-			switch(c.character){
+		for (Card c : cards) {
+			switch (c.character) {
 			case Colonel_Mustard:
 				getTokens()[1][18] = new PlayerToken(c);
 				break;
@@ -45,38 +43,224 @@ public class Board {
 				break;
 			}
 		}
-		
+
 	}
-	
-	
+
 	/**
 	 * Find a tokens position from a card
-	 * @param c Card of token
+	 * 
+	 * @param c
+	 *            Card of token
 	 * @return X/Y of token
 	 */
-	Point findToken(Card c){
-		for(int x = 0; x < BOARD_WIDTH; x++){
-			for(int y = 0; y < BOARD_HEIGHT; y++){
-				if(getTokens()[x][y].isCard(c)){
-					return new Point(x,y);
+	public Point findToken(Card c) {
+		for (int x = 0; x < BOARD_WIDTH; x++) {
+			for (int y = 0; y < BOARD_HEIGHT; y++) {
+				if (getTokens()[x][y].isCard(c)) {
+					return new Point(x, y);
 				}
 			}
 		}
-		
-	
+
 		return null;
 	}
-
-
 
 	public Token[][] getTokens() {
 		return tokens;
 	}
 
-
-
 	public void setTokens(Token[][] tokens) {
 		this.tokens = tokens;
 	}
 
+	// Board Token Paths
+	// 0 : Hallway paths
+	// 1 : Kitchen
+	// 10: Kitchen door (Can only be accessed from south)
+	// 100:Kitchen passage to Study (Go to point 23, 22)
+	// 2 : Ball Room
+	// 20: Ball Room door
+	// 3 : Conservatory
+	// 30: Conservatory door (Can only be accessed from south)
+	// 300:Conservatory passage to Lounge (Go to point 1, 21)
+	// 4 : Billiard Room
+	// 40: Billiard Room door
+	// 5 : Library
+	// 50: Library door
+	// 6 : Study
+	// 60: Study door (Can only be accessed from north)
+	// 600:Study passage to Kitchen (Go to point 5, 2)
+	// 7 : Hall
+	// 70: Hall door
+	// 8 : Lounge
+	// 80: Lounge door (Can only be accessed from north)
+	// 800:Lounge passage to Conservatory (Go to point 23, 5)
+	// 9 : Dining Room
+	// 90: Dining Room door
+	//
+	
+	int[][] paths = new int [BOARD_HEIGHT][BOARD_WIDTH];
+	
+	public static final int UP = 1;
+	public static final int DOWN = 2;
+	public static final int RIGHT = 3;
+	public static final int LEFT = 4;
+	
+	public static final Point STUDY = new Point(23, 22);
+	public static final Point LOUNGE = new Point(1, 21);
+	public static final Point KITCHEN = new Point(5, 2);
+	public static final Point CONSERVATORY = new Point(23, 25);
+	
+	
+	
+	/**
+	 * 
+	 * @return 0, if not valid move, 0 if moving within a room, 1 if moving in
+	 *         hallway, 6 if used passage
+	 */
+	public int moveToken(Card c, int direction) {
+		Point currentPos = findToken(c);
+		
+		int currentTile = paths[currentPos.x][currentPos.y];
+		Point newPos = currentPos;
+		
+		// Save proposed new position in newPos
+		switch(direction){
+			case UP:
+				newPos.y = currentPos.y-1;
+				break;
+			case DOWN:
+				newPos.y = currentPos.y+1;
+				break;
+			case RIGHT:
+				newPos.x = currentPos.y+1;
+				break;
+			case LEFT:
+				newPos.x = currentPos.y-1;
+				break;
+			}
+		
+		int newTile = paths[newPos.x][newPos.y];
+		
+		if(tokens[newPos.x][newPos.y] != null) return 0; // Something already occupying space
+		
+		if (currentTile == 0){ // Token is in a hallway
+			
+			if(newTile == 0){ // new position is in a hallway
+				moveToken(currentPos, newPos);
+				return 1;
+			}
+			else if (newTile >= 10 && newTile < 100){ // new position is a doorway
+				
+				if (newTile == 10 || newTile == 30){ // must enter from south
+					if(direction == UP){
+						moveToken(currentPos, newPos);
+						return 1;
+					}
+					return 0; // invalid move
+				}
+				else if (newTile == 60 || newTile == 80){ // must enter from north
+					if(direction == DOWN){
+						moveToken(currentPos, newPos);
+						return 1;
+					}
+					return 0; // invalid move
+				}
+				else{ // Normal doorway
+					moveToken(currentPos, newPos);
+					return 1;
+				}
+			}
+		}
+		else if (currentTile > 0 && currentTile < 10){ // Token is in a room
+			
+			if(newTile > 0 && newTile < 10){ // new position is still in room
+				moveToken(currentPos, newPos);
+				return 0;
+			}
+			else if(newTile >= 10 && newTile < 100){ // new position is in doorway
+				moveToken(currentPos, newPos);
+				return 0;
+			}
+			else if (newTile >= 100){ // new position is a passage
+				
+				switch(newTile){
+					case 100: // Kitchen passage to Study (Go to point 23, 22)
+						newPos = STUDY;
+						moveToken(currentPos, newPos);
+						return 6;
+						
+					case 300: // Conservatory passage to Lounge (Go to point 1, 21)
+						newPos = LOUNGE;
+						moveToken(currentPos, newPos);
+						return 6;
+						
+					case 600: // Study passage to Kitchen (Go to point 5, 2)
+						newPos = KITCHEN;
+						moveToken(currentPos, newPos);
+						return 6;
+						
+					case 800: // Lounge passage to Conservatory (Go to point 23, 5)
+						newPos = CONSERVATORY;
+						moveToken(currentPos, newPos);
+						return 6;
+						
+				}
+			}
+		}
+		else{ // Token is in a doorway
+			if(newTile > 0 && newTile < 10){ // new position is still in room
+				moveToken(currentPos, newPos);
+				return 0;
+			}
+			else{ // new position is a hallway
+				
+				if (currentTile == 10 || currentTile == 30){ // must go down
+					if(direction == DOWN){
+						moveToken(currentPos, newPos);
+						return 1;
+					}
+					return 0; // invalid move
+				}
+				else if (currentTile == 60 || currentTile == 80){ // must go up
+					if(direction == UP){
+						moveToken(currentPos, newPos);
+						return 1;
+					}
+					return 0; // invalid move
+				}
+				else{ // Normal doorway
+					moveToken(currentPos, newPos);
+					return 1;
+				}
+			}
+		}
+		return 0;
+	}
+	
+	
+	
+	/**
+	 * Helper method to move Token from old Point to New Point
+	 * @param oldP
+	 * @param newP
+	 */
+	public void moveToken(Point oldP, Point newP){
+		tokens[newP.x][newP.y] = tokens[oldP.x][oldP.y];
+		tokens[oldP.x][oldP.y] = null;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
