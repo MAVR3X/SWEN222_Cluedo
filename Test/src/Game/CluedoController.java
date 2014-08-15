@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
-public class CluedoController{
+public class CluedoController {
 
 	Board board;
 	GameInterface interf;
@@ -13,6 +13,8 @@ public class CluedoController{
 	ArrayList<Card> cards;
 
 	Player currentPlayer;
+	private int playerSteps = 0;
+	int playerRoll = 0;
 
 	private static Card solutionCharacter;
 	private static Card solutionWeapon;
@@ -22,25 +24,27 @@ public class CluedoController{
 	 * Initialize game
 	 */
 	public CluedoController() {
-		board = new Board();
+		board = new Board(this);
 		interf = new GameInterface("Cluedo", board);
 		initialise();
 	}
 
 	private void initialise() {
-		
+
 		createCards();
 		createPlayers();
+		currentPlayer = players.get(0);
 		board.generateTokens(cards);
 		selectSolution();
 		allocateCards();
 		interf.redraw();
 		interf.addKeyListener(kl);
-		
+		interf.repaint();
 	}
 
 	/**
-	 * Allocate cards to players, call display for remaining cards. 
+	 * Allocate cards to players, call display for remaining cards.
+	 * 
 	 * @author isaac
 	 */
 	private void allocateCards() {
@@ -51,9 +55,9 @@ public class CluedoController{
 				players.get(p).addCard(cards.remove(cardNum));
 			}
 		}
-		
-		if(cards.size() != 0){
-			interf.displayCards(cards);	
+
+		if (cards.size() != 0) {
+			interf.displayCards(cards);
 		}
 
 	}
@@ -137,38 +141,64 @@ public class CluedoController{
 		}
 
 	}
+
 	public static final int UP = 1;
 	public static final int DOWN = 2;
 	public static final int RIGHT = 3;
 	public static final int LEFT = 4;
-	
-	
-	
-	KeyListener kl = new KeyListener(){
-	public void keyPressed(KeyEvent e) {
-		int code = e.getKeyCode();
-		if(code == KeyEvent.VK_RIGHT || code == KeyEvent.VK_KP_RIGHT){			
-			board.moveToken(players.get(0).c, RIGHT);
-		} else if(code == KeyEvent.VK_LEFT || code == KeyEvent.VK_KP_LEFT) {
-			board.moveToken(players.get(0).c, LEFT);
-		} else if(code == KeyEvent.VK_UP) {
-			board.moveToken(players.get(0).c, UP);
-		} else if(code == KeyEvent.VK_DOWN) {
-			board.moveToken(players.get(0).c, DOWN);
+
+	KeyListener kl = new KeyListener() {
+		public void keyPressed(KeyEvent e) {
+			System.out.print(" + User: " + currentPlayer.c.character + "\n");
+
+			int code = e.getKeyCode();
+			if (code == KeyEvent.VK_RIGHT || code == KeyEvent.VK_KP_RIGHT) {
+				playerSteps += board.moveToken(currentPlayer.c, RIGHT);
+			} else if (code == KeyEvent.VK_LEFT || code == KeyEvent.VK_KP_LEFT) {
+				playerSteps += board.moveToken(currentPlayer.c, LEFT);
+			} else if (code == KeyEvent.VK_UP) {
+				playerSteps += board.moveToken(currentPlayer.c, UP);
+			} else if (code == KeyEvent.VK_DOWN) {
+				playerSteps += board.moveToken(currentPlayer.c, DOWN);
+			}
+			interf.redraw();
 		}
-		interf.redraw();
-	}
 
-	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+		@Override
+		public void keyReleased(KeyEvent arg0) {
+			// TODO Auto-generated method stub
 
-	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
+		}
+
+		@Override
+		public void keyTyped(KeyEvent arg0) {
+			// TODO Auto-generated method stub
+
 		}
 	};
+
+	public void turnComplete() {
+		for (int i = 0; i < players.size(); i++) {
+			Player p = players.get(i);
+
+			if (p.equals(currentPlayer)) {
+
+				if (i < players.size() - 1) {
+					i++;
+					currentPlayer = players.get(i);
+					break;
+				} else {
+					currentPlayer = players.get(0);
+					break;
+				}
+			}
+
+		}
+		playerSteps = 0;
+		System.out.println(currentPlayer.getCharacter());
+	}
+
+	public void diceRoll(int i) {
+		playerRoll = i;
+	}
 }

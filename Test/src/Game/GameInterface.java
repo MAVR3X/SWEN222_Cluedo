@@ -3,15 +3,17 @@ package Game;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -24,9 +26,11 @@ import javax.swing.UIManager;
 
 public class GameInterface extends JFrame implements ActionListener,
 		MouseListener {
-	private static int FRAME_WIDTH = 800;
+	private static int FRAME_WIDTH = 1400;
 	private static int FRAME_HEIGHT = 1000;
-
+	private static int CANVAS_WIDTH = 800;
+	private static int CANVAS_HEIGHT = 800;
+	
 	private CluedoCanvas canvas;
 	private Board board;
 	
@@ -34,9 +38,7 @@ public class GameInterface extends JFrame implements ActionListener,
 
 	public GameInterface(String title, Board board) {
 		super(title);
-
 		this.board = board;
-
 		this.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		this.setResizable(false);
 		setVisible(true);
@@ -45,7 +47,9 @@ public class GameInterface extends JFrame implements ActionListener,
 		addMenu();
 		addCanvas();
 		addInterface();
-
+		addRightInterface();
+		
+		
 		JLabel kitchen = new JLabel("Kitchen");
 		kitchen.setForeground(Color.black);
 		add(kitchen, BorderLayout.CENTER);
@@ -61,16 +65,56 @@ public class GameInterface extends JFrame implements ActionListener,
 
 	}
 
+	private void addRightInterface() {
+		JPanel gui = new JPanel();
+		gui.setBounds(CANVAS_WIDTH, 0, FRAME_WIDTH - CANVAS_WIDTH, FRAME_HEIGHT);
+		gui.setBackground(Color.BLACK);
+		gui.setAlignmentX(RIGHT_ALIGNMENT);
+		
+		gui.setLayout(new BoxLayout(gui,1));
+		
+		JLabel curPlayerLabel = new JLabel(board.getCurrentPlayer() + " Test");
+		
+		gui.add(curPlayerLabel);
+		
+		
+		//Next Player Button
+		//TODO fix this causing the button listener to stop
+		JButton button = new JButton("Turn Complete");
+		button.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				board.turnComplete();
+				repaint();
+			}
+		});
+		gui.add(button);
+		
+		this.add(gui);
+		
+		
+		
+		
+		
+	}
+
 	private void addInterface() {
 		JPanel gui = new JPanel();
-		gui.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+		gui.setBounds(0, CANVAS_HEIGHT, CANVAS_WIDTH, FRAME_HEIGHT - CANVAS_HEIGHT);
 		gui.setBackground(Color.BLACK);
-		this.add(gui, BorderLayout.SOUTH);
+		gui.setLayout(new GridLayout());
+		
+		JButton button = new JButton("Roll Dice");
+		button.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				int i = (int) (Math.random() * 6);
+				board.diceRoll(i);
+			}
+		});
+		
+		this.add(gui);
 
 	}
 
-	private static int CANVAS_WIDTH = FRAME_WIDTH;
-	private static int CANVAS_HEIGHT = 800;
 
 	/**
 	 * Create canvas to draw UI components on the panel.
@@ -220,7 +264,7 @@ public class GameInterface extends JFrame implements ActionListener,
 
 	public void redraw() {
 		canvas.repaint();
-
+		
 	}
 
 

@@ -14,9 +14,10 @@ public class Board {
 	public static final int BOARD_HEIGHT = 26;
 	public static final int BOARD_WIDTH = 27;
 	private Token[][] tokens;
+	private CluedoController controller;
 
-
-	public Board() {
+	public Board(CluedoController cc) {
+		controller = cc;
 		setTokens(new Token[BOARD_HEIGHT][BOARD_WIDTH]);
 	}
 
@@ -275,6 +276,22 @@ public class Board {
 		}
 
 		return boardImage;
+	}
+
+	public void turnComplete() {
+		controller.turnComplete();
+	}
+
+	public String getCurrentPlayer() {
+		if(controller.currentPlayer != null){
+		return controller.currentPlayer.toString();
+		}else {
+			return "";
+		}
+	}
+
+	public void diceRoll(int i) {
+		controller.diceRoll(i);
 	}
 
 }
