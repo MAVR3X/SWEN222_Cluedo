@@ -33,7 +33,7 @@ public class PlayerPanel extends JPanel {
 		g.setFont(font);
 		g.setColor(Color.WHITE);
 		if(getCurrentPlayer() != null){
-			g.drawString("Current Player " + getCurrentPlayer().getCharacter(), 30, 18);
+			g.drawString("Current Player " + getCurrentPlayer().getCharacter(), 30, 10);
 		}
 		drawCards(g);
 	}
