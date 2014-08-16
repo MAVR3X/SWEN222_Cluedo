@@ -30,10 +30,12 @@ public class PlayerPanel extends JPanel {
 		super.paint(g);
 		
 		
+		drawCards(g);
+		
 		
 
 		if (setVisible) {
-			drawCards(g);
+			
 			addButton(g);
 		} else {
 			Font font = new Font("Arial", Font.BOLD, 16);
@@ -60,20 +62,35 @@ public class PlayerPanel extends JPanel {
 	private static int CARD_Y = 20;
 	private static int CARD_SPACING = 10;
 
+	private Image back = CluedoCanvas.loadImage("back.png");
+	
+	
+	
 	private void drawCards(Graphics g) {
 
 		if (getCurrentPlayer() != null) {
 			if (getCurrentPlayer().hand != null) {
 
 				for (int i = 0; i < getCurrentPlayer().hand.size(); i++) {
-					Card c = getCurrentPlayer().hand.get(i);
+					
+					if(setVisible){
+						Card c = getCurrentPlayer().hand.get(i);
 
-					// Draw Surrounding Box
-					g.setColor(Color.GRAY);
-					g.draw3DRect(i * CARD_WIDTH + (i * CARD_SPACING) + CARD_X,
-							CARD_Y, CARD_WIDTH, CARD_HEIGHT, true);
-					g.drawImage(c.cardImage, i * CARD_WIDTH
-							+ (i * CARD_SPACING) + CARD_X, CARD_Y, null, null);
+						// Draw Surrounding Box
+						g.setColor(Color.GRAY);
+						g.draw3DRect(i * CARD_WIDTH + (i * CARD_SPACING) + CARD_X,
+								CARD_Y, CARD_WIDTH, CARD_HEIGHT, true);
+						g.drawImage(c.cardImage, i * CARD_WIDTH
+								+ (i * CARD_SPACING) + CARD_X, CARD_Y, null, null);
+					}
+					else{
+						g.setColor(Color.GRAY);
+						g.draw3DRect(i * CARD_WIDTH + (i * CARD_SPACING) + CARD_X,
+								CARD_Y, CARD_WIDTH, CARD_HEIGHT, true);
+						g.drawImage(back, i * CARD_WIDTH
+								+ (i * CARD_SPACING) + CARD_X, CARD_Y, null, null);
+					}
+					
 
 				}
 			}
