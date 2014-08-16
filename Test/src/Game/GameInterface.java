@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -124,6 +125,14 @@ public class GameInterface extends JFrame implements ActionListener,
 		    	gui.setVisible = false;
 		    	gui.repaint();
 		    }
+		    public void mouseClicked(MouseEvent e){
+		    	Point loc = e.getLocationOnScreen();
+				if(loc.x > 1027 && loc.x < 1180){
+					if(loc.y > 870 && loc.y < 910){
+						board.makeSuggestion();
+					}
+				}
+		    }
 		});
 		
 		JButton button = new JButton("Make Accusation");
@@ -203,9 +212,9 @@ public class GameInterface extends JFrame implements ActionListener,
 	
 	
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
+	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override

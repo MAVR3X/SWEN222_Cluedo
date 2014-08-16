@@ -52,7 +52,9 @@ public class PlayerPanel extends JPanel {
 	}
 
 	private void addButton(Graphics g) {
-		// TODO Auto-generated method stub
+		//System.out.println("yup");
+		g.setColor(Color.black);
+		g.fillRect(600, 20, 150, 35);
 
 	}
 
