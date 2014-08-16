@@ -96,15 +96,15 @@ public class Card {
 			if (character == Character.Colonel_Mustard) {
 				return CluedoCanvas.loadImage("colonelmustard.png");
 			} else if (character == Character.Miss_Scarlett) {
-				return CluedoCanvas.loadImage("missscarlett.png");
+				return CluedoCanvas.loadImage("mrsscarlett.png");
 			} else if (character == Character.Mrs_Peacock) {
 				return CluedoCanvas.loadImage("mrspeacock.png");
 			} else if (character == Character.Mrs_White) {
-				return CluedoCanvas.loadImage("mrswhite.png");
+				return CluedoCanvas.loadImage("white.png");
 			} else if (character == Character.Professor_Plum) {
 				return CluedoCanvas.loadImage("professorplum.png");
 			} else if (character == Character.The_Reverend_Green) {
-				return CluedoCanvas.loadImage("thereverendgreen.png");
+				return CluedoCanvas.loadImage("reverendgreen.png");
 			}
 		}
 		if (type == Type.Weapon) {
@@ -131,7 +131,7 @@ public class Card {
 			} else if (room == Room.Billiard_Room) {
 				return CluedoCanvas.loadImage("billiardroom.png");
 			} else if (room == Room.Conservatory) {
-				return CluedoCanvas.loadImage("convservatory.png");
+				return CluedoCanvas.loadImage("conservatory.png");
 			} else if (room == Room.DiningRoom) {
 				return CluedoCanvas.loadImage("diningroom.png");
 			} else if (room == Room.Hall) {
