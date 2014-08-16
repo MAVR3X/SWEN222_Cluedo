@@ -342,4 +342,9 @@ public class Board {
 		}
 		return Card.Room.NULL;
 	}
+
+	public void makeAccusation() {
+		controller.makeAccusation();
+
+	}
 }
