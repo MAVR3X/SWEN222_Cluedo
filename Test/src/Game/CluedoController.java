@@ -317,6 +317,8 @@ public class CluedoController {
 
 	}
 
+
+
 	public void displayCard(Player playerToCheck, Card c) {
 		ImageIcon icon = new ImageIcon();
 		icon.setImage(c.cardImage);
