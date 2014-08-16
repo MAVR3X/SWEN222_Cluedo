@@ -26,22 +26,22 @@ public class PlayerPanel extends JPanel {
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
-		g.setColor(new Color(0, 105, 61));
-		g.fillRect(0, 0, 20, 20);
-
 		g.setColor(Color.black);
 
 		Font font = new Font("Arial", Font.BOLD, 16);
 
 		g.setFont(font);
-		g.drawString("Current Player", 30, 30);
+		g.setColor(Color.WHITE);
+		if(getCurrentPlayer() != null){
+			g.drawString("Current Player " + getCurrentPlayer().getCharacter(), 30, 18);
+		}
 		drawCards(g);
 	}
 
 	private static int CARD_WIDTH = 80;
 	private static int CARD_HEIGHT = 120;
 	private static int CARD_X = 50;
-	private static int CARD_Y = 30;
+	private static int CARD_Y = 20;
 	private static int CARD_SPACING = 10;
 
 	private void drawCards(Graphics g) {
@@ -49,13 +49,15 @@ public class PlayerPanel extends JPanel {
 		if (getCurrentPlayer() != null) {
 			if (getCurrentPlayer().hand != null) {
 
+
 				for (int i = 0; i < getCurrentPlayer().hand.size(); i++) {
-					getCurrentPlayer().hand.get(i);
+					Card c = getCurrentPlayer().hand.get(i);
 
 					// Draw Surrounding Box
 					g.setColor(Color.GRAY);
 					g.draw3DRect(i * CARD_WIDTH + (i * CARD_SPACING) + CARD_X, CARD_Y,
 							CARD_WIDTH, CARD_HEIGHT, true);
+					g.drawImage(c.cardImage, i * CARD_WIDTH + (i * CARD_SPACING) + CARD_X, CARD_Y, null,null);
 
 				}
 			}
