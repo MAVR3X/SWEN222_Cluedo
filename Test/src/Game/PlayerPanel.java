@@ -36,6 +36,13 @@ public class PlayerPanel extends JPanel {
 			g.drawString("Current Player " + getCurrentPlayer().getCharacter(), 30, 10);
 		}
 		drawCards(g);
+		addButton(g);
+
+	}
+
+	private void addButton(Graphics g) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	private static int CARD_WIDTH = 80;
@@ -69,9 +76,5 @@ public class PlayerPanel extends JPanel {
 		return board.getCurrentPlayerObject();
 	}
 
-	private static Image loadImage(String string) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

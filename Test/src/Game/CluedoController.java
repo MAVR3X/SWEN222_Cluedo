@@ -203,4 +203,9 @@ public class CluedoController {
 		playerRoll = i;
 		interf.requestFocus();
 	}
+
+	public void makeSuggestion() {
+		// TODO Auto-generated method stub
+
+	}
 }

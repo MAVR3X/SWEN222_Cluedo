@@ -298,4 +298,8 @@ public class Board {
 		controller.diceRoll(i);
 	}
 
+	public void makeSuggestion() {
+		controller.makeSuggestion();
+	}
+
 }

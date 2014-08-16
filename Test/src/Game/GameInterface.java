@@ -92,6 +92,14 @@ public class GameInterface extends JFrame implements ActionListener,
 			}
 		});
 		gui.add(button);
+		//TODO fix this causing the button listener to stop
+		button = new JButton("Make Suggestion");
+				button.addActionListener(new ActionListener(){
+					public void actionPerformed(ActionEvent e){
+						board.makeSuggestion();
+					}
+				});
+		gui.add(button);
 
 		this.add(gui);
 
@@ -103,15 +111,28 @@ public class GameInterface extends JFrame implements ActionListener,
 		PlayerPanel gui = new PlayerPanel(board);
 		gui.setBounds(0, CANVAS_HEIGHT, CANVAS_WIDTH, FRAME_HEIGHT - CANVAS_HEIGHT);
 		gui.setBackground((new Color(0, 105,61)));
-		JButton button = new JButton("Roll Dice");
+		gui.setLayout(null);
+
+		JButton button = new JButton("Make Accusation");
+		button.setBounds(20, 20, 40, 15);
 		button.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				int i = (int) (Math.random() * 6);
 				board.diceRoll(i);
 			}
 		});
-		//gui.add(button);
+
+		JButton bn = new JButton("Roll? Dice");
+		bn.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				int i = (int) (Math.random() * 6);
+				board.diceRoll(i);
+			}
+		});
+		gui.add(bn);
 		this.add(gui);
+		gui.repaint();
+
 	}
 
 
