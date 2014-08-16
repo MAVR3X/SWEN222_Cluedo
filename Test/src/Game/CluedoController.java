@@ -6,6 +6,7 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
@@ -273,26 +274,54 @@ public class CluedoController {
 	 */
 	private void makeSuggestion(Room room, Character character, Weapon weapon) {
 
+		System.out.println("Checking Suggestion");
 		// Iterate each player
+		boolean isValid = true;
 		int curPlayerPos = players.indexOf(currentPlayer);
 		int i = curPlayerPos + 1;
 
 		for (; i < players.size(); i++) {
 			Player playerToCheck = players.get(i);
+			System.out.println("Checking " + playerToCheck.c.character);
 			for (Card card : playerToCheck.hand) {
-				if (card.equals(room) || card.equals(character)
-						|| card.equals(weapon)) {
-					displayCard(card);
+				if (card.room.equals(room) || card.character.equals(character)|| card.weaponType.equals(weapon)) {
+					displayCard(playerToCheck, card);
+					isValid = false;
+					return;
 				}
 
 			}
+		}
+
+		i = 0;
+		//Same for lower players
+		for (; i < curPlayerPos; i++) {
+			Player playerToCheck = players.get(i);
+			for (Card card : playerToCheck.hand) {
+				if (card.room.equals(room) || card.character.equals(character)|| card.weaponType.equals(weapon)) {
+					displayCard(playerToCheck, card);
+					isValid = false;
+					return;
+				}
+
+			}
+		}
+
+		if(!isValid){
+			System.out.println("Not Valid");
 
 		}
+
+
+		System.out.println("Finished Checking Suggestions");
+
 	}
 
-	public void displayCard(Card c) {
-		JOptionPane.showMessageDialog(interf,
-				"Card matches: ");
+	public void displayCard(Player playerToCheck, Card c) {
+		ImageIcon icon = new ImageIcon();
+		icon.setImage(c.cardImage);
+
+		JOptionPane.showMessageDialog(null, playerToCheck.getCharacter() + " has a conflicting card", "Conflicting Card Found",JOptionPane.INFORMATION_MESSAGE, icon);
 	}
 
 }
