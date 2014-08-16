@@ -16,6 +16,8 @@ public class PlayerPanel extends JPanel {
 
 	Board board;
 
+	Boolean setVisible = false;
+
 	JTabbedPane infoTabs;
 
 	public PlayerPanel(Board bd) {
@@ -26,23 +28,30 @@ public class PlayerPanel extends JPanel {
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
-		g.setColor(Color.black);
+		
+		
+		
 
-		Font font = new Font("Arial", Font.BOLD, 16);
+		if (setVisible) {
+			drawCards(g);
+			addButton(g);
+		} else {
+			Font font = new Font("Arial", Font.BOLD, 16);
 
-		g.setFont(font);
-		g.setColor(Color.WHITE);
-		if(getCurrentPlayer() != null){
-			g.drawString("Current Player " + getCurrentPlayer().getCharacter(), 30, 10);
+			g.setFont(font);
+			g.setColor(Color.WHITE);
+			if (getCurrentPlayer() != null) {
+				g.drawString("Current Player "
+						+ getCurrentPlayer().getCharacter(), 30, 30);
+			}
+
 		}
-		drawCards(g);
-		addButton(g);
 
 	}
 
 	private void addButton(Graphics g) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	private static int CARD_WIDTH = 80;
@@ -56,15 +65,15 @@ public class PlayerPanel extends JPanel {
 		if (getCurrentPlayer() != null) {
 			if (getCurrentPlayer().hand != null) {
 
-
 				for (int i = 0; i < getCurrentPlayer().hand.size(); i++) {
 					Card c = getCurrentPlayer().hand.get(i);
 
 					// Draw Surrounding Box
 					g.setColor(Color.GRAY);
-					g.draw3DRect(i * CARD_WIDTH + (i * CARD_SPACING) + CARD_X, CARD_Y,
-							CARD_WIDTH, CARD_HEIGHT, true);
-					g.drawImage(c.cardImage, i * CARD_WIDTH + (i * CARD_SPACING) + CARD_X, CARD_Y, null,null);
+					g.draw3DRect(i * CARD_WIDTH + (i * CARD_SPACING) + CARD_X,
+							CARD_Y, CARD_WIDTH, CARD_HEIGHT, true);
+					g.drawImage(c.cardImage, i * CARD_WIDTH
+							+ (i * CARD_SPACING) + CARD_X, CARD_Y, null, null);
 
 				}
 			}
@@ -75,6 +84,5 @@ public class PlayerPanel extends JPanel {
 	private Player getCurrentPlayer() {
 		return board.getCurrentPlayerObject();
 	}
-
 
 }

@@ -9,6 +9,7 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.font.TextAttribute;
@@ -106,13 +107,25 @@ public class GameInterface extends JFrame implements ActionListener,
 
 	}
 
+	PlayerPanel gui;
+	
 	private void addLowerInterface() {
-		//PlayerPanel gui = new PlayerPanel();
-		PlayerPanel gui = new PlayerPanel(board);
+		gui = new PlayerPanel(board);
 		gui.setBounds(0, CANVAS_HEIGHT, CANVAS_WIDTH, FRAME_HEIGHT - CANVAS_HEIGHT);
 		gui.setBackground((new Color(0, 105,61)));
 		gui.setLayout(null);
 
+		gui.addMouseListener(new MouseAdapter() {
+		    public void mouseEntered(MouseEvent e) {
+		        gui.setVisible = true;
+		        gui.repaint();
+		    }
+		    public void mouseExited(MouseEvent e) {
+		    	gui.setVisible = false;
+		    	gui.repaint();
+		    }
+		});
+		
 		JButton button = new JButton("Make Accusation");
 		button.setBounds(20, 20, 40, 15);
 		button.addActionListener(new ActionListener(){
@@ -186,6 +199,9 @@ public class GameInterface extends JFrame implements ActionListener,
 		}
 	}
 
+	
+	
+	
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
@@ -193,13 +209,13 @@ public class GameInterface extends JFrame implements ActionListener,
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent arg0) {
+	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void mouseExited(MouseEvent arg0) {
+	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
 
 	}
