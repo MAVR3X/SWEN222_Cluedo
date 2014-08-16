@@ -29,7 +29,7 @@ public class CluedoController {
 
 	Player currentPlayer;
 	int playerSteps = 0;
-	int playerRoll = 6;
+	int playerRoll = -1;
 
 	private static Card solutionCharacter;
 	private static Card solutionWeapon;
@@ -168,14 +168,21 @@ public class CluedoController {
 	KeyListener kl = new KeyListener() {
 		public void keyPressed(KeyEvent e) {
 
-			//System.out.print(" + User: " + currentPlayer.c.character + "\n");
+			// System.out.print(" + User: " + currentPlayer.c.character + "\n");
 
-			if(playerSteps == playerRoll){
+			if (playerSteps == playerRoll) {
 				JOptionPane.showMessageDialog(null, "You are out of moves. ");
 			}
 
+			if(playerRoll == -1){
+				JOptionPane.showMessageDialog(null,
+						"Please roll the dice before starting your turn");
+				return;
+			}
 
-			Point currentPosition = board.findTokenPosition(currentPlayer.getCharacter());
+
+			Point currentPosition = board.findTokenPosition(currentPlayer
+					.getCharacter());
 
 			int code = e.getKeyCode();
 			int newStep = 0;
@@ -189,21 +196,21 @@ public class CluedoController {
 				newStep += board.moveToken(currentPlayer.c, DOWN);
 			}
 
-			if((playerSteps + newStep) > playerRoll){
-				//Move player back
-				Point newPosition = board.findTokenPosition(currentPlayer.getCharacter());
+			if ((playerSteps + newStep) > playerRoll) {
+				// Move player back
+				Point newPosition = board.findTokenPosition(currentPlayer
+						.getCharacter());
 				board.moveToken(newPosition, currentPosition);
-			}else if((playerSteps + newStep) == playerRoll){
+			} else if ((playerSteps + newStep) == playerRoll) {
 				playerSteps += newStep;
-				//Prompt that they're out of moves
+				// Prompt that they're out of moves
 				interf.redraw();
 				JOptionPane.showMessageDialog(null, "You are out of moves. ");
-			}else{
-				//Moved successfully
+			} else {
+				// Moved successfully
 				playerSteps += newStep;
 				interf.redraw();
 			}
-
 
 		}
 
@@ -248,11 +255,19 @@ public class CluedoController {
 
 		}
 
+		playerRoll = -1;
 		playerSteps = 0;
 		System.out.println(currentPlayer.getCharacter());
 	}
 
 	public void diceRoll(int i) {
+		if (playerRoll != -1) {
+			JOptionPane.showMessageDialog(null,
+					"You can only roll the dice once per turn");
+			return;
+		}
+		System.out.println("Rolled a " + i);
+
 		playerRoll = i;
 		interf.requestFocus();
 	}
@@ -302,7 +317,7 @@ public class CluedoController {
 
 		System.out.println(character + " : " + weapon + " : " + room);
 
-		if(currentPlayer.c.character != character){
+		if (currentPlayer.c.character != character) {
 			moveCharacterTo(room, character);
 		}
 		makeSuggestion(room, character, weapon);
