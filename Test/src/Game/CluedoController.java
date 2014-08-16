@@ -197,22 +197,32 @@ public class CluedoController {
 
 	public void turnComplete() {
 		interf.requestFocus();
-		for (int i = 0; i < players.size(); i++) {
-			Player p = players.get(i);
 
+		//Build array of remaining players
+		ArrayList<Player> remainingPlayers = new ArrayList<Player>();
+		for(Player p : players){
+			if(!p.hasLost || currentPlayer == p){
+				remainingPlayers.add(p);
+			}
+		}
+
+		//Find new current player
+		for (int i = 0; i < remainingPlayers.size(); i++) {
+			Player p = remainingPlayers.get(i);
 			if (p.equals(currentPlayer)) {
 
-				if (i < players.size() - 1) {
+				if (i < remainingPlayers.size() - 1) {
 					i++;
-					currentPlayer = players.get(i);
+					currentPlayer = remainingPlayers.get(i);
 					break;
 				} else {
-					currentPlayer = players.get(0);
+					currentPlayer = remainingPlayers.get(0);
 					break;
 				}
 			}
 
 		}
+
 		playerSteps = 0;
 		System.out.println(currentPlayer.getCharacter());
 	}
@@ -337,12 +347,8 @@ public class CluedoController {
 		//Verify they want to accuse
 		//Use of JRadioButton
 		if (!confirmAccusation()){
-
-
+			return;
 		}
-
-
-
 
 		// Get Room
 				Game.Card.Room[] roomPosibilities = Arrays.copyOfRange(
@@ -372,31 +378,42 @@ public class CluedoController {
 
 		System.out.println(character + " : " + weapon + " : " + room);
 
-		makeSuggestion(room, character, weapon);
+		makeAccusation(room, character, weapon);
 
 
 	}
 
 
+	private void makeAccusation(Room room, Character character, Weapon weapon) {
+
+		//Correct
+		if(solutionWeapon.weaponType == weapon && solutionCharacter.character == character && solutionRoom.room == room){
+			JOptionPane.showMessageDialog(null, currentPlayer.name + " wins! With the guess: " + character + " in the " + room + " with the " + weapon);
+			JOptionPane.showMessageDialog(null, "Thanks for playing. Credits: Isaac, Mike");
+			System.exit(1);
+
+		}else{
+			JOptionPane.showMessageDialog(null, currentPlayer.name + " loses! The guess: " + character + " in the " + room + " with the " + weapon + " was WRONG! ");
+			removePlayer();
+		}
+	}
+
+	private void removePlayer() {
+		currentPlayer.hasLost = true;
+		turnComplete();
+
+	}
+
 	public boolean confirmAccusation(){
 
-		JRadioButton yes, no;
-		JFrame frame = new JFrame("Confirm accusation");
-		JPanel panel = new JPanel();
-		ButtonGroup buttonGroup = new ButtonGroup();
-		yes = new JRadioButton("Yes, accuse");
-		buttonGroup.add(yes);
-		panel.add(yes);
+		int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to accuse someone? You will die a painful death if you are incorrect", "Confirm Accusation", JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+          return true;
+        }
+        else {
+           return false;
+        }
 
-		no = new JRadioButton("No, don't accuse");
-		buttonGroup.add(no);
-		panel.add(no);
-		no.setSelected(true);
-
-
-		//JOptionPane.showMessageDialog( " ");
-
-		return true;
 	}
 
 

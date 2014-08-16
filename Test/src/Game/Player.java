@@ -9,6 +9,8 @@ public class Player {
 
 	ArrayList<Card> hand = new ArrayList<Card>();
 	Card c;
+	public String name = "Sir Mixalot";
+	public boolean hasLost = false;;
 
 	public Player(Card character) {
 		this.c = character;
@@ -38,7 +40,7 @@ public class Player {
 		return "Player [hand=" + hand + ", character=" + c.character + "]";
 	}
 
-	
+
 	public Character getCharacter(){
 		return c.character;
 	}
@@ -59,6 +61,6 @@ public class Player {
 			return false;
 		return true;
 	}
-	
-	
+
+
 }
