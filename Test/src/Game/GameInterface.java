@@ -102,7 +102,7 @@ public class GameInterface extends JFrame implements ActionListener,
 		//PlayerPanel gui = new PlayerPanel();
 		PlayerPanel gui = new PlayerPanel(board);
 		gui.setBounds(0, CANVAS_HEIGHT, CANVAS_WIDTH, FRAME_HEIGHT - CANVAS_HEIGHT);
-		gui.setBackground(Color.BLACK);
+		gui.setBackground((new Color(0, 105,61)));
 		JButton button = new JButton("Roll Dice");
 		button.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
