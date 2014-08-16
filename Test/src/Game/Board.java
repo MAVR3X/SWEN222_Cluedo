@@ -51,7 +51,7 @@ public class Board {
 
 	/**
 	 * Find a tokens position from a card
-	 * 
+	 *
 	 * @param c
 	 *            Card of token
 	 * @return X/Y of token
@@ -117,7 +117,7 @@ public class Board {
 	public static final Point CONSERVATORY = new Point(23, 5);
 
 	/**
-	 * 
+	 *
 	 * @return 0, if not valid move, 0 if moving within a room, 1 if moving in
 	 *         hallway, 6 if used passage
 	 */
@@ -238,7 +238,7 @@ public class Board {
 
 	/**
 	 * Helper method to move Token from old Point to New Point
-	 * 
+	 *
 	 * @param oldP
 	 * @param newP
 	 */
@@ -249,7 +249,7 @@ public class Board {
 
 	/**
 	 * Loads a 2D array of integers from a file
-	 * 
+	 *
 	 * @param filename
 	 * @return 2D array of int
 	 */
@@ -288,6 +288,10 @@ public class Board {
 		}else {
 			return "";
 		}
+	}
+
+	public Player getCurrentPlayerObject() {
+		return controller.currentPlayer;
 	}
 
 	public void diceRoll(int i) {

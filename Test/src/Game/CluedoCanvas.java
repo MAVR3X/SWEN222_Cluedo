@@ -46,7 +46,7 @@ public class CluedoCanvas extends JPanel{
 //
 //		for(String pf : preferredFonts) {
 //			if(availableNames.contains(pf)) {				
-//				font = new Font(pf,Font.BOLD,16);
+//				font = new Font(pf,Font.BOLD,16);		gui.setLayout(new GridLayout());
 //				break;
 //				
 //			}

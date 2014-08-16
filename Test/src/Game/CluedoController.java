@@ -44,7 +44,7 @@ public class CluedoController {
 
 	/**
 	 * Allocate cards to players, call display for remaining cards.
-	 * 
+	 *
 	 * @author isaac
 	 */
 	private void allocateCards() {
@@ -65,9 +65,9 @@ public class CluedoController {
 	/**
 	 * Using number of possible cards of each type select 3 of each type and
 	 * remove from list and add to solution fields.
-	 * 
+	 *
 	 * Dynamic - Handles adding new cards of any type
-	 * 
+	 *
 	 * @Author: Isaac
 	 */
 	private void selectSolution() {
@@ -91,7 +91,7 @@ public class CluedoController {
 
 	/**
 	 * Create the list of players
-	 * 
+	 *
 	 */
 	public void createPlayers() {
 		players = new ArrayList<Player>();
@@ -100,9 +100,9 @@ public class CluedoController {
 
 	/**
 	 * Create deck by creating an instance of each card type.
-	 * 
+	 *
 	 * Dynamic to allow for the addition of new cards of any type.
-	 * 
+	 *
 	 * @Author: Isaac
 	 */
 	private void createCards() {
@@ -196,9 +196,11 @@ public class CluedoController {
 		}
 		playerSteps = 0;
 		System.out.println(currentPlayer.getCharacter());
+		interf.requestFocus();
 	}
 
 	public void diceRoll(int i) {
 		playerRoll = i;
+		interf.requestFocus();
 	}
 }
