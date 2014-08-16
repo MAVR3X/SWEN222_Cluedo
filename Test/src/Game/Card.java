@@ -2,6 +2,12 @@ package Game;
 
 import java.awt.Image;
 
+/**
+ * Wrapper class for card types. Non-unique fields utilise static enums.
+ *
+ * Each type prefixed with NULL enum to ensure only a single state is possible while
+ * ignoring Type enum
+ */
 public class Card {
 	public static enum Type {
 		Character, Weapon, Room
