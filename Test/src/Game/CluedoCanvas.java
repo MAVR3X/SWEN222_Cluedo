@@ -25,10 +25,10 @@ public class CluedoCanvas extends JPanel{
 	private static int WINDOW_WIDTH;
 	private static int WINDOW_HEIGHT;
 	private static int SQUARE_SIZE;
-	
+
 	private final Board board;
-	
-	
+
+	//Test
 	public CluedoCanvas(int width, int height, Board board){
 		super();
 		this.board = board;
@@ -36,31 +36,31 @@ public class CluedoCanvas extends JPanel{
 		WINDOW_HEIGHT = height;
 		//SQUARE_SIZE = Math.min(width/26, height/27);
 		SQUARE_SIZE = 30;
-		
-//		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();		
+
+//		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
 //		HashSet<String> availableNames = new HashSet();
 //
 //		for(String name : env.getAvailableFontFamilyNames()) {
-//			availableNames.add(name);			
+//			availableNames.add(name);
 //		}
 //
 //		for(String pf : preferredFonts) {
-//			if(availableNames.contains(pf)) {				
+//			if(availableNames.contains(pf)) {
 //				font = new Font(pf,Font.BOLD,16);		gui.setLayout(new GridLayout());
 //				break;
-//				
+//
 //			}
 //		}
-		
+
 		font = new Font("Arial",Font.BOLD,16);
-		
-		
-		
+
+
+
 	}
-	
+
 //	private static final String[] preferredFonts = {"Arial","Courier New","Times New Roman"};
-	private Font font;	
-	
+	private Font font;
+
 	@Override
 	public void paint(Graphics g){
 		super.paint(g);
@@ -77,23 +77,23 @@ public class CluedoCanvas extends JPanel{
 				}
 			}
 		}
-		
+
 	drawLabels(g);
-		
+
 	drawTokens(g);
-	
-		
+
+
 	}
-	
+
 	private void drawLabels(Graphics g) {
 		g.setColor(Color.black);
-		
+
 		HashMap <TextAttribute, Object> attrs = new HashMap<TextAttribute, Object>();
 		attrs.put(TextAttribute.TRACKING, 0.5);
 		font = font.deriveFont(attrs);
-		
+
 		g.setFont(font);
-		
+
 		g.drawString("KITCHEN", 60, 150);
 		g.drawString("BALL ROOM", 310, 180);
 		g.drawString("DINING ROOM", 50, 420);
@@ -103,13 +103,13 @@ public class CluedoCanvas extends JPanel{
 		g.drawString("LOUNGE", 80, 700);
 		g.drawString("HALL", 357, 660);
 		g.drawString("STUDY", 610, 730);
-		
+
 		attrs = new HashMap<TextAttribute, Object>();
 		attrs.put(TextAttribute.TRACKING, 0.1);
 		font = font.deriveFont(attrs);
-		
+
 		g.setFont(font);
-		
+
 		g.drawString("CONSERVATORY", 585, 130);
 	}
 
@@ -118,9 +118,9 @@ public class CluedoCanvas extends JPanel{
 	private static int CARD_WIDTH = 30;
 	private static int CARD_X = 300;
 	private static int NAME_HEIGHT = 30;
-	
-	
-	
+
+
+
 	/**
 	 * Draw backgrounds of interface sections
 	 * @param g graphics item to draw on
@@ -129,30 +129,30 @@ public class CluedoCanvas extends JPanel{
 		//Draw Board square
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, WINDOW_WIDTH, BOARD_HEIGHT);
-		
+
 		//Interface square
 		g.setColor(new Color(50,50,50));
 		g.fillRect(0, BOARD_HEIGHT, WINDOW_WIDTH, BOARD_HEIGHT);
-		
-		
+
+
 		//Draw dice area
 		g.setColor(Color.WHITE);
 		g.fillRect(DICE_SIZE,  BOARD_HEIGHT + DICE_SIZE, DICE_SIZE * 5, DICE_SIZE * 2);
-		
+
 		//Play name section
 		g.setColor(new Color(25,25,25));
 		g.fillRect(0,  BOARD_HEIGHT - (NAME_HEIGHT/ 2), WINDOW_WIDTH, NAME_HEIGHT);
-		
+
 		//Cards
 		g.setColor(Color.WHITE);
-		int cardSectionHeight = BOARD_HEIGHT + ((WINDOW_HEIGHT - BOARD_HEIGHT) / 2) - (CARD_HEIGHT / 2); 
+		int cardSectionHeight = BOARD_HEIGHT + ((WINDOW_HEIGHT - BOARD_HEIGHT) / 2) - (CARD_HEIGHT / 2);
 		g.fillRect(CARD_X, cardSectionHeight, CARD_WIDTH * 5, CARD_HEIGHT + 5);
-		
-		
+
+
 	}
-	
+
 	private static final String IMAGE_PATH = "Images/";
-	
+
 	private static final Image Tile = loadImage("Tile.png");
 	private static final Image Room_Tile = loadImage("RmT.png");
 	private static final Image Room_Wall = loadImage("RmW.png");
@@ -168,7 +168,7 @@ public class CluedoCanvas extends JPanel{
 	private static final Image External_Wall_U = loadImage("EWU.png");
 	private static final Image External_Double_Point = loadImage("DP.png");
 	private static final Image Transparent = loadImage("N.png");
-	
+
 	private static final Image[] squares = {
 		Tile,								//0 - Common floor tile
 		Room_Tile,							//1 - Common room tile
@@ -216,16 +216,16 @@ public class CluedoCanvas extends JPanel{
 		rotate(External_Double_Point, -90),	//43 - External Double point down
 		Transparent							//44 - Transparent Tile
 	};
-	
-	
+
+
 	int [][] boardImage = loadBoardImage("boardImage.txt");
-	
-	
-	
-	
+
+
+
+
 	/**
 	 * Load an image from the file system, using a given filename.
-	 * 
+	 *
 	 * @param filename
 	 * @return
 	 */
@@ -247,7 +247,7 @@ public class CluedoCanvas extends JPanel{
 		}
 	}
 
-	
+
 
 	/**
 	 * Rotate an image a given number of degrees.
@@ -257,34 +257,34 @@ public class CluedoCanvas extends JPanel{
 	 */
 	public static Image rotate(Image src, double angle) {
 		int width = src.getWidth(null);
-		int height = src.getHeight(null);		
+		int height = src.getHeight(null);
 		BufferedImage img = new BufferedImage(width,height,BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = img.createGraphics();
-		g.rotate(Math.toRadians(angle), width/2, height/2);	
+		g.rotate(Math.toRadians(angle), width/2, height/2);
 		g.drawImage(src,0,0,width,height,null);
 		g.dispose();
 		return img;
 	}
-	
+
 	/**
 	 * Loads a 2D array of integers from a file
 	 * @param filename
 	 * @return 2D array of int
 	 */
 	private int[][] loadBoardImage(String filename){
-		
+
 		int[][] boardImage = new int[26][27];
-		
+
 		try{
-			FileReader fr = new FileReader(filename);		
+			FileReader fr = new FileReader(filename);
 			BufferedReader br = new BufferedReader(fr);
 			String line;
-		
+
 			for(int y=0; y<27; y++){
 				line = br.readLine();
 				String[] values = line.split("\t");
 				for(int x=0; x<26; x++){
-					
+
 					boardImage[x][y] = Integer.parseInt(values[x]);
 				}
 			}
@@ -294,17 +294,17 @@ public class CluedoCanvas extends JPanel{
 			System.out.println("I/O error: " + e.getMessage());
 			System.exit(1);
 		}
-		
+
 		return boardImage;
 	}
-	
+
 private static final Image mustard = loadImage("mustard.png");
 private static final Image green = loadImage("green.png");
 private static final Image white = loadImage("white.png");
 private static final Image scarlett = loadImage("scarlett.png");
 private static final Image plum = loadImage("plum.png");
 private static final Image peacock = loadImage("peacock.png");
-	
+
 	private static final Image[] tokenImages = {
 		mustard,
 		scarlett,
@@ -313,12 +313,12 @@ private static final Image peacock = loadImage("peacock.png");
 		peacock,
 		plum
 	};
-	
+
 	private void drawTokens(Graphics g){
 		for(int x=0; x<26; x++){
 			for(int y=0; y<27; y++){
 				if(board.getTokens()[x][y] != null){
-					
+
 						switch(((PlayerToken) board.getTokens()[x][y]).getCharacter()){
 						case Colonel_Mustard:
 							g.drawImage(tokenImages[0], x*SQUARE_SIZE, y*SQUARE_SIZE, null, null);
@@ -340,13 +340,13 @@ private static final Image peacock = loadImage("peacock.png");
 							break;
 						default:
 							break;
-						
+
 					}
 				}
 			}
 		}
-		
+
 	}
-	
+
 
 }
