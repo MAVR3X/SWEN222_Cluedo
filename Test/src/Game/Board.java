@@ -188,21 +188,25 @@ public class Board {
 				switch (newTile) {
 				case 100: // Kitchen passage to Study (Go to point 23, 22)
 					newPos = STUDY;
+					if (tokens[newPos.x][newPos.y] != null) return 0; // Something already occupying space
 					moveToken(currentPos, newPos);
 					return 6;
 
 				case 300: // Conservatory passage to Lounge (Go to point 1, 21)
 					newPos = LOUNGE;
+					if (tokens[newPos.x][newPos.y] != null) return 0; // Something already occupying space
 					moveToken(currentPos, newPos);
 					return 6;
 
 				case 600: // Study passage to Kitchen (Go to point 5, 2)
 					newPos = KITCHEN;
+					if (tokens[newPos.x][newPos.y] != null) return 0; // Something already occupying space
 					moveToken(currentPos, newPos);
 					return 6;
 
 				case 800: // Lounge passage to Conservatory (Go to point 23, 5)
 					newPos = CONSERVATORY;
+					if (tokens[newPos.x][newPos.y] != null) return 0; // Something already occupying space
 					moveToken(currentPos, newPos);
 					return 6;
 
