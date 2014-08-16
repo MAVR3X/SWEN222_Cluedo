@@ -23,6 +23,11 @@ public class Board {
 		setTokens(new Token[BOARD_HEIGHT][BOARD_WIDTH]);
 	}
 
+
+	/**
+	 * Place initial character tokens
+	 * @param cards
+	 */
 	public void generateTokens(ArrayList<Card> cards) {
 		for (Card c : cards) {
 			switch (c.character) {
@@ -315,6 +320,11 @@ public class Board {
 
 	}
 
+	/**
+	 * Return room type of boardPaths
+	 * @param posType
+	 * @return
+	 */
 	public Room getRoom(int posType) {
 		if (posType == 1) {
 			return Card.Room.Kitchen;
@@ -351,6 +361,11 @@ public class Board {
 
 	}
 
+/**
+ * Get character's token's x/y coordinates on grid.
+ * @param character
+ * @return x/y of character's token on board
+ */
 	public Point findTokenPosition(Character character) {
 		for (int x = 0; x < BOARD_WIDTH; x++) {
 			for (int y = 0; y < BOARD_HEIGHT; y++) {
