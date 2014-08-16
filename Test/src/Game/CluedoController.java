@@ -260,7 +260,6 @@ public class CluedoController {
 
 		playerRoll = -1;
 		playerSteps = 0;
-		System.out.println(currentPlayer.getCharacter());
 	}
 
 	/**
@@ -291,7 +290,6 @@ public class CluedoController {
 	public void makeSuggestion() {
 		interf.requestFocus();
 
-		System.out.println("Making Suggestion");
 		Card.Room room;
 		Card.Weapon weapon;
 		Card.Character character;
@@ -329,8 +327,6 @@ public class CluedoController {
 				UIManager.getIcon("OptionPane.informationIcon"),
 				carPosibilities, carPosibilities[0]);
 
-		System.out.println(character + " : " + weapon + " : " + room);
-
 		if (currentPlayer.c.character != character) {
 			moveCharacterTo(room, character);
 		}
@@ -348,7 +344,6 @@ public class CluedoController {
 	 */
 	private void makeSuggestion(Room room, Character character, Weapon weapon) {
 
-		System.out.println("Checking Suggestion");
 		// Iterate each player
 		boolean isValid = true;
 		int curPlayerPos = players.indexOf(currentPlayer);
@@ -359,7 +354,6 @@ public class CluedoController {
 		for (; i < players.size(); i++) {
 
 			Player playerToCheck = players.get(i);
-			System.out.println("Checking " + playerToCheck.c.character);
 
 			for (Card card : playerToCheck.hand) {
 
@@ -407,7 +401,7 @@ public class CluedoController {
 	 * weapon and character from player and call makeAccusation()
 	 */
 	public void makeAccusation() {
-		System.out.println("Making Accusation");
+
 		Card.Room room;
 		Card.Weapon weapon;
 		Card.Character character;
@@ -444,7 +438,6 @@ public class CluedoController {
 				UIManager.getIcon("OptionPane.informationIcon"),
 				carPosibilities, carPosibilities[0]);
 
-		System.out.println(character + " : " + weapon + " : " + room);
 
 		makeAccusation(room, character, weapon);
 
