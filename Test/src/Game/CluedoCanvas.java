@@ -18,7 +18,9 @@ import javax.swing.JPanel;
 
 import Tokens.PlayerToken;
 
-
+/**
+ * Custom canvas for board + token drawing
+ */
 public class CluedoCanvas extends JPanel{
 
 	private static int BOARD_HEIGHT = 600;
@@ -77,9 +79,9 @@ public class CluedoCanvas extends JPanel{
 				}
 			}
 		}
-	
+
 	g.drawImage(Wallet, 330, 330, null, null);
-		
+
 	drawLabels(g);
 
 	drawTokens(g);
@@ -171,7 +173,7 @@ public class CluedoCanvas extends JPanel{
 	private static final Image External_Double_Point = loadImage("DP.png");
 	private static final Image Transparent = loadImage("N.png");
 	private static final Image Wallet = loadImage("wallet.png");
-	
+
 	private static final Image[] squares = {
 		Tile,								//0 - Common floor tile
 		Room_Tile,							//1 - Common room tile
