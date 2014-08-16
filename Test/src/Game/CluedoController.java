@@ -1,8 +1,14 @@
 package Game;
 
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+
+import Tokens.Token;
 
 public class CluedoController {
 
@@ -204,8 +210,38 @@ public class CluedoController {
 		interf.requestFocus();
 	}
 
+	/**
+	 * Prompt user to make suggestion by asking for weapon type and person
+	 *
+	 */
 	public void makeSuggestion() {
-		// TODO Auto-generated method stub
 
-	}
+			System.out.println("Making Suggestion");
+				Card.Room room;
+				Card.Weapon weapon;
+				Card.Character character;
+
+
+				//Ensure player is in room
+				Point playerPos = board.findToken(board.getCurrentPlayerObject().c);
+				int posType = board.paths[playerPos.x][playerPos.y];
+
+				System.out.println("Player At" + playerPos + " Type: " + posType);
+				if(posType <= 0 || posType >= 10){
+
+					JOptionPane.showMessageDialog(null, "You must be in a room to make a suggestion");
+					return;
+				}
+
+
+
+				//Get Weapon
+
+				Game.Card.Weapon[] posibilities = Card.Weapon.values();
+				//weapon = JOptionPane.showInputDialog(this,"Please Select Weapon Type:", "Suggestion Submission",JOptionPane.PLAIN_MESSAGE,
+						//	UIManager.getIcon("OptionPane.informationIcon"), posibilities,"1");
+
+
+		}
+
 }
