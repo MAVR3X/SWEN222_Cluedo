@@ -26,7 +26,7 @@ public class Board {
 
 	/**
 	 * Place initial character tokens
-	 * @param cards
+	 * @param cards to link to tokens
 	 */
 	public void generateTokens(ArrayList<Card> cards) {
 		for (Card c : cards) {
