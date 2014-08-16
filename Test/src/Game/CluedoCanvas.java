@@ -28,7 +28,7 @@ public class CluedoCanvas extends JPanel{
 
 	private final Board board;
 
-	//Test
+
 	public CluedoCanvas(int width, int height, Board board){
 		super();
 		this.board = board;
@@ -236,6 +236,10 @@ public class CluedoCanvas extends JPanel{
 
 		java.net.URL imageURL = CluedoCanvas.class.getResource(IMAGE_PATH
 				+ filename);
+		if(imageURL == null){
+			System.out.println("File not valid : " + filename);
+			return null;
+		}
 
 		try {
 			Image img = ImageIO.read(imageURL);
@@ -246,8 +250,6 @@ public class CluedoCanvas extends JPanel{
 			throw new RuntimeException("Unable to load image: " + filename);
 		}
 	}
-
-
 
 	/**
 	 * Rotate an image a given number of degrees.

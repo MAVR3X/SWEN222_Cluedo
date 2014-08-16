@@ -97,7 +97,7 @@ public class Board {
 	// 600:Study passage to Kitchen (Go to point 5, 2)
 	// 7 : Hall
 	// 70: Hall door
-	// 8 : Lounge
+	// 8 : Loungeui
 	// 80: Lounge door (Can only be accessed from north)
 	// 800:Lounge passage to Conservatory (Go to point 23, 5)
 	// 9 : Dining Room
