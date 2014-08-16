@@ -3,6 +3,8 @@ package Game;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -12,7 +14,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
+import javax.swing.ButtonModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -21,6 +26,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JRadioButton;
+import javax.swing.JRadioButtonMenuItem;
 import javax.swing.UIManager;
 
 
@@ -75,7 +83,6 @@ public class GameInterface extends JFrame implements ActionListener,
 
 
 		//Next Player Button
-		//TODO fix this causing the button listener to stop
 		JButton button = new JButton("Turn Complete");
 		button.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -252,23 +259,66 @@ public class GameInterface extends JFrame implements ActionListener,
 		// TODO Auto-generated method stub
 
 	}
-
+	
+	
 	/**
-	 * Take input from JOptionPane for player count
-	 *
-	 * @return num of players
-	 * @Author: Isaac
+	 * Uses Jradio buttons to get selection of number of players
+	 * @return number of players
 	 */
-	public int getPlayerCount() {
-		// Prompt for number of players - min 3, max 6:
-		String[] posibilities = { "3", "4", "5", "6" };
-		return Integer.valueOf((String) JOptionPane.showInputDialog(this,
-				"please select number of players:", "Player Count",
-				JOptionPane.PLAIN_MESSAGE,
-				UIManager.getIcon("OptionPane.informationIcon"), posibilities,
-				"1"));
+	public int getPlayerCount(){
+		
+		// Panel to hold the contents
+		JPanel pane = new JPanel(new BorderLayout());
+		
+		
+		
+		// create a button group to hold the radio buttons
+		final ButtonGroup group = new ButtonGroup();
+	
+		// Create a panel to hold the buttons
+		JPanel radioPane = new JPanel(new GridLayout(0,4));
+		
+		// Create the buttons
+		JRadioButton radioButton;
+		
+		group.add(radioButton = new JRadioButton("3", true));
+		radioButton.setActionCommand("3");
+		group.add(radioButton);
+		radioPane.add(radioButton);
+		group.add(radioButton = new JRadioButton("4"));
+		radioButton.setActionCommand("4");
+		group.add(radioButton);
+		radioPane.add(radioButton);
+		group.add(radioButton = new JRadioButton("5"));
+		radioButton.setActionCommand("5");
+		group.add(radioButton);
+		radioPane.add(radioButton);
+		group.add(radioButton = new JRadioButton("6"));
+		radioButton.setActionCommand("6");
+		group.add(radioButton);
+		radioPane.add(radioButton);
+		
+		// create a label
+		JLabel label = new JLabel("Please select number of players");
+			
+		// add the label and radio pane to the pane
+		pane.add(label, BorderLayout.NORTH);
+		pane.add(radioPane, BorderLayout.CENTER);
+
+		// create a dialog to wait for user selection
+		String [] options = {"ok"};
+		
+		int result = JOptionPane.showOptionDialog(null, pane, "New Game",
+	            JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null,
+	            options, 0);
+		
+		ButtonModel model = group.getSelection();
+		
+		return Integer.parseInt(model.getActionCommand());
 	}
 
+	
+	
 	/**
 	 * Creates an option pane and allows users to select character
 	 *
