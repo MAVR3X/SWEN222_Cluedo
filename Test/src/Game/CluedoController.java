@@ -227,6 +227,11 @@ public class CluedoController {
 		}
 	};
 
+
+	/**
+	 *	Complete turn of current player, find next valid player and set to current player.
+	 *	Reset required variables to limit player movement
+	 */
 	public void turnComplete() {
 		interf.requestFocus();
 
@@ -260,6 +265,14 @@ public class CluedoController {
 		System.out.println(currentPlayer.getCharacter());
 	}
 
+	/**
+	 * Set playerRoll to integer iff a roll has not already changed the roll from
+	 * the default -1 value.
+	 *
+	 * This value limits the move distance.
+	 *
+	 * @param integer to assign to
+	 */
 	public void diceRoll(int i) {
 		if (playerRoll != -1) {
 			JOptionPane.showMessageDialog(null,
@@ -273,8 +286,8 @@ public class CluedoController {
 	}
 
 	/**
-	 * Prompt user to make suggestion by asking for weapon type and person
-	 *
+	 * Determine room, weapon type and person from user.
+	 * Calls makeSuggestion() to verify suggestion
 	 */
 	public void makeSuggestion() {
 		interf.requestFocus();
@@ -381,8 +394,8 @@ public class CluedoController {
 	}
 
 	/**
-	 * Prompts user to confirm accusation, requests cards and either fails or
-	 * passes them.
+	 * Create accusation on confirmation by currentPlayer.
+	 * Determine room, weapon and character from player and call makeAccusation()
 	 */
 	public void makeAccusation() {
 		System.out.println("Making Accusation");
@@ -427,6 +440,15 @@ public class CluedoController {
 
 	}
 
+	/**
+	 * Called by makeAccusation to verify the validity of the accusation.
+	 * If the accusation is incorrect the player is removed with playerRemove()
+	 * or the player wins.
+	 *
+	 * @param room
+	 * @param character
+	 * @param weapon
+	 */
 	private void makeAccusation(Room room, Character character, Weapon weapon) {
 
 		// Correct
