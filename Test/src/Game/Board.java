@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import Game.Card.Room;
 import Tokens.PlayerToken;
 import Tokens.Token;
 
@@ -188,25 +189,29 @@ public class Board {
 				switch (newTile) {
 				case 100: // Kitchen passage to Study (Go to point 23, 22)
 					newPos = STUDY;
-					if (tokens[newPos.x][newPos.y] != null) return 0; // Something already occupying space
+					if (tokens[newPos.x][newPos.y] != null)
+						return 0; // Something already occupying space
 					moveToken(currentPos, newPos);
 					return 6;
 
 				case 300: // Conservatory passage to Lounge (Go to point 1, 21)
 					newPos = LOUNGE;
-					if (tokens[newPos.x][newPos.y] != null) return 0; // Something already occupying space
+					if (tokens[newPos.x][newPos.y] != null)
+						return 0; // Something already occupying space
 					moveToken(currentPos, newPos);
 					return 6;
 
 				case 600: // Study passage to Kitchen (Go to point 5, 2)
 					newPos = KITCHEN;
-					if (tokens[newPos.x][newPos.y] != null) return 0; // Something already occupying space
+					if (tokens[newPos.x][newPos.y] != null)
+						return 0; // Something already occupying space
 					moveToken(currentPos, newPos);
 					return 6;
 
 				case 800: // Lounge passage to Conservatory (Go to point 23, 5)
 					newPos = CONSERVATORY;
-					if (tokens[newPos.x][newPos.y] != null) return 0; // Something already occupying space
+					if (tokens[newPos.x][newPos.y] != null)
+						return 0; // Something already occupying space
 					moveToken(currentPos, newPos);
 					return 6;
 
@@ -287,9 +292,9 @@ public class Board {
 	}
 
 	public String getCurrentPlayer() {
-		if(controller.currentPlayer != null){
-		return controller.currentPlayer.toString();
-		}else {
+		if (controller.currentPlayer != null) {
+			return controller.currentPlayer.toString();
+		} else {
 			return "";
 		}
 	}
@@ -303,7 +308,47 @@ public class Board {
 	}
 
 	public void makeSuggestion() {
-		controller.makeSuggestion();
+		
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 
+	public Room getRoom(int posType) {
+		if (posType == 1) {
+			return Card.Room.Kitchen;
+		}
+		if (posType == 2) {
+			return Card.Room.Ball_Room;
+		}
+		if (posType == 3) {
+			return Card.Room.Conservatory;
+		}
+		if (posType == 4) {
+			return Card.Room.Billiard_Room;
+		}
+		if (posType == 5) {
+			return Card.Room.Library;
+		}
+		if (posType == 6) {
+			return Card.Room.Study;
+		}
+		if (posType == 7) {
+			return Card.Room.Hall;
+		}
+		if (posType == 8) {
+			return Card.Room.Lounge;
+		}
+		if (posType == 9) {
+			return Card.Room.DiningRoom;
+		}
+		return Card.Room.NULL;
+	}
 }

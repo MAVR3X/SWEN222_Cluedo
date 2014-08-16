@@ -4,10 +4,14 @@ import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
+import Game.Card.Character;
+import Game.Card.Room;
+import Game.Card.Weapon;
 import Tokens.Token;
 
 public class CluedoController {
@@ -184,6 +188,7 @@ public class CluedoController {
 	};
 
 	public void turnComplete() {
+		interf.requestFocus();
 		for (int i = 0; i < players.size(); i++) {
 			Player p = players.get(i);
 
@@ -202,7 +207,6 @@ public class CluedoController {
 		}
 		playerSteps = 0;
 		System.out.println(currentPlayer.getCharacter());
-		interf.requestFocus();
 	}
 
 	public void diceRoll(int i) {
@@ -215,33 +219,80 @@ public class CluedoController {
 	 *
 	 */
 	public void makeSuggestion() {
+		interf.requestFocus();
 
-			System.out.println("Making Suggestion");
-				Card.Room room;
-				Card.Weapon weapon;
-				Card.Character character;
+		System.out.println("Making Suggestion");
+		Card.Room room;
+		Card.Weapon weapon;
+		Card.Character character;
 
+		// Ensure player is in room
+		Point playerPos = board.findToken(board.getCurrentPlayerObject().c);
+		int posType = board.paths[playerPos.x][playerPos.y];
 
-				//Ensure player is in room
-				Point playerPos = board.findToken(board.getCurrentPlayerObject().c);
-				int posType = board.paths[playerPos.x][playerPos.y];
+		System.out.println("Player At" + playerPos + " Type: " + posType);
+		if (posType <= 0 || posType >= 10) {
 
-				System.out.println("Player At" + playerPos + " Type: " + posType);
-				if(posType <= 0 || posType >= 10){
+			JOptionPane.showMessageDialog(null,
+					"You must be in a room to make a suggestion");
+			return;
+		}
 
-					JOptionPane.showMessageDialog(null, "You must be in a room to make a suggestion");
-					return;
+		// Get Weapon
+		room = board.getRoom(posType);
+
+		Game.Card.Weapon[] wepPosibilities = Arrays.copyOfRange(
+				Card.Weapon.values(), 1, Card.Weapon.values().length);
+		weapon = (Card.Weapon) JOptionPane.showInputDialog(interf,
+				"Please select the weapon:", "Suggestion Submission",
+				JOptionPane.PLAIN_MESSAGE,
+				UIManager.getIcon("OptionPane.informationIcon"),
+				wepPosibilities, wepPosibilities[0]);
+
+		Game.Card.Character[] carPosibilities = Arrays.copyOfRange(
+				Card.Character.values(), 1, Card.Character.values().length);
+		character = (Card.Character) JOptionPane.showInputDialog(interf,
+				"Please select the murderer:", "Suggestion Submission",
+				JOptionPane.PLAIN_MESSAGE,
+				UIManager.getIcon("OptionPane.informationIcon"),
+				carPosibilities, carPosibilities[0]);
+
+		System.out.println(character + " : " + weapon + " : " + room);
+
+		makeSuggestion(room, character, weapon);
+
+	}
+
+	/**
+	 * Verify the validity of claim. Check against each players' cards and fail
+	 * on first instance of wrong card then move to other players.
+	 *
+	 * @param room
+	 * @param character
+	 * @param weapon
+	 */
+	private void makeSuggestion(Room room, Character character, Weapon weapon) {
+
+		// Iterate each player
+		int curPlayerPos = players.indexOf(currentPlayer);
+		int i = curPlayerPos + 1;
+
+		for (; i < players.size(); i++) {
+			Player playerToCheck = players.get(i);
+			for (Card card : playerToCheck.hand) {
+				if (card.equals(room) || card.equals(character)
+						|| card.equals(weapon)) {
+					displayCard(card);
 				}
 
-
-
-				//Get Weapon
-
-				Game.Card.Weapon[] posibilities = Card.Weapon.values();
-				//weapon = JOptionPane.showInputDialog(this,"Please Select Weapon Type:", "Suggestion Submission",JOptionPane.PLAIN_MESSAGE,
-						//	UIManager.getIcon("OptionPane.informationIcon"), posibilities,"1");
-
+			}
 
 		}
+	}
+
+	public void displayCard(Card c) {
+		JOptionPane.showMessageDialog(interf,
+				"Card matches: ");
+	}
 
 }
