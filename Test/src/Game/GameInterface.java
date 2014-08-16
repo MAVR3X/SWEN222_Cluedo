@@ -79,10 +79,7 @@ public class GameInterface extends JFrame implements ActionListener,
 
 		gui.setLayout(new BoxLayout(gui,1));
 
-		JLabel curPlayerLabel = new JLabel(board.getCurrentPlayer() + " Test");
-
-		gui.add(curPlayerLabel);
-
+		
 
 		//Next Player Button
 		//TODO fix this causing the button listener to stop
@@ -134,6 +131,9 @@ public class GameInterface extends JFrame implements ActionListener,
 				if(loc.x > 600 && loc.x < 750){
 					if(loc.y > 820 && loc.y < 860){
 						board.makeSuggestion();
+					}
+					if(loc.y > 870 && loc.y < 910){
+						System.out.println("Make accusation");
 					}
 				}
 		    }

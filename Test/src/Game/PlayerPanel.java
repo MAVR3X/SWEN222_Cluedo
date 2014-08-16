@@ -1,8 +1,10 @@
 package Game;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.IOException;
 
@@ -38,9 +40,22 @@ public class PlayerPanel extends JPanel {
 			
 			addButton(g);
 		} else {
-			//g.setColor();
 			
-			Font font = new Font("Arial", Font.BOLD, 16);
+			Graphics2D g2d = (Graphics2D)g;
+	        g2d.setColor(Color.BLACK);
+	 
+	        //g.setColor(Color.gray);
+	        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,6 * 0.1f));
+			
+			g.fillRect(0, 0, this.getWidth(), this.getHeight());
+			
+			g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,1.0f));
+			
+			g.fillRect(0, 0, this.getWidth(), 15);
+			g2d.setColor(Color.gray);
+			g.fillRect(0, 15, this.getWidth(), 1);
+			
+			Font font = new Font("Arial", Font.BOLD, 14);
 
 			g.setFont(font);
 			g.setColor(Color.WHITE);
@@ -57,6 +72,8 @@ public class PlayerPanel extends JPanel {
 		//System.out.println("yup");
 		g.setColor(Color.black);
 		g.fillRect(600, 20, 150, 35);
+		
+		g.fillRect(600, 70, 150, 35);
 
 	}
 
@@ -88,6 +105,8 @@ public class PlayerPanel extends JPanel {
 								+ (i * CARD_SPACING) + CARD_X, CARD_Y, null, null);
 					}
 					else{
+						
+					
 						g.setColor(Color.GRAY);
 						g.draw3DRect(i * CARD_WIDTH + (i * CARD_SPACING) + CARD_X,
 								CARD_Y, CARD_WIDTH, CARD_HEIGHT, true);
