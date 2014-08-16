@@ -28,8 +28,8 @@ public class CluedoController {
 	ArrayList<Card> cards;
 
 	Player currentPlayer;
-	private int playerSteps = 0;
-	int playerRoll = 0;
+	int playerSteps = 0;
+	int playerRoll = 6;
 
 	private static Card solutionCharacter;
 	private static Card solutionWeapon;
@@ -167,19 +167,44 @@ public class CluedoController {
 
 	KeyListener kl = new KeyListener() {
 		public void keyPressed(KeyEvent e) {
-			System.out.print(" + User: " + currentPlayer.c.character + "\n");
+
+			//System.out.print(" + User: " + currentPlayer.c.character + "\n");
+
+			if(playerSteps == playerRoll){
+				JOptionPane.showMessageDialog(null, "You are out of moves. ");
+			}
+
+
+			Point currentPosition = board.findTokenPosition(currentPlayer.getCharacter());
 
 			int code = e.getKeyCode();
+			int newStep = 0;
 			if (code == KeyEvent.VK_RIGHT || code == KeyEvent.VK_KP_RIGHT) {
-				playerSteps += board.moveToken(currentPlayer.c, RIGHT);
+				newStep += board.moveToken(currentPlayer.c, RIGHT);
 			} else if (code == KeyEvent.VK_LEFT || code == KeyEvent.VK_KP_LEFT) {
-				playerSteps += board.moveToken(currentPlayer.c, LEFT);
+				newStep += board.moveToken(currentPlayer.c, LEFT);
 			} else if (code == KeyEvent.VK_UP) {
-				playerSteps += board.moveToken(currentPlayer.c, UP);
+				newStep += board.moveToken(currentPlayer.c, UP);
 			} else if (code == KeyEvent.VK_DOWN) {
-				playerSteps += board.moveToken(currentPlayer.c, DOWN);
+				newStep += board.moveToken(currentPlayer.c, DOWN);
 			}
-			interf.redraw();
+
+			if((playerSteps + newStep) > playerRoll){
+				//Move player back
+				Point newPosition = board.findTokenPosition(currentPlayer.getCharacter());
+				board.moveToken(newPosition, currentPosition);
+			}else if((playerSteps + newStep) == playerRoll){
+				playerSteps += newStep;
+				//Prompt that they're out of moves
+				interf.redraw();
+				JOptionPane.showMessageDialog(null, "You are out of moves. ");
+			}else{
+				//Moved successfully
+				playerSteps += newStep;
+				interf.redraw();
+			}
+
+
 		}
 
 		@Override
