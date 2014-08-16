@@ -11,6 +11,12 @@ import Game.Card.Room;
 import Tokens.PlayerToken;
 import Tokens.Token;
 
+/**
+ * Model in model view design pattern
+ *
+ * Contains all current game state date.
+ *
+ */
 public class Board {
 
 	public static final int BOARD_HEIGHT = 26;
