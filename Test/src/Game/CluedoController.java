@@ -1,4 +1,3 @@
-
 package Game;
 
 import java.awt.Point;
@@ -103,7 +102,8 @@ public class CluedoController {
 		selector = (int) (Math.random() * rooms);
 		solutionRoom = cards.remove(characters + weapons - 2 + selector);
 
-		System.out.println("Solution = " + solutionCharacter.character + " : " + solutionWeapon.weaponType + " : " + solutionRoom.room);
+		System.out.println("Solution = " + solutionCharacter.character + " : "
+				+ solutionWeapon.weaponType + " : " + solutionRoom.room);
 		System.out.println("");
 	}
 
@@ -198,15 +198,15 @@ public class CluedoController {
 	public void turnComplete() {
 		interf.requestFocus();
 
-		//Build array of remaining players
+		// Build array of remaining players
 		ArrayList<Player> remainingPlayers = new ArrayList<Player>();
-		for(Player p : players){
-			if(!p.hasLost || currentPlayer == p){
+		for (Player p : players) {
+			if (!p.hasLost || currentPlayer == p) {
 				remainingPlayers.add(p);
 			}
 		}
 
-		//Find new current player
+		// Find new current player
 		for (int i = 0; i < remainingPlayers.size(); i++) {
 			Player p = remainingPlayers.get(i);
 			if (p.equals(currentPlayer)) {
@@ -277,6 +277,9 @@ public class CluedoController {
 
 		System.out.println(character + " : " + weapon + " : " + room);
 
+		if(currentPlayer.c.character != character){
+			moveCharacterTo(room, character);
+		}
 		makeSuggestion(room, character, weapon);
 
 	}
@@ -301,7 +304,8 @@ public class CluedoController {
 			Player playerToCheck = players.get(i);
 			System.out.println("Checking " + playerToCheck.c.character);
 			for (Card card : playerToCheck.hand) {
-				if (card.room.equals(room) || card.character.equals(character)|| card.weaponType.equals(weapon)) {
+				if (card.room.equals(room) || card.character.equals(character)
+						|| card.weaponType.equals(weapon)) {
 					displayCard(playerToCheck, card);
 					isValid = false;
 					return;
@@ -311,11 +315,12 @@ public class CluedoController {
 		}
 
 		i = 0;
-		//Same for lower players
+		// Same for lower players
 		for (; i < curPlayerPos; i++) {
 			Player playerToCheck = players.get(i);
 			for (Card card : playerToCheck.hand) {
-				if (card.room.equals(room) || card.character.equals(character)|| card.weaponType.equals(weapon)) {
+				if (card.room.equals(room) || card.character.equals(character)
+						|| card.weaponType.equals(weapon)) {
 					displayCard(playerToCheck, card);
 					isValid = false;
 					return;
@@ -324,41 +329,41 @@ public class CluedoController {
 			}
 		}
 
-		if(!isValid){
+		if (!isValid) {
 			System.out.println("Not Valid");
 
-		}else{
-			JOptionPane.showMessageDialog(null,
-			 character + "in the " + room + " with the " + weapon + " was not refuted by any players.");
+		} else {
+			JOptionPane.showMessageDialog(null, character + "in the " + room
+					+ " with the " + weapon
+					+ " was not refuted by any players.");
 		}
 
 	}
 
 	/**
-	 * Prompts user to confirm accusation, requests cards and either fails or passes them.
+	 * Prompts user to confirm accusation, requests cards and either fails or
+	 * passes them.
 	 */
-	public void makeAccusation(){
+	public void makeAccusation() {
 		System.out.println("Making Accusation");
 		Card.Room room;
 		Card.Weapon weapon;
 		Card.Character character;
 
-
-		//Verify they want to accuse
-		//Use of JRadioButton
-		if (!confirmAccusation()){
+		// Verify they want to accuse
+		// Use of JRadioButton
+		if (!confirmAccusation()) {
 			return;
 		}
 
 		// Get Room
-				Game.Card.Room[] roomPosibilities = Arrays.copyOfRange(
-						Card.Room.values(), 1, Card.Room.values().length);
-				room = (Card.Room) JOptionPane.showInputDialog(interf,
-						"Please select the room:", "Accusation Submission",
-						JOptionPane.PLAIN_MESSAGE,
-						UIManager.getIcon("OptionPane.informationIcon"),
-						roomPosibilities, roomPosibilities[0]);
-
+		Game.Card.Room[] roomPosibilities = Arrays.copyOfRange(
+				Card.Room.values(), 1, Card.Room.values().length);
+		room = (Card.Room) JOptionPane.showInputDialog(interf,
+				"Please select the room:", "Accusation Submission",
+				JOptionPane.PLAIN_MESSAGE,
+				UIManager.getIcon("OptionPane.informationIcon"),
+				roomPosibilities, roomPosibilities[0]);
 
 		Game.Card.Weapon[] wepPosibilities = Arrays.copyOfRange(
 				Card.Weapon.values(), 1, Card.Weapon.values().length);
@@ -380,20 +385,25 @@ public class CluedoController {
 
 		makeAccusation(room, character, weapon);
 
-
 	}
-
 
 	private void makeAccusation(Room room, Character character, Weapon weapon) {
 
-		//Correct
-		if(solutionWeapon.weaponType == weapon && solutionCharacter.character == character && solutionRoom.room == room){
-			JOptionPane.showMessageDialog(null, currentPlayer.name + " wins! With the guess: " + character + " in the " + room + " with the " + weapon);
-			JOptionPane.showMessageDialog(null, "Thanks for playing. Credits: Isaac, Mike");
+		// Correct
+		if (solutionWeapon.weaponType == weapon
+				&& solutionCharacter.character == character
+				&& solutionRoom.room == room) {
+			JOptionPane.showMessageDialog(null, currentPlayer.name
+					+ " wins! With the guess: " + character + " in the " + room
+					+ " with the " + weapon);
+			JOptionPane.showMessageDialog(null,
+					"Thanks for playing. Credits: Isaac, Mike");
 			System.exit(1);
 
-		}else{
-			JOptionPane.showMessageDialog(null, currentPlayer.name + " loses! The guess: " + character + " in the " + room + " with the " + weapon + " was WRONG! ");
+		} else {
+			JOptionPane.showMessageDialog(null, currentPlayer.name
+					+ " loses! The guess: " + character + " in the " + room
+					+ " with the " + weapon + " was WRONG! ");
 			removePlayer();
 		}
 	}
@@ -404,24 +414,105 @@ public class CluedoController {
 
 	}
 
-	public boolean confirmAccusation(){
+	public boolean confirmAccusation() {
 
-		int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to accuse someone? You will die a painful death if you are incorrect", "Confirm Accusation", JOptionPane.YES_NO_OPTION);
-        if (reply == JOptionPane.YES_OPTION) {
-          return true;
-        }
-        else {
-           return false;
-        }
+		int reply = JOptionPane
+				.showConfirmDialog(
+						null,
+						"Are you sure you want to accuse someone? You will die a painful death if you are incorrect",
+						"Confirm Accusation", JOptionPane.YES_NO_OPTION);
+		if (reply == JOptionPane.YES_OPTION) {
+			return true;
+		} else {
+			return false;
+		}
 
 	}
-
 
 	public void displayCard(Player playerToCheck, Card c) {
 		ImageIcon icon = new ImageIcon();
 		icon.setImage(c.cardImage);
 
-		JOptionPane.showMessageDialog(null, playerToCheck.getCharacter() + " has a conflicting card", "Conflicting Card Found",JOptionPane.INFORMATION_MESSAGE, icon);
+		JOptionPane.showMessageDialog(null, playerToCheck.getCharacter()
+				+ " has a conflicting card", "Conflicting Card Found",
+				JOptionPane.INFORMATION_MESSAGE, icon);
+	}
+
+	// NULL, Kitchen, Ball_Room, Conservatory, Billiard_Room, Library, Study,
+	// Hall, Lounge, DiningRoom
+
+	public static Point kitchenPnt = new Point(3, 5);
+	public static Point diningroomPnt = new Point(4, 13);
+	public static Point loungePnt = new Point(5, 22);
+	public static Point hallPnt = new Point(12, 22);
+	public static Point studyPnt = new Point(21, 23);
+	public static Point libraryPnt = new Point(21, 17);
+	public static Point billiardroomPnt = new Point(21, 11);
+	public static Point conservatoryPnt = new Point(21, 4);
+	public static Point ballRoomPnt = new Point(12, 5);
+
+	private void moveCharacterTo(Room room, Character character) {
+
+		Point oldPos = board.findTokenPosition(character);
+		Token token = board.getTokens()[oldPos.x][oldPos.y];
+		board.getTokens()[oldPos.x][oldPos.y] = null;
+
+		Point newPos = new Point(0, 0);
+		if (room == Card.Room.Kitchen) {
+			newPos = kitchenPnt;
+		}
+		if (room == Card.Room.DiningRoom) {
+			newPos = diningroomPnt;
+		}
+		if (room == Card.Room.Lounge) {
+			newPos = loungePnt;
+		}
+		if (room == Card.Room.Hall) {
+			newPos = hallPnt;
+		}
+		if (room == Card.Room.Study) {
+			newPos = studyPnt;
+		}
+		if (room == Card.Room.Library) {
+			newPos = libraryPnt;
+		}
+		if (room == Card.Room.Billiard_Room) {
+			newPos = billiardroomPnt;
+		}
+		if (room == Card.Room.Conservatory) {
+			newPos = conservatoryPnt;
+		}
+		if (room == Card.Room.Ball_Room) {
+			newPos = ballRoomPnt;
+		}
+
+		// Check the placement is valid
+		int modx = 0;
+		int mody = 0;
+		while (true) {
+			if (board.getTokens()[newPos.x + modx][newPos.y + mody] != null) {
+				modx++;
+			}
+			if (board.getTokens()[newPos.x + modx][newPos.y + mody] != null) {
+				mody++;
+			}
+
+			if (board.getTokens()[newPos.x + modx][newPos.y + mody] == null) {
+				board.getTokens()[newPos.x + modx][newPos.y + mody] = token;
+				break;
+			}
+		}
+		interf.repaint();
+
+	}
+
+	public Player getCharacter(Character character) {
+		for (Player p : players) {
+			if (p.c.character == character) {
+				return p;
+			}
+		}
+		return null;
 	}
 
 }

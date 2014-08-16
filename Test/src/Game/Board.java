@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import Game.Card.Character;
 import Game.Card.Room;
 import Tokens.PlayerToken;
 import Tokens.Token;
@@ -127,6 +128,8 @@ public class Board {
 
 		int currentTile = paths[currentPos.x][currentPos.y];
 		Point newPos = new Point(currentPos.x, currentPos.y);
+
+		System.out.println(currentPos);
 
 		// Save proposed new position in newPos
 		switch (direction) {
@@ -346,5 +349,23 @@ public class Board {
 	public void makeAccusation() {
 		controller.makeAccusation();
 
+	}
+
+	public Point findTokenPosition(Character character) {
+		for (int x = 0; x < BOARD_WIDTH; x++) {
+			for (int y = 0; y < BOARD_HEIGHT; y++) {
+				try {
+					PlayerToken token = (PlayerToken) tokens[x][y];
+					if (token.getCharacter() == character) {
+						return new Point(x, y);
+					}
+
+				} catch (Exception e) {
+
+				}
+
+			}
+		}
+		return null;
 	}
 }
