@@ -1,3 +1,4 @@
+
 package Game;
 
 import java.awt.Point;
@@ -6,8 +7,12 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.UIManager;
 
 import Game.Card.Character;
@@ -98,6 +103,8 @@ public class CluedoController {
 		selector = (int) (Math.random() * rooms);
 		solutionRoom = cards.remove(characters + weapons - 2 + selector);
 
+		System.out.println("Solution = " + solutionCharacter.character + " : " + solutionWeapon.weaponType + " : " + solutionRoom.room);
+		System.out.println("");
 	}
 
 	/**
@@ -310,13 +317,87 @@ public class CluedoController {
 		if(!isValid){
 			System.out.println("Not Valid");
 
+		}else{
+			JOptionPane.showMessageDialog(null,
+			 character + "in the " + room + " with the " + weapon + " was not refuted by any players.");
 		}
-
-
-		System.out.println("Finished Checking Suggestions");
 
 	}
 
+	/**
+	 * Prompts user to confirm accusation, requests cards and either fails or passes them.
+	 */
+	public void makeAccusation(){
+		System.out.println("Making Accusation");
+		Card.Room room;
+		Card.Weapon weapon;
+		Card.Character character;
+
+
+		//Verify they want to accuse
+		//Use of JRadioButton
+		if (!confirmAccusation()){
+
+
+		}
+
+
+
+
+		// Get Room
+				Game.Card.Room[] roomPosibilities = Arrays.copyOfRange(
+						Card.Room.values(), 1, Card.Room.values().length);
+				room = (Card.Room) JOptionPane.showInputDialog(interf,
+						"Please select the room:", "Accusation Submission",
+						JOptionPane.PLAIN_MESSAGE,
+						UIManager.getIcon("OptionPane.informationIcon"),
+						roomPosibilities, roomPosibilities[0]);
+
+
+		Game.Card.Weapon[] wepPosibilities = Arrays.copyOfRange(
+				Card.Weapon.values(), 1, Card.Weapon.values().length);
+		weapon = (Card.Weapon) JOptionPane.showInputDialog(interf,
+				"Please select the weapon:", "Suggestion Submission",
+				JOptionPane.PLAIN_MESSAGE,
+				UIManager.getIcon("OptionPane.informationIcon"),
+				wepPosibilities, wepPosibilities[0]);
+
+		Game.Card.Character[] carPosibilities = Arrays.copyOfRange(
+				Card.Character.values(), 1, Card.Character.values().length);
+		character = (Card.Character) JOptionPane.showInputDialog(interf,
+				"Please select the murderer:", "Suggestion Submission",
+				JOptionPane.PLAIN_MESSAGE,
+				UIManager.getIcon("OptionPane.informationIcon"),
+				carPosibilities, carPosibilities[0]);
+
+		System.out.println(character + " : " + weapon + " : " + room);
+
+		makeSuggestion(room, character, weapon);
+
+
+	}
+
+
+	public boolean confirmAccusation(){
+
+		JRadioButton yes, no;
+		JFrame frame = new JFrame("Confirm accusation");
+		JPanel panel = new JPanel();
+		ButtonGroup buttonGroup = new ButtonGroup();
+		yes = new JRadioButton("Yes, accuse");
+		buttonGroup.add(yes);
+		panel.add(yes);
+
+		no = new JRadioButton("No, don't accuse");
+		buttonGroup.add(no);
+		panel.add(no);
+		no.setSelected(true);
+
+
+		//JOptionPane.showMessageDialog( " ");
+
+		return true;
+	}
 
 
 	public void displayCard(Player playerToCheck, Card c) {

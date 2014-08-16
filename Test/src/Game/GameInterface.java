@@ -77,9 +77,8 @@ public class GameInterface extends JFrame implements ActionListener,
 		gui.setBackground(Color.BLACK);
 		gui.setAlignmentX(RIGHT_ALIGNMENT);
 
-		gui.setLayout(new BoxLayout(gui,1));
+		gui.setLayout(new BoxLayout(gui, BoxLayout.PAGE_AXIS));
 
-		
 
 		//Next Player Button
 		//TODO fix this causing the button listener to stop
@@ -90,6 +89,8 @@ public class GameInterface extends JFrame implements ActionListener,
 				repaint();
 			}
 		});
+		
+		button.setAlignmentX(gui.CENTER_ALIGNMENT);
 		gui.add(button);
 		//TODO fix this causing the button listener to stop
 		button = new JButton("Make Suggestion");
