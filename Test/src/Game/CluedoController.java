@@ -174,12 +174,11 @@ public class CluedoController {
 				JOptionPane.showMessageDialog(null, "You are out of moves. ");
 			}
 
-			if(playerRoll == -1){
+			if (playerRoll == -1) {
 				JOptionPane.showMessageDialog(null,
 						"Please roll the dice before starting your turn");
 				return;
 			}
-
 
 			Point currentPosition = board.findTokenPosition(currentPlayer
 					.getCharacter());
@@ -227,10 +226,9 @@ public class CluedoController {
 		}
 	};
 
-
 	/**
-	 *	Complete turn of current player, find next valid player and set to current player.
-	 *	Reset required variables to limit player movement
+	 * Complete turn of current player, find next valid player and set to
+	 * current player. Reset required variables to limit player movement
 	 */
 	public void turnComplete() {
 		interf.requestFocus();
@@ -266,12 +264,13 @@ public class CluedoController {
 	}
 
 	/**
-	 * Set playerRoll to integer iff a roll has not already changed the roll from
-	 * the default -1 value.
+	 * Set playerRoll to integer iff a roll has not already changed the roll
+	 * from the default -1 value.
 	 *
 	 * This value limits the move distance.
 	 *
-	 * @param integer to assign to
+	 * @param integer
+	 *            to assign to
 	 */
 	public void diceRoll(int i) {
 		if (playerRoll != -1) {
@@ -286,8 +285,8 @@ public class CluedoController {
 	}
 
 	/**
-	 * Determine room, weapon type and person from user.
-	 * Calls makeSuggestion() to verify suggestion
+	 * Determine room, weapon type and person from user. Calls makeSuggestion()
+	 * to verify suggestion
 	 */
 	public void makeSuggestion() {
 		interf.requestFocus();
@@ -314,6 +313,7 @@ public class CluedoController {
 
 		Game.Card.Weapon[] wepPosibilities = Arrays.copyOfRange(
 				Card.Weapon.values(), 1, Card.Weapon.values().length);
+
 		weapon = (Card.Weapon) JOptionPane.showInputDialog(interf,
 				"Please select the weapon:", "Suggestion Submission",
 				JOptionPane.PLAIN_MESSAGE,
@@ -322,6 +322,7 @@ public class CluedoController {
 
 		Game.Card.Character[] carPosibilities = Arrays.copyOfRange(
 				Card.Character.values(), 1, Card.Character.values().length);
+
 		character = (Card.Character) JOptionPane.showInputDialog(interf,
 				"Please select the murderer:", "Suggestion Submission",
 				JOptionPane.PLAIN_MESSAGE,
@@ -353,13 +354,18 @@ public class CluedoController {
 		int curPlayerPos = players.indexOf(currentPlayer);
 		int i = curPlayerPos + 1;
 
+		// Check players with indexes higher than current player for matching
+		// cards
 		for (; i < players.size(); i++) {
+
 			Player playerToCheck = players.get(i);
 			System.out.println("Checking " + playerToCheck.c.character);
+
 			for (Card card : playerToCheck.hand) {
+
 				if (card.room.equals(room) || card.character.equals(character)
 						|| card.weaponType.equals(weapon)) {
-					displayCard(playerToCheck, card);
+					displayConflictingCard(playerToCheck, card);
 					isValid = false;
 					return;
 				}
@@ -368,13 +374,16 @@ public class CluedoController {
 		}
 
 		i = 0;
-		// Same for lower players
+		// Check players with lower indexes
 		for (; i < curPlayerPos; i++) {
+
 			Player playerToCheck = players.get(i);
+
 			for (Card card : playerToCheck.hand) {
+
 				if (card.room.equals(room) || card.character.equals(character)
 						|| card.weaponType.equals(weapon)) {
-					displayCard(playerToCheck, card);
+					displayConflictingCard(playerToCheck, card);
 					isValid = false;
 					return;
 				}
@@ -394,8 +403,8 @@ public class CluedoController {
 	}
 
 	/**
-	 * Create accusation on confirmation by currentPlayer.
-	 * Determine room, weapon and character from player and call makeAccusation()
+	 * Create accusation on confirmation by currentPlayer. Determine room,
+	 * weapon and character from player and call makeAccusation()
 	 */
 	public void makeAccusation() {
 		System.out.println("Making Accusation");
@@ -404,7 +413,6 @@ public class CluedoController {
 		Card.Character character;
 
 		// Verify they want to accuse
-		// Use of JRadioButton
 		if (!confirmAccusation()) {
 			return;
 		}
@@ -418,6 +426,7 @@ public class CluedoController {
 				UIManager.getIcon("OptionPane.informationIcon"),
 				roomPosibilities, roomPosibilities[0]);
 
+		// Get weapon
 		Game.Card.Weapon[] wepPosibilities = Arrays.copyOfRange(
 				Card.Weapon.values(), 1, Card.Weapon.values().length);
 		weapon = (Card.Weapon) JOptionPane.showInputDialog(interf,
@@ -426,6 +435,7 @@ public class CluedoController {
 				UIManager.getIcon("OptionPane.informationIcon"),
 				wepPosibilities, wepPosibilities[0]);
 
+		// Get Character
 		Game.Card.Character[] carPosibilities = Arrays.copyOfRange(
 				Card.Character.values(), 1, Card.Character.values().length);
 		character = (Card.Character) JOptionPane.showInputDialog(interf,
@@ -441,9 +451,9 @@ public class CluedoController {
 	}
 
 	/**
-	 * Called by makeAccusation to verify the validity of the accusation.
-	 * If the accusation is incorrect the player is removed with playerRemove()
-	 * or the player wins.
+	 * Called by makeAccusation to verify the validity of the accusation. If the
+	 * accusation is incorrect the player is removed with playerRemove() or the
+	 * player wins.
 	 *
 	 * @param room
 	 * @param character
@@ -476,6 +486,11 @@ public class CluedoController {
 
 	}
 
+	/**
+	 * Prompt user to confirm they wish to accuse
+	 *
+	 * @return
+	 */
 	public boolean confirmAccusation() {
 
 		int reply = JOptionPane
@@ -491,7 +506,15 @@ public class CluedoController {
 
 	}
 
-	public void displayCard(Player playerToCheck, Card c) {
+	/**
+	 * Display conflicting card for players to view in pop-up.
+	 *
+	 * @param Player
+	 *            playerToCheck which requested suggestion
+	 * @param Card
+	 *            c which conflicted the suggestion
+	 */
+	public void displayConflictingCard(Player playerToCheck, Card c) {
 		ImageIcon icon = new ImageIcon();
 		icon.setImage(c.cardImage);
 
@@ -499,9 +522,6 @@ public class CluedoController {
 				+ " has a conflicting card", "Conflicting Card Found",
 				JOptionPane.INFORMATION_MESSAGE, icon);
 	}
-
-	// NULL, Kitchen, Ball_Room, Conservatory, Billiard_Room, Library, Study,
-	// Hall, Lounge, DiningRoom
 
 	public static Point kitchenPnt = new Point(3, 5);
 	public static Point diningroomPnt = new Point(4, 13);
@@ -513,12 +533,25 @@ public class CluedoController {
 	public static Point conservatoryPnt = new Point(21, 4);
 	public static Point ballRoomPnt = new Point(12, 5);
 
+	/**
+	 * Move character's token to room.
+	 *
+	 * Takes into account surrounding tokens and moves new position to avoid
+	 * conflicts.
+	 *
+	 * @param room
+	 *            to move character to
+	 * @param character
+	 *            to move to room
+	 */
 	private void moveCharacterTo(Room room, Character character) {
 
+		// Determine old position of character to transport
 		Point oldPos = board.findTokenPosition(character);
 		Token token = board.getTokens()[oldPos.x][oldPos.y];
 		board.getTokens()[oldPos.x][oldPos.y] = null;
 
+		// Find new position in selected room
 		Point newPos = new Point(0, 0);
 		if (room == Card.Room.Kitchen) {
 			newPos = kitchenPnt;
@@ -548,7 +581,7 @@ public class CluedoController {
 			newPos = ballRoomPnt;
 		}
 
-		// Check the placement is valid
+		// Check the placement is valid, move if not
 		int modx = 0;
 		int mody = 0;
 		while (true) {
@@ -568,6 +601,13 @@ public class CluedoController {
 
 	}
 
+	/**
+	 * Get character object from character enum value
+	 *
+	 * @param character
+	 *            enum value
+	 * @return Player object corrisponding to enum
+	 */
 	public Player getCharacter(Character character) {
 		for (Player p : players) {
 			if (p.c.character == character) {
