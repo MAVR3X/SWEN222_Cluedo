@@ -100,7 +100,7 @@ public class Card {
 			} else if (character == Character.Mrs_Peacock) {
 				return CluedoCanvas.loadImage("mrspeacock.png");
 			} else if (character == Character.Mrs_White) {
-				return CluedoCanvas.loadImage("white.png");
+				return CluedoCanvas.loadImage("mrswhite.png");
 			} else if (character == Character.Professor_Plum) {
 				return CluedoCanvas.loadImage("professorplum.png");
 			} else if (character == Character.The_Reverend_Green) {
