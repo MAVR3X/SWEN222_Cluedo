@@ -127,8 +127,12 @@ public class GameInterface extends JFrame implements ActionListener,
 		    }
 		    public void mouseClicked(MouseEvent e){
 		    	Point loc = e.getLocationOnScreen();
-				if(loc.x > 1027 && loc.x < 1180){
-					if(loc.y > 870 && loc.y < 910){
+		    	loc.x = loc.x - canvas.getLocationOnScreen().x;
+		    	loc.y = loc.y - canvas.getLocationOnScreen().y;
+		    	//System.out.printf("x: %d, y: %d\n",loc.x, loc.y);
+		    	
+				if(loc.x > 600 && loc.x < 750){
+					if(loc.y > 820 && loc.y < 860){
 						board.makeSuggestion();
 					}
 				}

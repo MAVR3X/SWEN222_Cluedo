@@ -38,6 +38,8 @@ public class PlayerPanel extends JPanel {
 			
 			addButton(g);
 		} else {
+			//g.setColor();
+			
 			Font font = new Font("Arial", Font.BOLD, 16);
 
 			g.setFont(font);
