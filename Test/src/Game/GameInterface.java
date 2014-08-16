@@ -86,7 +86,18 @@ public class GameInterface extends JFrame implements ActionListener,
 
 		button.setAlignmentX(gui.CENTER_ALIGNMENT);
 		gui.add(button);
-
+		
+		JButton RollDice = new JButton("Roll Dice");
+		button.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				//TODO Roll Dice method;
+				repaint();
+			}
+		});
+		
+		RollDice.setAlignmentX(gui.CENTER_ALIGNMENT);
+		gui.add(RollDice);
+		
 		this.add(gui);
 
 
