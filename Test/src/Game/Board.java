@@ -308,17 +308,8 @@ public class Board {
 	}
 
 	public void makeSuggestion() {
-		
+		controller.makeSuggestion();
 
-		
-		
-		
-		
-		
-		
-		
-		
-		
 	}
 
 	public Room getRoom(int posType) {
