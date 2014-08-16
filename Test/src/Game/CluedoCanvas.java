@@ -19,7 +19,9 @@ import javax.swing.JPanel;
 import Tokens.PlayerToken;
 
 /**
+ *
  * Custom canvas for board + token drawing
+ *
  */
 public class CluedoCanvas extends JPanel{
 

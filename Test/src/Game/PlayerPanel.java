@@ -11,8 +11,10 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 /**
- * Horizontal JPanel containing currentPlayer's hand, with overshadow when not
- * moused over.
+ *
+ * Horizontal JPanel containing currentPlayer's hand + buttons.
+ *
+ * Panel switches when moused over to hide player cards
  *
  */
 public class PlayerPanel extends JPanel {

@@ -1,7 +1,11 @@
 package Game;
 
 import java.awt.Dimension;
-
+/**
+ * Storage
+ * @author blomfiisaa
+ *
+ */
 public class Room {
 
 	private Room hallRoom;

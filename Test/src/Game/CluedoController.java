@@ -19,6 +19,13 @@ import Game.Card.Room;
 import Game.Card.Weapon;
 import Tokens.Token;
 
+/**
+ * Controller of MVC Design Pattern;
+ *
+ * Holds game state information, requests data from model(Board)
+ * and draws with View (GameInterface)
+ * *
+ */
 public class CluedoController {
 
 	Board board;

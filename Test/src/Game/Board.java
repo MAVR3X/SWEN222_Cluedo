@@ -14,7 +14,7 @@ import Tokens.Token;
 /**
  * Model in model view design pattern
  *
- * Contains all current game state date.
+ * Contains all current game data and is set by state information from Controller(CluedoController)
  *
  */
 public class Board {

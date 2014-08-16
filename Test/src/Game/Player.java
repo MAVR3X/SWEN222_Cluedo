@@ -5,6 +5,9 @@ import java.util.Arrays;
 
 import Game.Card.Character;
 
+/**
+ * Stores player hand, character card and name
+ */
 public class Player {
 
 	ArrayList<Card> hand = new ArrayList<Card>();
