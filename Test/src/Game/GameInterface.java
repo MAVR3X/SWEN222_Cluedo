@@ -3,9 +3,6 @@ package Game;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -13,11 +10,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.font.TextAttribute;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -77,7 +71,7 @@ public class GameInterface extends JFrame implements ActionListener,
 		gui.setBackground(Color.BLACK);
 		gui.setAlignmentX(RIGHT_ALIGNMENT);
 
-		gui.setLayout(new BoxLayout(gui, BoxLayout.PAGE_AXIS));
+		gui.setLayout(new BoxLayout(gui, BoxLayout.Y_AXIS));
 
 
 		//Next Player Button
@@ -92,14 +86,6 @@ public class GameInterface extends JFrame implements ActionListener,
 
 		button.setAlignmentX(gui.CENTER_ALIGNMENT);
 		gui.add(button);
-		//TODO fix this causing the button listener to stop
-		button = new JButton("Make Suggestion");
-				button.addActionListener(new ActionListener(){
-					public void actionPerformed(ActionEvent e){
-						board.makeSuggestion();
-					}
-				});
-		gui.add(button);
 
 		this.add(gui);
 
@@ -107,12 +93,13 @@ public class GameInterface extends JFrame implements ActionListener,
 	}
 
 	PlayerPanel gui;
-
+	
 	private void addLowerInterface() {
 		gui = new PlayerPanel(board);
 		gui.setBounds(0, CANVAS_HEIGHT, CANVAS_WIDTH, FRAME_HEIGHT - CANVAS_HEIGHT);
 		gui.setBackground((new Color(0, 105,61)));
 		gui.setLayout(null);
+		
 
 		gui.addMouseListener(new MouseAdapter() {
 		    public void mouseEntered(MouseEvent e) {
@@ -123,6 +110,7 @@ public class GameInterface extends JFrame implements ActionListener,
 		    	gui.setVisible = false;
 		    	gui.repaint();
 		    }
+
 		    public void mouseClicked(MouseEvent e){
 		    	Point loc = e.getLocationOnScreen();
 		    	loc.x = loc.x - canvas.getLocationOnScreen().x;
@@ -131,11 +119,18 @@ public class GameInterface extends JFrame implements ActionListener,
 
 				if(loc.x > 600 && loc.x < 750){
 					if(loc.y > 820 && loc.y < 860){
+						gui.suggestionPressed = true;
+						gui.repaint();
 						board.makeSuggestion();
+						gui.suggestionPressed = false;
+						gui.repaint();
 					}
 					if(loc.y > 870 && loc.y < 910){
+						gui.accusationPressed = true;
+						gui.repaint();
 						board.makeAccusation();
-						System.out.println("Make accusation");
+						gui.accusationPressed = false;
+						gui.repaint();
 					}
 				}
 		    }

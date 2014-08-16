@@ -6,19 +6,20 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
-import javax.swing.JLabel;
+
+
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextPane;
+
 
 public class PlayerPanel extends JPanel {
 
 	Board board;
 
 	Boolean setVisible = false;
+	Boolean suggestionPressed = false;
+	Boolean accusationPressed = false;
 
 	JTabbedPane infoTabs;
 
@@ -27,18 +28,20 @@ public class PlayerPanel extends JPanel {
 		board = bd;
 	}
 
+	private Image arrow = CluedoCanvas.loadImage("arrow.png");
+	
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
 		
 		
 		drawCards(g);
-		
+		addButton(g);
 		
 
 		if (setVisible) {
 			
-			addButton(g);
+			
 		} else {
 			
 			Graphics2D g2d = (Graphics2D)g;
@@ -52,29 +55,45 @@ public class PlayerPanel extends JPanel {
 			g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,1.0f));
 			
 			g.fillRect(0, 0, this.getWidth(), 15);
+			
 			g2d.setColor(Color.gray);
 			g.fillRect(0, 15, this.getWidth(), 1);
 			
-			Font font = new Font("Arial", Font.BOLD, 14);
+			g.drawImage(arrow, (this.getWidth()/2) - 5, 2, 20, 10, null, null);
+			
+			Font font = new Font("Arial", Font.BOLD, 11);
 
 			g.setFont(font);
 			g.setColor(Color.WHITE);
 			if (getCurrentPlayer() != null) {
 				g.drawString("Current Player "
-						+ getCurrentPlayer().getCharacter(), 30, 30);
+						+ getCurrentPlayer().getCharacter(), 30, 11);
 			}
 
 		}
 
 	}
 
+	private Image sp = CluedoCanvas.loadImage("suggestionPressed.png");
+	private Image s = CluedoCanvas.loadImage("suggestion.png");
+	private Image ap = CluedoCanvas.loadImage("accusationPressed.png");
+	private Image a = CluedoCanvas.loadImage("accusation.png");
+	
 	private void addButton(Graphics g) {
-		//System.out.println("yup");
-		g.setColor(Color.black);
-		g.fillRect(600, 20, 150, 35);
 		
-		g.fillRect(600, 70, 150, 35);
-
+		if(suggestionPressed){
+			g.drawImage(sp, 600, 40, 150, 35, null, null);
+		}
+		else{
+			g.drawImage(s, 600, 40, 150, 35, null, null);
+		}
+		if(accusationPressed){
+			g.drawImage(ap, 600, 90, 150, 35, null, null);
+		}
+		else{
+			g.drawImage(a, 600, 90, 150, 35, null, null);
+		}
+		
 	}
 
 	private static int CARD_WIDTH = 80;
@@ -105,8 +124,6 @@ public class PlayerPanel extends JPanel {
 								+ (i * CARD_SPACING) + CARD_X, CARD_Y, null, null);
 					}
 					else{
-						
-					
 						g.setColor(Color.GRAY);
 						g.draw3DRect(i * CARD_WIDTH + (i * CARD_SPACING) + CARD_X,
 								CARD_Y, CARD_WIDTH, CARD_HEIGHT, true);
