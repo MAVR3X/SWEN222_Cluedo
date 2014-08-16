@@ -89,7 +89,7 @@ public class GameInterface extends JFrame implements ActionListener,
 				repaint();
 			}
 		});
-		
+
 		button.setAlignmentX(gui.CENTER_ALIGNMENT);
 		gui.add(button);
 		//TODO fix this causing the button listener to stop
@@ -107,7 +107,7 @@ public class GameInterface extends JFrame implements ActionListener,
 	}
 
 	PlayerPanel gui;
-	
+
 	private void addLowerInterface() {
 		gui = new PlayerPanel(board);
 		gui.setBounds(0, CANVAS_HEIGHT, CANVAS_WIDTH, FRAME_HEIGHT - CANVAS_HEIGHT);
@@ -128,18 +128,19 @@ public class GameInterface extends JFrame implements ActionListener,
 		    	loc.x = loc.x - canvas.getLocationOnScreen().x;
 		    	loc.y = loc.y - canvas.getLocationOnScreen().y;
 		    	//System.out.printf("x: %d, y: %d\n",loc.x, loc.y);
-		    	
+
 				if(loc.x > 600 && loc.x < 750){
 					if(loc.y > 820 && loc.y < 860){
 						board.makeSuggestion();
 					}
 					if(loc.y > 870 && loc.y < 910){
+						board.makeAccusation();
 						System.out.println("Make accusation");
 					}
 				}
 		    }
 		});
-		
+
 		JButton button = new JButton("Make Accusation");
 		button.setBounds(20, 20, 40, 15);
 		button.addActionListener(new ActionListener(){
@@ -213,13 +214,13 @@ public class GameInterface extends JFrame implements ActionListener,
 		}
 	}
 
-	
-	
-	
+
+
+
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
