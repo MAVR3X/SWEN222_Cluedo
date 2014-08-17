@@ -14,7 +14,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ButtonModel;
@@ -30,6 +32,8 @@ import javax.swing.JPopupMenu;
 import javax.swing.JRadioButton;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.UIManager;
+import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
 
 
 public class GameInterface extends JFrame implements ActionListener,
@@ -75,11 +79,11 @@ public class GameInterface extends JFrame implements ActionListener,
 
 	private void addRightInterface() {
 		JPanel gui = new JPanel();
-		gui.setBounds(CANVAS_WIDTH, 0, FRAME_WIDTH - CANVAS_WIDTH, FRAME_HEIGHT);
-		gui.setBackground(Color.BLACK);
+		gui.setBounds(CANVAS_WIDTH, 0, FRAME_WIDTH - CANVAS_WIDTH-5, FRAME_HEIGHT-55);
+		gui.setBackground((new Color(0, 105,61)));
 		gui.setAlignmentX(RIGHT_ALIGNMENT);
 
-		gui.setLayout(new BoxLayout(gui, BoxLayout.Y_AXIS));
+		gui.setLayout(new BorderLayout());
 
 
 		//Next Player Button
@@ -91,19 +95,30 @@ public class GameInterface extends JFrame implements ActionListener,
 			}
 		});
 
+		button.setPreferredSize(new Dimension(200,145));
 		button.setAlignmentX(gui.CENTER_ALIGNMENT);
-		gui.add(button);
+		gui.add(button, BorderLayout.SOUTH);
 		
 		JButton RollDice = new JButton("Roll Dice");
-		button.addActionListener(new ActionListener(){
+		RollDice.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				//TODO Roll Dice method;
+				Random r = new Random();
+				int i = r.nextInt(6) + 1;
+				board.diceRoll(i);
 				repaint();
 			}
 		});
 		
+		
 		RollDice.setAlignmentX(gui.CENTER_ALIGNMENT);
-		gui.add(RollDice);
+		gui.add(RollDice, BorderLayout.NORTH);
+		
+		JPanel centrePane = new JPanel();
+		centrePane.setBackground((new Color(0, 105,61)));
+		gui.add(centrePane, BorderLayout.CENTER);
+		
+		gui.setBorder(new EtchedBorder());
+		
 		
 		this.add(gui);
 
@@ -154,23 +169,6 @@ public class GameInterface extends JFrame implements ActionListener,
 		    }
 		});
 
-		JButton button = new JButton("Make Accusation");
-		button.setBounds(20, 20, 40, 15);
-		button.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				int i = (int) (Math.random() * 6);
-				board.diceRoll(i);
-			}
-		});
-
-		JButton bn = new JButton("Roll? Dice");
-		bn.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				int i = (int) (Math.random() * 6);
-				board.diceRoll(i);
-			}
-		});
-		gui.add(bn);
 		this.add(gui);
 		gui.repaint();
 
