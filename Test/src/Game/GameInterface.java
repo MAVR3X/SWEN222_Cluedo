@@ -207,6 +207,10 @@ public class GameInterface extends JFrame implements ActionListener
 		fileMenu.add(menuItem);
 
 		JMenu gameMenu = new JMenu("Game");
+		
+		JMenuItem menuItemNG = new JMenuItem("New Game");
+		menuItemNG.addActionListener(this);
+		gameMenu.add(menuItemNG);
 
 		JMenuBar menu = new JMenuBar();
 		menu.add(fileMenu);
@@ -231,6 +235,18 @@ public class GameInterface extends JFrame implements ActionListener
 					JOptionPane.OK_CANCEL_OPTION,
 					JOptionPane.INFORMATION_MESSAGE, null, null, null);
 			if (input == JOptionPane.OK_OPTION) {
+				System.exit(1);
+			}
+		}
+		
+		if (arg0.getActionCommand().equals("New Game")) {
+
+			int input = JOptionPane.showOptionDialog(null,
+					"Are you sure you want to start a new game?", "New Game?",
+					JOptionPane.OK_CANCEL_OPTION,
+					JOptionPane.INFORMATION_MESSAGE, null, null, null);
+			if (input == JOptionPane.OK_OPTION) {
+				new CluedoController();
 				System.exit(1);
 			}
 		}
