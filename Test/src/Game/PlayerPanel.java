@@ -70,7 +70,7 @@ public class PlayerPanel extends JPanel {
 			g.setFont(font);
 			g.setColor(Color.WHITE);
 			if (getCurrentPlayer() != null) {
-				g.drawString("Current Player "
+				g.drawString("Current Player: " + getCurrentPlayer().getName() + " - " 
 						+ getCurrentPlayer().getCharacter(), 30, 11);
 			}
 

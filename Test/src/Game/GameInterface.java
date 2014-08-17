@@ -13,6 +13,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
+
 import javax.swing.ButtonGroup;
 import javax.swing.ButtonModel;
 import javax.swing.JButton;
@@ -24,6 +25,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.EtchedBorder;
 
@@ -279,7 +281,7 @@ public class GameInterface extends JFrame implements ActionListener
 		pane.add(radioPane, BorderLayout.CENTER);
 
 		// create a dialog to wait for user selection
-		String [] options = {"ok"};
+		String [] options = {"Ok"};
 		
 		int result = JOptionPane.showOptionDialog(null, pane, "New Game",
 	            JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null,
@@ -320,7 +322,7 @@ public class GameInterface extends JFrame implements ActionListener
 			for (Card card : cards) {
 				if (card.type == Card.Type.Character) {
 					if (card.character == c) {
-						players.add(new Player(card));
+						players.add(new Player(card, getPlayerName()));
 					}
 				}
 			}
@@ -338,6 +340,29 @@ public class GameInterface extends JFrame implements ActionListener
 	}
 
 	
+	private String getPlayerName() {
+		
+		//create the txt field
+		JTextField field = new JTextField();
+		
+		//create the panel to diplay the field
+		JPanel namePanel = new JPanel(new GridLayout(0,1));
+		
+		namePanel.add(field);
+		
+		// create a dialog to wait for user selection
+		String [] options = {"Ok"};
+				
+		int result = JOptionPane.showOptionDialog(null, namePanel, "Enter player name",
+		JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null,
+			            options, 0);
+		
+		
+		return field.getText();
+		
+	}
+
+
 	public void displayCards(ArrayList<Card> extraCards) {
 		centrePane.setCards(extraCards);
 	}

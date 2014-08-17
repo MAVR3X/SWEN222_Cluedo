@@ -15,7 +15,8 @@ public class Player {
 	public String name = "Sir Mixalot";
 	public boolean hasLost = false;;
 
-	public Player(Card character) {
+	public Player(Card character, String name) {
+		this.name = name;
 		this.c = character;
 	}
 
@@ -65,5 +66,8 @@ public class Player {
 		return true;
 	}
 
-
+	public String getName(){
+		return name;
+	}
+	
 }
