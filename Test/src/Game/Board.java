@@ -324,8 +324,10 @@ public class Board {
 	}
 	
 	public void diceRoll(int i) {
-		dice = i;
-		controller.diceRoll(i);
+		if(controller.diceRoll(i)){
+			dice = i;
+		}
+		
 	}
 
 	public void makeSuggestion() {

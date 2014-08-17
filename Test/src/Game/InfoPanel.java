@@ -1,5 +1,6 @@
 package Game;
 
+import java.awt.Graphics;
 import java.awt.Image;
 
 import javax.swing.JPanel;
@@ -15,7 +16,7 @@ public class InfoPanel extends JPanel {
 	private static final Image five = CluedoCanvas.loadImage("Dice5.png");
 	private static final Image six = CluedoCanvas.loadImage("Dice6.png");
 	
-	private static final Image[] squares = {
+	private static final Image[] diceImage = {
 		one,
 		one,
 		two,
@@ -34,5 +35,18 @@ public class InfoPanel extends JPanel {
 		super();
 		board = bd;
 	}
+	
+	
+	@Override
+	public void paint(Graphics g) {
+		super.paint(g);
+		
+		
+		// Get dice roll
+		dice = board.getDice();
+		
+		g.drawImage(diceImage[dice], 45, 30, 100, 100, null, null);
+	}
+	
 	
 }

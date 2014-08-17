@@ -278,16 +278,17 @@ public class CluedoController {
 	 * @param integer
 	 *            to assign to
 	 */
-	public void diceRoll(int i) {
+	public boolean diceRoll(int i) {
 		if (playerRoll != -1) {
 			JOptionPane.showMessageDialog(null,
 					"You can only roll the dice once per turn");
-			return;
+			return false;
 		}
 		System.out.println("Rolled a " + i);
 
 		playerRoll = i;
 		interf.requestFocus();
+		return true;
 	}
 
 	/**
