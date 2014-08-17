@@ -20,14 +20,14 @@ import Tokens.Token;
  */
 public class Board {
 
-	public static final int BOARD_HEIGHT = 26;
-	public static final int BOARD_WIDTH = 27;
+	public static final int BOARD_HEIGHT = 27;
+	public static final int BOARD_WIDTH = 26;
 	private Token[][] tokens;
 	private CluedoController controller;
 
 	public Board(CluedoController cc) {
 		controller = cc;
-		setTokens(new Token[BOARD_HEIGHT][BOARD_WIDTH]);
+		setTokens(new Token[BOARD_WIDTH][BOARD_HEIGHT]);
 	}
 
 	/**
@@ -112,7 +112,7 @@ public class Board {
 	// 600:Study passage to Kitchen (Go to point 5, 2)
 	// 7 : Hall
 	// 70: Hall door
-	// 8 : Loungeui
+	// 8 : Lounge
 	// 80: Lounge door (Can only be accessed from north)
 	// 800:Lounge passage to Conservatory (Go to point 23, 5)
 	// 9 : Dining Room
@@ -133,10 +133,12 @@ public class Board {
 
 	/**
 	 *
-	 * @return 0, if not valid move, 0 if moving within a room, 1 if moving in
-	 *         hallway, 6 if used passage
+	 * @return 0, if not valid move, -1 if moving within a room, 1 if moving in
+	 *         hallway, 2 if moved from doorway into room, 3 if moved from room to doorway 6 if used passage
 	 */
 	public int moveToken(Card c, int direction) {
+		
+		
 		Point currentPos = findToken(c);
 
 		int currentTile = paths[currentPos.x][currentPos.y];
@@ -160,6 +162,8 @@ public class Board {
 			break;
 		}
 
+		if(newPos.x>=26 || newPos.y>=27) return 0;
+		
 		int newTile = paths[newPos.x][newPos.y];
 
 		if (tokens[newPos.x][newPos.y] != null)
@@ -195,11 +199,11 @@ public class Board {
 
 			if (newTile > 0 && newTile < 10) { // new position is still in room
 				moveToken(currentPos, newPos);
-				return 0;
+				return -1;
 			} else if (newTile >= 10 && newTile < 100) { // new position is in
-															// doorway
+														// doorway
 				moveToken(currentPos, newPos);
-				return 0;
+				return 3;
 			} else if (newTile >= 100) { // new position is a passage
 
 				switch (newTile) {
@@ -236,7 +240,7 @@ public class Board {
 		} else { // Token is in a doorway
 			if (newTile > 0 && newTile < 10) { // new position is still in room
 				moveToken(currentPos, newPos);
-				return 0;
+				return 2;
 			} else { // new position is a hallway
 
 				if (currentTile == 10 || currentTile == 30) { // must go down

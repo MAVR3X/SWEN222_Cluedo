@@ -12,7 +12,9 @@ public class Player {
 	ArrayList<Card> hand = new ArrayList<Card>();
 	Card c;
 	public String name = "Sir Mixalot";
-	public boolean hasLost = false;;
+	public boolean canSuggest = true;
+	public boolean canAcuse = true;
+	public boolean hasLost = false;
 
 	public Player(Card character, String name) {
 		this.name = name;
