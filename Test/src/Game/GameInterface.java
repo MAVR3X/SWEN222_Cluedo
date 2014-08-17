@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -76,7 +77,13 @@ public class GameInterface extends JFrame implements ActionListener,
 		setVisible(true);
 
 	}
-
+	
+	// Dice images
+	
+	
+	
+	
+	
 	private void addRightInterface() {
 		JPanel gui = new JPanel();
 		gui.setBounds(CANVAS_WIDTH, 0, FRAME_WIDTH - CANVAS_WIDTH-5, FRAME_HEIGHT-55);
@@ -103,8 +110,8 @@ public class GameInterface extends JFrame implements ActionListener,
 		RollDice.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				Random r = new Random();
-				int i = r.nextInt(6) + 1;
-				board.diceRoll(i);
+				int dice = r.nextInt(6) + 1;
+				board.diceRoll(dice);
 				repaint();
 			}
 		});
@@ -113,8 +120,16 @@ public class GameInterface extends JFrame implements ActionListener,
 		RollDice.setAlignmentX(gui.CENTER_ALIGNMENT);
 		gui.add(RollDice, BorderLayout.NORTH);
 		
-		JPanel centrePane = new JPanel();
+		// Central pane
+		JPanel centrePane = new InfoPanel(board);
 		centrePane.setBackground((new Color(0, 105,61)));
+		
+		
+		
+		
+		
+		
+		
 		gui.add(centrePane, BorderLayout.CENTER);
 		
 		gui.setBorder(new EtchedBorder());

@@ -317,7 +317,14 @@ public class Board {
 		return controller.currentPlayer;
 	}
 
+	int dice = 1;
+	
+	public int getDice(){
+		return dice;
+	}
+	
 	public void diceRoll(int i) {
+		dice = i;
 		controller.diceRoll(i);
 	}
 
