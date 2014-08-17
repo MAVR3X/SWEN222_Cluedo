@@ -70,10 +70,10 @@ public class GameInterface extends JFrame implements ActionListener
 		setVisible(true);
 
 	}
-	
+
 	InfoPanel centrePane;
 	DicePanel dice;
-	
+
 	private void addRightInterface() {
 		JPanel gui = new JPanel();
 		gui.setBounds(CANVAS_WIDTH, 0, FRAME_WIDTH - CANVAS_WIDTH-5, FRAME_HEIGHT-55);
@@ -83,7 +83,7 @@ public class GameInterface extends JFrame implements ActionListener
 		gui.setLayout(new BorderLayout());
 
 		JPanel dicePane = new JPanel();
-		
+
 		dicePane.setLayout(new BorderLayout());
 
 		//Next Player Button
@@ -96,7 +96,7 @@ public class GameInterface extends JFrame implements ActionListener
 		});
 
 		button.setPreferredSize(new Dimension(200,145));
-		
+
 		// Roll dice button
 		JButton RollDice = new JButton("Roll Dice");
 		RollDice.addActionListener(new ActionListener(){
@@ -107,43 +107,43 @@ public class GameInterface extends JFrame implements ActionListener
 				repaint();
 			}
 		});
-		
+
 		RollDice.setPreferredSize(new Dimension(200,70));
-		
+
 		// Create the dicePanel to display the dice
 		dice = new DicePanel(board);
 		dice.setPreferredSize(new Dimension(300, 170));
 		dice.setBackground((new Color(0, 105,61)));
-		
+
 		// Add the items to the dice pane
 		dicePane.add(RollDice, BorderLayout.PAGE_START);
 		dicePane.add(dice, BorderLayout.CENTER);
 		dicePane.add(button, BorderLayout.PAGE_END);
-		
-		
+
+
 		// Central pane
 		centrePane = new InfoPanel(board);
 		centrePane.setBackground((new Color(0, 105,61)));
-		
+
 		gui.add(centrePane, BorderLayout.CENTER);
 		gui.add(dicePane, BorderLayout.SOUTH);
-		
+
 		gui.setBorder(new EtchedBorder());
-		
-		
+
+
 		this.add(gui);
 
 
 	}
 
 	PlayerPanel gui;
-	
+
 	private void addLowerInterface() {
 		gui = new PlayerPanel(board);
 		gui.setBounds(0, CANVAS_HEIGHT, CANVAS_WIDTH, FRAME_HEIGHT - CANVAS_HEIGHT);
 		gui.setBackground((new Color(0, 105,61)));
 		gui.setLayout(null);
-		
+
 
 		gui.addMouseListener(new MouseAdapter() {
 		    public void mouseEntered(MouseEvent e) {
@@ -200,21 +200,36 @@ public class GameInterface extends JFrame implements ActionListener
 	 * Create menu and add options, then assign to this interface's jmenubar.
 	 */
 	public void addMenu() {
+
+		//File Menu
 		JMenu fileMenu = new JMenu("File");
 
 		JMenuItem menuItem = new JMenuItem("Exit");
 		menuItem.addActionListener(this);
 		fileMenu.add(menuItem);
 
+		//Game Menu
 		JMenu gameMenu = new JMenu("Game");
-		
+
 		JMenuItem menuItemNG = new JMenuItem("New Game");
 		menuItemNG.addActionListener(this);
 		gameMenu.add(menuItemNG);
 
+
+		//Help Menu
+		JMenu helpMenu = new JMenu("Help");
+		JMenuItem helpItemNG = new JMenuItem("Help");
+		helpItemNG.addActionListener(this);
+		helpMenu.add(helpItemNG);
+
+		helpItemNG = new JMenuItem("Credits");
+		helpItemNG.addActionListener(this);
+		helpMenu.add(helpItemNG);
+
 		JMenuBar menu = new JMenuBar();
 		menu.add(fileMenu);
 		menu.add(gameMenu);
+		menu.add(helpMenu);
 
 		this.setJMenuBar(menu);
 	}
@@ -230,7 +245,7 @@ public class GameInterface extends JFrame implements ActionListener
 		// JOptionPanel/JDialog
 		if (arg0.getActionCommand().equals("Exit")) {
 
-			int input = JOptionPane.showOptionDialog(null,
+			int input = JOptionPane.showOptionDialog(this,
 					"Are you sure you wish to exit?", "Are you a quitter?",
 					JOptionPane.OK_CANCEL_OPTION,
 					JOptionPane.INFORMATION_MESSAGE, null, null, null);
@@ -238,7 +253,7 @@ public class GameInterface extends JFrame implements ActionListener
 				System.exit(1);
 			}
 		}
-		
+
 		if (arg0.getActionCommand().equals("New Game")) {
 
 			int input = JOptionPane.showOptionDialog(null,
@@ -250,6 +265,27 @@ public class GameInterface extends JFrame implements ActionListener
 				System.exit(1);
 			}
 		}
+
+		if (arg0.getActionCommand().equals("Help")) {
+			JOptionPane.showMessageDialog(this, "Start the game through File->New Game. \n"
+					+ "1st Roll your dice to determine your movement distance.\n"
+					+ "2. Use the arrow keys (Up,Down Left ,Right to move your character. \n"
+					+ "3. Reach a room and make a suggestion to gain information about what cards could be the solution cards. \n"
+					+ "4. If your suggestion is refuted the first card that is wrong will be shown. \n"
+					+ "5. After you think you know who has committed the murder, make an accusation. \n\n"
+					+ "Notes: You can mouse over your cards at any time to display them, but make sure no one else is looking!");
+
+		}
+
+		if (arg0.getActionCommand().equals("Credits")) {
+			JOptionPane.showMessageDialog(this, "Credits:\n"
+					+ "Authors: Isaac Blomfield, Michael Cripps \n"
+					+ "Card Images + Cluedo icon are copyrighted by Hasbro.\n"
+					+ "Player tokens + board images copyright. Michael Cripps + Isaac Blomfield");
+
+		}
+
+
 	}
 
 	/**
@@ -257,21 +293,21 @@ public class GameInterface extends JFrame implements ActionListener
 	 * @return number of players
 	 */
 	public int getPlayerCount(){
-		
+
 		// Panel to hold the contents
 		JPanel pane = new JPanel(new BorderLayout());
-		
-		
-		
+
+
+
 		// create a button group to hold the radio buttons
 		final ButtonGroup group = new ButtonGroup();
-	
+
 		// Create a panel to hold the buttons
 		JPanel radioPane = new JPanel(new GridLayout(0,4));
-		
+
 		// Create the buttons
 		JRadioButton radioButton;
-		
+
 		group.add(radioButton = new JRadioButton("3", true));
 		radioButton.setActionCommand("3");
 		group.add(radioButton);
@@ -288,28 +324,28 @@ public class GameInterface extends JFrame implements ActionListener
 		radioButton.setActionCommand("6");
 		group.add(radioButton);
 		radioPane.add(radioButton);
-		
+
 		// create a label
 		JLabel label = new JLabel("Please select number of players");
-			
+
 		// add the label and radio pane to the pane
 		pane.add(label, BorderLayout.NORTH);
 		pane.add(radioPane, BorderLayout.CENTER);
 
 		// create a dialog to wait for user selection
 		String [] options = {"Ok"};
-		
+
 		int result = JOptionPane.showOptionDialog(null, pane, "New Game",
 	            JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null,
 	            options, 0);
-		
+
 		ButtonModel model = group.getSelection();
-		
+
 		return Integer.parseInt(model.getActionCommand());
 	}
 
-	
-	
+
+
 	/**
 	 * Creates an option pane and allows users to select character
 	 *
@@ -355,27 +391,27 @@ public class GameInterface extends JFrame implements ActionListener
 		return players;
 	}
 
-	
+
 	private String getPlayerName() {
-		
+
 		//create the txt field
 		JTextField field = new JTextField();
-		
+
 		//create the panel to diplay the field
 		JPanel namePanel = new JPanel(new GridLayout(0,1));
-		
+
 		namePanel.add(field);
-		
+
 		// create a dialog to wait for user selection
 		String [] options = {"Ok"};
-				
+
 		int result = JOptionPane.showOptionDialog(null, namePanel, "Enter player name",
 		JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null,
 			            options, 0);
-		
-		
+
+
 		return field.getText();
-		
+
 	}
 
 
