@@ -169,7 +169,7 @@ public class CluedoController {
 	KeyListener kl = new KeyListener() {
 		public void keyPressed(KeyEvent e) {
 
-			
+
 
 			if (playerRoll == -1) {
 				JOptionPane.showMessageDialog(null,
@@ -202,7 +202,7 @@ public class CluedoController {
 				playerSteps += newStep;
 				// Prompt that they're out of moves
 				interf.redraw();
-				
+
 			} else {
 				// Moved successfully
 				playerSteps += newStep;
@@ -326,6 +326,11 @@ public class CluedoController {
 				UIManager.getIcon("OptionPane.informationIcon"),
 				carPosibilities, carPosibilities[0]);
 
+		if(room == null || character == null || weapon == null){
+			return;
+		}
+
+
 		if (currentPlayer.c.character != character) {
 			moveCharacterTo(room, character);
 		}
@@ -436,6 +441,11 @@ public class CluedoController {
 				JOptionPane.PLAIN_MESSAGE,
 				UIManager.getIcon("OptionPane.informationIcon"),
 				carPosibilities, carPosibilities[0]);
+
+
+		if(room == null || character == null || weapon == null){
+			return;
+		}
 
 
 		makeAccusation(room, character, weapon);
