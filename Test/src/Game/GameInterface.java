@@ -261,8 +261,7 @@ public class GameInterface extends JFrame implements ActionListener
 					JOptionPane.OK_CANCEL_OPTION,
 					JOptionPane.INFORMATION_MESSAGE, null, null, null);
 			if (input == JOptionPane.OK_OPTION) {
-				new CluedoController();
-				System.exit(1);
+				board.start();
 			}
 		}
 

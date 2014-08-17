@@ -16,9 +16,8 @@ import Tokens.Token;
 /**
  * Controller of MVC Design Pattern;
  *
- * Holds game state information, requests data from model(Board)
- * and draws with View (GameInterface)
- * *
+ * Holds game state information, requests data from model(Board) and draws with
+ * View (GameInterface) *
  */
 public class CluedoController {
 
@@ -40,9 +39,9 @@ public class CluedoController {
 	 * Initialize game
 	 */
 	public CluedoController() {
-		board = new Board(this);
-		interf = new GameInterface("Cluedo", board);
-		initialise();
+		// board = new Board(this);
+		// interf = new GameInterface("Cluedo", board);
+		// initialise();
 	}
 
 	private void initialise() {
@@ -169,8 +168,6 @@ public class CluedoController {
 	KeyListener kl = new KeyListener() {
 		public void keyPressed(KeyEvent e) {
 
-
-
 			if (playerRoll == -1) {
 				JOptionPane.showMessageDialog(null,
 						"Please roll the dice before starting your turn");
@@ -194,7 +191,8 @@ public class CluedoController {
 
 			if ((playerSteps + newStep) > playerRoll) {
 				// Move player back
-				JOptionPane.showMessageDialog(null, "You are out of moves or move is invalid ");
+				JOptionPane.showMessageDialog(null,
+						"You are out of moves or move is invalid ");
 				Point newPosition = board.findTokenPosition(currentPlayer
 						.getCharacter());
 				board.moveToken(newPosition, currentPosition);
@@ -326,10 +324,9 @@ public class CluedoController {
 				UIManager.getIcon("OptionPane.informationIcon"),
 				carPosibilities, carPosibilities[0]);
 
-		if(room == null || character == null || weapon == null){
+		if (room == null || character == null || weapon == null) {
 			return;
 		}
-
 
 		if (currentPlayer.c.character != character) {
 			moveCharacterTo(room, character);
@@ -442,11 +439,9 @@ public class CluedoController {
 				UIManager.getIcon("OptionPane.informationIcon"),
 				carPosibilities, carPosibilities[0]);
 
-
-		if(room == null || character == null || weapon == null){
+		if (room == null || character == null || weapon == null) {
 			return;
 		}
-
 
 		makeAccusation(room, character, weapon);
 
@@ -617,6 +612,16 @@ public class CluedoController {
 			}
 		}
 		return null;
+	}
+
+	public void start() {
+		if (board != null) {
+			board = null;
+			interf.dispose();
+		}
+		board = new Board(this);
+		interf = new GameInterface("Cluedo", board);
+		initialise();
 	}
 
 }

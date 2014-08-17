@@ -14,7 +14,8 @@ import Tokens.Token;
 /**
  * Model in model view design pattern
  *
- * Contains all current game data and is set by state information from Controller(CluedoController)
+ * Contains all current game data and is set by state information from
+ * Controller(CluedoController)
  *
  */
 public class Board {
@@ -29,10 +30,11 @@ public class Board {
 		setTokens(new Token[BOARD_HEIGHT][BOARD_WIDTH]);
 	}
 
-
 	/**
 	 * Place initial character tokens
-	 * @param cards to link to tokens
+	 *
+	 * @param cards
+	 *            to link to tokens
 	 */
 	public void generateTokens(ArrayList<Card> cards) {
 		for (Card c : cards) {
@@ -318,16 +320,16 @@ public class Board {
 	}
 
 	int dice = 1;
-	
-	public int getDice(){
+
+	public int getDice() {
 		return dice;
 	}
-	
+
 	public void diceRoll(int i) {
-		if(controller.diceRoll(i)){
+		if (controller.diceRoll(i)) {
 			dice = i;
 		}
-		
+
 	}
 
 	public void makeSuggestion() {
@@ -337,6 +339,7 @@ public class Board {
 
 	/**
 	 * Return room type of boardPaths
+	 *
 	 * @param posType
 	 * @return
 	 */
@@ -376,11 +379,12 @@ public class Board {
 
 	}
 
-/**
- * Get character's token's x/y coordinates on grid.
- * @param character
- * @return x/y of character's token on board
- */
+	/**
+	 * Get character's token's x/y coordinates on grid.
+	 *
+	 * @param character
+	 * @return x/y of character's token on board
+	 */
 	public Point findTokenPosition(Character character) {
 		for (int x = 0; x < BOARD_WIDTH; x++) {
 			for (int y = 0; y < BOARD_HEIGHT; y++) {
@@ -397,5 +401,9 @@ public class Board {
 			}
 		}
 		return null;
+	}
+
+	public void start() {
+		controller.start();
 	}
 }
