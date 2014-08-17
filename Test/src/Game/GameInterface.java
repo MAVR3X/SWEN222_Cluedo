@@ -106,6 +106,8 @@ public class GameInterface extends JFrame implements ActionListener
 			}
 		});
 		
+		RollDice.setPreferredSize(new Dimension(200,70));
+		
 		// Create the dicePanel to display the dice
 		dice = new DicePanel(board);
 		dice.setPreferredSize(new Dimension(300, 170));
