@@ -38,7 +38,12 @@ public class BoardTests {
 	}
 
 	@Test
-	public void testCardDivisionPositive() {
+	public void testCluedoController(){
+		assertTrue("Controller is nulled ",controller != null);
+	}
+
+	@Test
+	public void testControllerCardDivision() {
 		int numPlayer = controller.players.size();
 		int numCardsPP = (21 - 3) / numPlayer;
 		int remainingCards = (21 - 3) % numPlayer;
@@ -62,17 +67,47 @@ public class BoardTests {
 	}
 
 
+
 	@Test
-	public void testCard(){
+	public void testPlayer() {
+		// Miss_Scarlet Card
+		Card c = new Card(0, 1, 0, 0);
+		// Miss_Scarlet player
+		Player p = new Player(c, "Bob");
+		assertEquals("Player card not equal", c, p.c);
+		assertFalse("Player hand is null", p.c == null);
+
+		p.addCard(c);
+		assertTrue("Player hand not accepting adds", p.hand.size() == 1);
+		assertTrue("Player has no character", p.getCharacter() != null);
+		assertTrue("Player has no character",
+		p.getCharacter() == Card.Character.values()[1]);
+		assertFalse("Player has auto-lost", p.hasLost);
+		assertTrue(p.name.equals("Bob"));
+	}
+
+
+
+	@Test
+	public void testCard() {
 		Card c = new Card(0, 0, 0, 0);
-		//Ensure card is nulled with 0,0,0,0
+		// Ensure card is nulled with 0,0,0,0
 		assertTrue("Card Type Wrong", c.type == Card.Type.Character);
 		assertTrue("Character Type Wrong", c.character == Card.Character.NULL);
 		assertTrue("Weapon Type Wrong", c.weaponType == Card.Weapon.NULL);
 		assertTrue("Room Type Wrong", c.room == Card.Room.NULL);
+		assertTrue("Card image loaded on null", c.cardImage == null);
 
+		// Test gets
+		assertTrue("No characters", c.charCount() != 0);
+		assertTrue("No weapons", c.wepCount() != 0);
+		assertTrue("No rooms", c.roomCount() != 0);
+
+		c = new Card(0, 1, 0, 0);
+		assertTrue("Card image not loaded", c.cardImage != null);
 
 	}
+
 
 	@Test
 	public void testBoardInitialisation(){
