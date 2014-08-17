@@ -117,9 +117,9 @@ public class PlayerPanel extends JPanel {
 						Card c = getCurrentPlayer().hand.get(i);
 
 						// Draw Surrounding Box
-						g.setColor(Color.GRAY);
+						g.setColor(Color.WHITE);
 						g.draw3DRect(i * CARD_WIDTH + (i * CARD_SPACING)
-								+ CARD_X, CARD_Y, CARD_WIDTH, CARD_HEIGHT, true);
+								+ CARD_X+1, CARD_Y-1, CARD_WIDTH, CARD_HEIGHT, true);
 						g.drawImage(c.cardImage, i * CARD_WIDTH
 								+ (i * CARD_SPACING) + CARD_X, CARD_Y, null,
 								null);

@@ -37,8 +37,8 @@ import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 
 
-public class GameInterface extends JFrame implements ActionListener,
-		MouseListener {
+public class GameInterface extends JFrame implements ActionListener
+		{
 	private static int FRAME_WIDTH = 1000;
 	private static int FRAME_HEIGHT = 1000;
 	private static int CANVAS_WIDTH = 800;
@@ -78,11 +78,7 @@ public class GameInterface extends JFrame implements ActionListener,
 
 	}
 	
-	// Dice images
-	
-	
-	
-	
+	InfoPanel centrePane;
 	
 	private void addRightInterface() {
 		JPanel gui = new JPanel();
@@ -121,7 +117,7 @@ public class GameInterface extends JFrame implements ActionListener,
 		gui.add(RollDice, BorderLayout.NORTH);
 		
 		// Central pane
-		JPanel centrePane = new InfoPanel(board);
+		centrePane = new InfoPanel(board);
 		centrePane.setBackground((new Color(0, 105,61)));
 		
 		
@@ -240,40 +236,6 @@ public class GameInterface extends JFrame implements ActionListener,
 		}
 	}
 
-
-
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-	
-	
 	/**
 	 * Uses Jradio buttons to get selection of number of players
 	 * @return number of players
@@ -377,9 +339,9 @@ public class GameInterface extends JFrame implements ActionListener,
 		return players;
 	}
 
-	// TODO Dislay extra cards
+	
 	public void displayCards(ArrayList<Card> extraCards) {
-
+		centrePane.setCards(extraCards);
 	}
 
 	public void redraw() {
