@@ -95,8 +95,6 @@ public class Card {
 
 	private Image getCardImage() {
 
-		Image image;
-
 		if (type == Type.Character) {
 
 			if (character == Character.Colonel_Mustard) {

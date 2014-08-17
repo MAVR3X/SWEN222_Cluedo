@@ -125,38 +125,6 @@ public class CluedoCanvas extends JPanel{
 	private static int CARD_X = 300;
 	private static int NAME_HEIGHT = 30;
 
-
-
-	/**
-	 * Draw backgrounds of interface sections
-	 * @param g graphics item to draw on
-	 */
-	private void drawBackgrounds(Graphics g) {
-		//Draw Board square
-		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, WINDOW_WIDTH, BOARD_HEIGHT);
-
-		//Interface square
-		g.setColor(new Color(50,50,50));
-		g.fillRect(0, BOARD_HEIGHT, WINDOW_WIDTH, BOARD_HEIGHT);
-
-
-		//Draw dice area
-		g.setColor(Color.WHITE);
-		g.fillRect(DICE_SIZE,  BOARD_HEIGHT + DICE_SIZE, DICE_SIZE * 5, DICE_SIZE * 2);
-
-		//Play name section
-		g.setColor(new Color(25,25,25));
-		g.fillRect(0,  BOARD_HEIGHT - (NAME_HEIGHT/ 2), WINDOW_WIDTH, NAME_HEIGHT);
-
-		//Cards
-		g.setColor(Color.WHITE);
-		int cardSectionHeight = BOARD_HEIGHT + ((WINDOW_HEIGHT - BOARD_HEIGHT) / 2) - (CARD_HEIGHT / 2);
-		g.fillRect(CARD_X, cardSectionHeight, CARD_WIDTH * 5, CARD_HEIGHT + 5);
-
-
-	}
-
 	private static final String IMAGE_PATH = "Images/";
 
 	private static final Image Tile = loadImage("Tile.png");

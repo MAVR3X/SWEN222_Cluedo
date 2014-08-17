@@ -4,9 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.JUnitCore;
-import org.junit.runner.Result;
-import org.junit.runner.notification.Failure;
 
 import Tokens.Token;
 
@@ -98,10 +95,10 @@ public class BoardTests {
 		assertTrue("Room Type Wrong", c.room == Card.Room.NULL);
 		assertTrue("Card image loaded on null", c.cardImage == null);
 
-		// Test gets
-		assertTrue("No characters", c.charCount() != 0);
-		assertTrue("No weapons", c.wepCount() != 0);
-		assertTrue("No rooms", c.roomCount() != 0);
+		// Test hardcoded
+		assertTrue("No characters", Card.charCount() != 0);
+		assertTrue("No weapons", Card.wepCount() != 0);
+		assertTrue("No rooms", Card.roomCount() != 0);
 
 		c = new Card(0, 1, 0, 0);
 		assertTrue("Card image not loaded", c.cardImage != null);

@@ -1,7 +1,6 @@
        package Game;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import Game.Card.Character;
 
@@ -69,5 +68,5 @@ public class Player {
 	public String getName(){
 		return name;
 	}
-	
+
 }

@@ -466,8 +466,7 @@ public class CluedoController {
 					+ " wins! With the guess: " + character + " in the " + room
 					+ " with the " + weapon);
 			JOptionPane.showMessageDialog(null,
-					"Thanks for playing. Credits: Isaac, Mike");
-			System.exit(1);
+					"Thanks for playing. Credits: Isaac, Mike. Click Game->New Game to play again.");
 
 		} else {
 			JOptionPane.showMessageDialog(null, currentPlayer.name

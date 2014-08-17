@@ -295,10 +295,12 @@ public class Board {
 					boardImage[x][y] = Integer.parseInt(values[x]);
 				}
 			}
+			br.close();
 		} catch (IOException e) {
 			System.out.println("I/O error: " + e.getMessage());
 			System.exit(1);
 		}
+
 
 		return boardImage;
 	}
