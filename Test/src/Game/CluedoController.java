@@ -169,11 +169,7 @@ public class CluedoController {
 	KeyListener kl = new KeyListener() {
 		public void keyPressed(KeyEvent e) {
 
-			// System.out.print(" + User: " + currentPlayer.c.character + "\n");
-
-			if (playerSteps == playerRoll) {
-				JOptionPane.showMessageDialog(null, "You are out of moves. ");
-			}
+			
 
 			if (playerRoll == -1) {
 				JOptionPane.showMessageDialog(null,
@@ -198,6 +194,7 @@ public class CluedoController {
 
 			if ((playerSteps + newStep) > playerRoll) {
 				// Move player back
+				JOptionPane.showMessageDialog(null, "You are out of moves or move is invalid ");
 				Point newPosition = board.findTokenPosition(currentPlayer
 						.getCharacter());
 				board.moveToken(newPosition, currentPosition);
@@ -205,7 +202,7 @@ public class CluedoController {
 				playerSteps += newStep;
 				// Prompt that they're out of moves
 				interf.redraw();
-				JOptionPane.showMessageDialog(null, "You are out of moves. ");
+				
 			} else {
 				// Moved successfully
 				playerSteps += newStep;
