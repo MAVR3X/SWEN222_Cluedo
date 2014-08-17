@@ -3,22 +3,16 @@ package Game;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
-
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ButtonModel;
 import javax.swing.JButton;
@@ -29,11 +23,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
 import javax.swing.JRadioButton;
-import javax.swing.JRadioButtonMenuItem;
 import javax.swing.UIManager;
-import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 
 
@@ -79,6 +70,7 @@ public class GameInterface extends JFrame implements ActionListener
 	}
 	
 	InfoPanel centrePane;
+	DicePanel dice;
 	
 	private void addRightInterface() {
 		JPanel gui = new JPanel();
@@ -88,6 +80,9 @@ public class GameInterface extends JFrame implements ActionListener
 
 		gui.setLayout(new BorderLayout());
 
+		JPanel dicePane = new JPanel();
+		
+		dicePane.setLayout(new BorderLayout());
 
 		//Next Player Button
 		JButton button = new JButton("Turn Complete");
@@ -99,9 +94,8 @@ public class GameInterface extends JFrame implements ActionListener
 		});
 
 		button.setPreferredSize(new Dimension(200,145));
-		button.setAlignmentX(gui.CENTER_ALIGNMENT);
-		gui.add(button, BorderLayout.SOUTH);
 		
+		// Roll dice button
 		JButton RollDice = new JButton("Roll Dice");
 		RollDice.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -112,21 +106,23 @@ public class GameInterface extends JFrame implements ActionListener
 			}
 		});
 		
+		// Create the dicePanel to display the dice
+		dice = new DicePanel(board);
+		dice.setPreferredSize(new Dimension(300, 170));
+		dice.setBackground((new Color(0, 105,61)));
 		
-		RollDice.setAlignmentX(gui.CENTER_ALIGNMENT);
-		gui.add(RollDice, BorderLayout.NORTH);
+		// Add the items to the dice pane
+		dicePane.add(RollDice, BorderLayout.PAGE_START);
+		dicePane.add(dice, BorderLayout.CENTER);
+		dicePane.add(button, BorderLayout.PAGE_END);
+		
 		
 		// Central pane
 		centrePane = new InfoPanel(board);
 		centrePane.setBackground((new Color(0, 105,61)));
 		
-		
-		
-		
-		
-		
-		
 		gui.add(centrePane, BorderLayout.CENTER);
+		gui.add(dicePane, BorderLayout.SOUTH);
 		
 		gui.setBorder(new EtchedBorder());
 		
