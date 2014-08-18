@@ -266,12 +266,17 @@ public class GameInterface extends JFrame implements ActionListener
 		}
 
 		if (arg0.getActionCommand().equals("Help")) {
-			JOptionPane.showMessageDialog(this, "Start the game through File->New Game. \n"
-					+ "1st Roll your dice to determine your movement distance.\n"
-					+ "2. Use the arrow keys (Up,Down Left ,Right to move your character. \n"
+			JOptionPane.showMessageDialog(this, "1. Roll your dice to determine your movement distance.\n"
+					+ "2. Use the arrow keys (Up, Down, Left and Right) to move your character. \n"
 					+ "3. Reach a room and make a suggestion to gain information about what cards could be the solution cards. \n"
+					+ "Note: You can only make one suggestion per turn and must move to a new room to make another suggestion.\n"
 					+ "4. If your suggestion is refuted the first card that is wrong will be shown. \n"
-					+ "5. After you think you know who has committed the murder, make an accusation. \n\n"
+					+ "5. To use a 'secret' passage, you must move to the square at the start of your turn before rolling the dice. \n"
+					+ "Note: Once in that room you may make a suggestion. \n"
+					+ "6. If your token is moved by another player, you may make a suggestion at the start of your turn. \n"
+					+ "Note: This will end your turn. \n"
+					+ "7. After you think you know who has committed the murder, make an accusation. \n"
+					+ "NOTE: You may only do this at the start of your turn before rolling the dice! \n \n"
 					+ "Notes: You can mouse over your cards at any time to display them, but make sure no one else is looking!");
 
 		}
