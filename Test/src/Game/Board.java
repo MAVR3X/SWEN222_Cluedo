@@ -137,14 +137,13 @@ public class Board {
 	 *         hallway, 2 if moved from doorway into room, 3 if moved from room to doorway 6 if used passage
 	 */
 	public int moveToken(Card c, int direction) {
-		
-		
+
+
 		Point currentPos = findToken(c);
 
 		int currentTile = paths[currentPos.x][currentPos.y];
 		Point newPos = new Point(currentPos.x, currentPos.y);
 
-		System.out.println(currentPos);
 
 		// Save proposed new position in newPos
 		switch (direction) {
@@ -163,7 +162,7 @@ public class Board {
 		}
 
 		if(newPos.x>=26 || newPos.y>=27) return 0;
-		
+
 		int newTile = paths[newPos.x][newPos.y];
 
 		if (tokens[newPos.x][newPos.y] != null)

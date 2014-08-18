@@ -159,7 +159,6 @@ public class GameInterface extends JFrame implements ActionListener
 		    	Point loc = e.getLocationOnScreen();
 		    	loc.x = loc.x - canvas.getLocationOnScreen().x;
 		    	loc.y = loc.y - canvas.getLocationOnScreen().y;
-		    	//System.out.printf("x: %d, y: %d\n",loc.x, loc.y);
 
 				if(loc.x > 600 && loc.x < 750){
 					if(loc.y > 820 && loc.y < 860){
