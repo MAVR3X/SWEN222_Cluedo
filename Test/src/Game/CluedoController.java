@@ -35,15 +35,31 @@ public class CluedoController {
 	private static Card solutionWeapon;
 	private static Card solutionRoom;
 
-
 	public CluedoController() {
+
+	}
+
+	/**
+	 * Clear previous game data to defaults.
+	 *
+	 * @return
+	 */
+	private void wipePreviousGame() {
+		this.playerRoll = -1;
+		this.playerSteps = 0;
+		board = null;
+		interf = null;
+		players = null;
+		cards = null;
+		solutionCharacter = null;
+		solutionWeapon = null;
+		solutionRoom = null;
+		currentPlayer = null;
 
 	}
 
 	private void initialise() {
 
-		this.playerRoll = -1;
-		this.playerSteps = 0;
 		createCards();
 		createPlayers();
 		currentPlayer = players.get(0);
@@ -196,7 +212,7 @@ public class CluedoController {
 				} else if (newStep == 6) {// Passage used
 					playerRoll = 0;
 					interf.redraw();
-				}else if(newStep == 0){
+				} else if (newStep == 0) {
 					JOptionPane.showMessageDialog(null,
 							"Please roll the dice before starting your turn");
 				} else {
@@ -207,45 +223,39 @@ public class CluedoController {
 							.getCharacter());
 					board.moveToken(newPosition, currentPosition);
 				}
-			}
-			else {
-				if(newStep == -1){ // with in room
+			} else {
+				if (newStep == -1) { // with in room
 					interf.redraw();
-				}
-				else if(newStep == 0){
+				} else if (newStep == 0) {
 					JOptionPane.showMessageDialog(null,
 							"You are out of moves or the move is invalid ");
-				}
-				else if (newStep == 2) { //from doorway to room
+				} else if (newStep == 2) { // from doorway to room
 					currentPlayer.canSuggest = true;
 					playerRoll = 0;
 					interf.redraw();
 
-				}
-				else if(newStep == 3){ // from room to doorway
-					if(playerRoll == 0){
+				} else if (newStep == 3) { // from room to doorway
+					if (playerRoll == 0) {
 						// Move player back
 						JOptionPane.showMessageDialog(null,
 								"You are out of moves or the move is invalid ");
-						Point newPosition = board.findTokenPosition(currentPlayer
-								.getCharacter());
+						Point newPosition = board
+								.findTokenPosition(currentPlayer.getCharacter());
 						board.moveToken(newPosition, currentPosition);
-					}
-					else{
+					} else {
 						// Moved successfully
 						playerSteps += newStep;
 						interf.redraw();
 					}
-				}
-				else if ((playerSteps + newStep) > playerRoll) { // out of moves
+				} else if ((playerSteps + newStep) > playerRoll) { // out of
+																	// moves
 					// Move player back
 					JOptionPane.showMessageDialog(null,
 							"You are out of moves or the move is invalid ");
 					Point newPosition = board.findTokenPosition(currentPlayer
 							.getCharacter());
 					board.moveToken(newPosition, currentPosition);
-				}
-				else {
+				} else {
 					// Moved successfully
 					playerSteps += newStep;
 					interf.redraw();
@@ -316,14 +326,15 @@ public class CluedoController {
 	public boolean diceRoll(int i) {
 
 		Point point = board.findToken(currentPlayer.c);
-		if(board.getTokens()[point.x][point.y].wasMoved()){
+		if (board.getTokens()[point.x][point.y].wasMoved()) {
 			board.getTokens()[point.x][point.y].setMoved(false);
 		}
 
 		currentPlayer.canAcuse = false;
 		if (playerRoll != -1) {
-			JOptionPane.showMessageDialog(null,
-					"You can only use a secret passage or roll the dice once per turn");
+			JOptionPane
+					.showMessageDialog(null,
+							"You can only use a secret passage or roll the dice once per turn");
 			return false;
 		}
 		// System.out.println("Rolled a " + i);
@@ -339,18 +350,16 @@ public class CluedoController {
 	 */
 	public void makeSuggestion() {
 
-
 		Point p = board.findToken(currentPlayer.c);
-		if(board.getTokens()[p.x][p.y].wasMoved()){
+		if (board.getTokens()[p.x][p.y].wasMoved()) {
 			currentPlayer.canSuggest = true;
 			board.getTokens()[p.x][p.y].setMoved(false);
 		}
-		if(!currentPlayer.canSuggest){
+		if (!currentPlayer.canSuggest) {
 			JOptionPane.showMessageDialog(null,
 					"You can only make a suggestion when you enter a new room");
-		return;
+			return;
 		}
-
 
 		currentPlayer.canSuggest = false;
 		interf.requestFocus();
@@ -471,10 +480,11 @@ public class CluedoController {
 	 * weapon and character from player and call makeAccusation()
 	 */
 	public void makeAccusation() {
-		if(!currentPlayer.canAcuse){
-			JOptionPane.showMessageDialog(null,
-					"You can only make an accusation at the start of your turn.");
-		return;
+		if (!currentPlayer.canAcuse) {
+			JOptionPane
+					.showMessageDialog(null,
+							"You can only make an accusation at the start of your turn.");
+			return;
 		}
 
 		Card.Room room;
@@ -548,12 +558,34 @@ public class CluedoController {
 					+ " loses! The guess: " + character + " in the " + room
 					+ " with the " + weapon + " was WRONG! ");
 			removePlayer();
+
 		}
 	}
 
 	private void removePlayer() {
 		currentPlayer.hasLost = true;
-		turnComplete();
+
+		int hasNotLostCount = 0;
+		Player winningPlayer = currentPlayer;
+
+		for (Player p : players) {
+			if (!p.hasLost) {
+				winningPlayer = p;
+				hasNotLostCount++;
+			}
+		}
+
+		//Still some players left
+		if (hasNotLostCount > 1) {
+			turnComplete();
+			return;
+		}
+
+		JOptionPane
+				.showMessageDialog(
+						null,
+						winningPlayer.name
+								+ " wins, kind of.. No players left. Start a new game to continue");
 
 	}
 
@@ -616,7 +648,6 @@ public class CluedoController {
 	 *            to move to room
 	 */
 	private void moveCharacterTo(Room room, Character character) {
-
 
 		// Determine old position of character to transport
 		Point oldPos = board.findTokenPosition(character);
@@ -692,6 +723,8 @@ public class CluedoController {
 	}
 
 	public void start() {
+		wipePreviousGame();
+
 		if (board != null) {
 			board = null;
 			interf.dispose();
