@@ -337,7 +337,7 @@ public class GameInterface extends JFrame implements ActionListener
 		pane.add(radioPane, BorderLayout.CENTER);
 
 		// create a dialog to wait for user selection
-		String [] options = {"Ok"};
+		String [] options = {"OK"};
 
 		int result = JOptionPane.showOptionDialog(null, pane, "New Game",
 	            JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null,

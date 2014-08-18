@@ -56,7 +56,6 @@ public class CluedoCanvas extends JPanel{
 //			}
 //		}
 
-		font = new Font("Arial",Font.BOLD,16);
 
 
 
@@ -92,6 +91,9 @@ public class CluedoCanvas extends JPanel{
 	}
 
 	private void drawLabels(Graphics g) {
+		
+		font = new Font("Arial",Font.BOLD,16);
+		
 		g.setColor(Color.black);
 
 		HashMap <TextAttribute, Object> attrs = new HashMap<TextAttribute, Object>();
@@ -117,6 +119,24 @@ public class CluedoCanvas extends JPanel{
 		g.setFont(font);
 
 		g.drawString("CONSERVATORY", 585, 130);
+		
+		font = new Font("Arial", Font.BOLD, 20);
+		
+		g.fillRect(0, 0, 280, 40);
+		
+		g.setColor(Color.GRAY);
+		g.fillRect(0, 40, 280, 1);
+		
+		g.setFont(font);
+		
+		if (board.getCurrentPlayerObject() != null) {
+			g.drawString("Player: " + board.getCurrentPlayerObject().getName(), 6, 26);
+		}
+		
+		g.setColor(Color.WHITE);
+		if (board.getCurrentPlayerObject() != null) {
+			g.drawString("Player: " + board.getCurrentPlayerObject().getName(), 5, 27);
+		}
 	}
 
 	private static int DICE_SIZE = 40;
