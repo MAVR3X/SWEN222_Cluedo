@@ -340,7 +340,7 @@ public class CluedoController {
 	 */
 	public void makeSuggestion() {
 		
-		playerRoll = 0;
+		
 		Point p = board.findToken(currentPlayer.c);
 		if(board.getTokens()[p.x][p.y].wasMoved()){
 			currentPlayer.canSuggest = true;
@@ -351,6 +351,8 @@ public class CluedoController {
 					"You can only make a suggestion when you enter a new room");
 		return;
 		}
+		
+		
 		currentPlayer.canSuggest = false;
 		interf.requestFocus();
 
@@ -399,6 +401,7 @@ public class CluedoController {
 			moveCharacterTo(room, character);
 		}
 		makeSuggestion(room, character, weapon);
+		playerRoll = 0;
 
 	}
 
